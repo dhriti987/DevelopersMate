@@ -1,0 +1,57 @@
+.loginPage{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: black;
+    height: 90vh;
+}
+.Login-container h1{
+    margin:0;
+    text-Align:center;
+    font-Size:3.5rem;
+}
+.Login-container h3{
+    text-Align:center;
+    color: #848484;
+    width: 36rem;
+    line-height: 21px;
+}
+.Login-form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    margin-top: 2rem;
+}
+.Login-form input{
+    width: 20rem;
+    height: 2.5rem;
+    border-radius: 5px;
+    font-family: 'Josefin Sans', cursive;
+    padding: 0px 11px;
+    background-color: #282828;
+    border: none;
+    outline: none;
+    color: aliceblue;
+}
+.login-btn{
+    flex: 1 1 auto;
+    padding: 7px 12px;
+    text-align: center;
+    transition: 0.5s;
+    background-size: 200% auto;
+    color: white;
+   /* text-shadow: 0px 0px 10px rgba(0,0,0,0.2);*/
+    box-shadow: 0 0 5px #eee;
+    border-radius: 5px;
+    background-image: linear-gradient(to right, #f6d365 0%, #fda085 51%, #f6d365 100%);
+    cursor: pointer;
+    display: flex;
+    width: 21.5rem;
+    justify-content: space-between;
+    align-items: center;
+}
+.login-btn:hover{
+    background-position: right center;
+}
