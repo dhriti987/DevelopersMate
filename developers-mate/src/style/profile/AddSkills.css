@@ -1,0 +1,121 @@
+.popUp-container{
+    width: 65%;
+    height: 32rem;
+    position: fixed;
+    margin: auto;
+    z-index: 10;
+    transform: translateX(28%);
+    background-color: rgb(20 20 20);
+    border-radius: 5px;
+}
+.popUp-container .form{
+    display: flex;
+    justify-content: center;
+}
+#options{
+    width: 33.3rem;
+    top: 7rem;
+}
+.popUp-container .form .addSkill{
+    display: flex;
+    justify-content: center;
+    background-color: #282828;
+    width: 2rem;
+    align-items: center;
+    cursor: pointer;
+}
+.popUp-container .form .addSkill .addSkillIcon:hover{
+    
+    border-radius: 50%;
+    background-color: #6b6b6b;
+    transition: 0.5s;
+}
+
+
+@keyframes  optionAnimOpen{
+    from{
+        height: 0;
+    }
+    to{
+        height: 10.5rem;
+    }
+}
+
+.popUp-container .optionsHeightLess{
+    height: auto;
+}
+.popUp-container .optionsHeightFull{
+    height: 10.5rem;
+    top: 7rem;
+}
+    
+
+.options::-webkit-scrollbar , .skillsContainer::-webkit-scrollbar{
+    width: 10px; 
+}
+
+.options::-webkit-scrollbar-track,.skillsContainer::-webkit-scrollbar-track{
+    background-color: inherit;
+}
+
+.options::-webkit-scrollbar-thumb,.skillsContainer::-webkit-scrollbar-thumb{
+    background: #4e4e4e;
+    border-radius: 25px;
+}
+
+.popUp-container .skillsContainer{
+    display: flex;
+    padding: 10px;
+    gap: 10px;
+    flex-wrap: wrap;
+    overflow-x: auto;
+    height: 20rem;
+    flex-grow: 1;
+    justify-content: flex-start;
+    flex-direction: row;
+    align-content: flex-start; 
+}
+.popUp-container .skillsContainer div{
+    /* border: 1px solid red; */
+    flex-basis: 30%;
+    padding: 10px;
+    height: 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #282828;
+}
+.popUp-container .skillsContainer div h4{
+    margin: 0;
+    
+}
+.popUp-container .skillsContainer div .skillsDeleteIcon:hover{
+    border-radius: 50%;
+    background-color: #6b6b6b;
+    transition: 0.5s;
+}
+.nextBtn-container{
+    display: flex;
+    justify-content: flex-end;
+}
+.nextbtn{
+    flex: 1 1 auto;
+    margin: 10px;
+    padding: 12px;
+    text-align: center;
+    transition: 0.5s;
+    background-size: 200% auto;
+    color: white;
+    box-shadow: 0 0 5px #eee;
+    border-radius: 5px;
+    background-image: linear-gradient(to right, purple 0%, red 51%, orange 100%);
+    cursor: pointer;
+    width: 6rem;
+    height: 2.5rem;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+.nextbtn:hover {
+    background-position: right center; 
+  }

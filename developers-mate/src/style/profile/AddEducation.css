@@ -1,0 +1,118 @@
+.popUp-container .collegeName-container{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 10px;
+}
+.popUp-container .collegeName-container input{
+    width: 30rem;
+    height: 2.5rem;
+    font-family: 'Josefin Sans', cursive;
+    padding: 0px 11px;
+    background-color: #282828;
+    border: none;
+    outline: none;
+    color: aliceblue;
+    border-radius: 5px;
+}
+.popUp-container .collegeName-container .years{
+    display: flex;
+    gap: 10px;
+    width: 31.4rem;
+}
+.popUp-container .collegeName-container .years .yearInput{
+    
+    background-color: #282828;
+    cursor: pointer;
+    width: 14.8rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-right: 10px;
+}
+
+.popUp-container .yearOptions-container{
+    display: flex;
+    width: 31.3rem;
+    margin: auto;
+    gap: 10px;
+    justify-content: space-between;
+}
+
+.popUp-container .yearOptions-container div{
+    flex-basis: 14.1rem;
+    background-color: #282828;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 0 0 5px 5px;
+    height: 11.5rem;
+    overflow-x: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+    
+}
+.popUp-container .yearOptions-container .fullStartheight{
+    height: 11.5rem;
+    padding: 10px;
+}
+.popUp-container .yearOptions-container .zeroStartHeight{
+    height: 0;
+    padding: 0;
+}
+.popUp-container .yearOptions-container .fullEndheight{
+    height: 11.5rem;
+    padding: 10px;
+}
+.popUp-container .yearOptions-container .zeroEndHeight{
+    height: 0;
+    padding: 0;
+}
+.popUp-container .yearOptions-container div h4{
+    margin: 0;
+    padding: 10px;
+    border-radius: 5px;
+    transition: 0.5s;
+}
+.popUp-container .yearOptions-container div h4:hover{
+    background-color: #6b6b6b;
+}
+
+.popUp-container .yearOptions-container div::-webkit-scrollbar , .skillsContainer::-webkit-scrollbar{
+    width: 10px; 
+}
+
+.popUp-container .yearOptions-container div::-webkit-scrollbar-track,.skillsContainer::-webkit-scrollbar-track{
+    background-color: inherit;
+}
+
+.popUp-container .yearOptions-container div::-webkit-scrollbar-thumb,.skillsContainer::-webkit-scrollbar-thumb{
+    background: #4e4e4e;
+    border-radius: 25px;
+}
+.nextBtnEdu{
+    width: 33rem;
+    margin: auto;
+    justify-content: flex-end;
+}
+.popUp-container .noDegreeMessage{
+    width: 25%;
+    text-align: center;
+    position: fixed;
+    left: 10px;
+    top: 10px;
+    padding: 5px;
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: rgb(68, 68, 15);
+}
+.popUp-container .noDegreeMessage h4{
+    margin: 0;
+}
+.popUp-container .fadedMessage{
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.3s, visibility 0.3s;
+}

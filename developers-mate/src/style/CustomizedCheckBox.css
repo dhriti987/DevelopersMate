@@ -1,0 +1,25 @@
+.CustomizedCheckBox-container{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 31.5rem;
+}
+.CustomizedCheckBox-container .checkBox{
+    height: 10px;
+    width: 10px;
+    border: 1px solid white;
+    cursor: pointer;
+    transition: 0.5s;
+    border-radius: 2px;
+}
+.CustomizedCheckBox-container .checked{
+    
+    background-color: yellowgreen;
+}
+.CustomizedCheckBox-container .unChecked{
+    
+    background-color: inherit;
+}
+.CustomizedCheckBox-container .checkBox:hover{
+    transform: scale(1.1);
+}

@@ -5,6 +5,16 @@
     background-color: black;
     height: 90vh;
 }
+
+@keyframes mymove{
+    from{
+        transform: scale(0);
+    }
+    to{
+        transform: scale(1);
+    }
+}
+
 .Login-container h1{
     margin:0;
     text-Align:center;
@@ -23,6 +33,8 @@
     align-items: center;
     gap: 8px;
     margin-top: 2rem;
+    animation: mymove 0.8s;
+    animation-iteration-count: 1
 }
 .Login-form input{
     width: 20rem;

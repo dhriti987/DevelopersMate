@@ -1,0 +1,82 @@
+
+.employment-contianer {
+    width: 31.4rem;
+}
+.employment-contianer .employment{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+}
+.employment-contianer .employment:first-child{
+    background-color: #282828;
+}
+
+.employment-contianer .displayEmploymentOptions{
+    height: 10.5rem;
+    padding: 10px;
+}
+.employment-contianer .hideEmploymentOptions{
+    height: 0;
+    padding: 0px;
+}
+.dates{
+    display: flex;
+    width: 31.4rem;
+    gap: 10px;
+}
+.dates .start-container{
+    display: flex;
+}
+.dates .start-container input{
+    width: 12.3rem;
+}
+.dates .start-container .datesIcon{
+    display: flex;
+    background-color: #282828;
+    justify-content: center;
+    align-items: center;
+    height: 2.5rem;
+}
+ .datesDropDown{
+    display: flex;
+    width: 31.3rem;
+    margin: auto;
+    gap: 10px;
+    justify-content: space-between;
+}
+.datesDropDown div{
+    width: 14.2rem;
+    background-color: #282828;
+    cursor: pointer;
+    border-radius: 0 0 5px 5px;
+    position:fixed;
+    
+    overflow-x: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+    
+}
+.datesDropDown div h4{
+   padding: 10px;
+    margin: 0;
+    border-radius: 5px;
+}
+.datesDropDown div h4:hover{
+    background-color: #6b6b6b;
+    transition: 0.5s;
+    cursor: pointer;
+}
+.displayDates{
+    height: 11.5rem;
+    padding: 10px;
+}
+.hideDates{
+    padding: 0px;
+    height: 0;
+}
+
+.datesDropDown .right{
+    left: 28.7rem;
+}

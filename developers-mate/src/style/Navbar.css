@@ -3,9 +3,10 @@
 }
 .navbarContent{
     display: flex;
-    display: flex;
     width: 91%;
     margin: auto;
+    align-items: center;
+    height: 4rem;
 }
 .navbarContent h2{
     flex-basis: 90%;
