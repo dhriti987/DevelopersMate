@@ -1,0 +1,151 @@
+.popUp-container{
+    width: 65%;
+    height: 32rem;
+    position: fixed;
+    z-index: 100;
+    left: 50%;
+    transform: translate(-50%, 0);
+    background-color: rgb(20 20 20);
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.popUp-container h1{
+    margin-top: 2.9rem;
+    margin-bottom: 1rem;
+}
+.popUp-container .cancelIcon{
+    position: absolute;
+    right: 1rem;
+    top: 1rem;
+    cursor: pointer;
+    padding: 0.3rem;
+    border-radius: 50%;
+    transition: 0.4s;
+}
+.popUp-container .cancelIcon:hover{
+    background-color: #4e4e4e;
+}
+
+.popUp-container .add-container{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.popUp-container  input{
+    width: 30rem;
+    height: 2.5rem;
+    font-family: 'Josefin Sans', cursive;
+    padding: 0px 11px;
+    background-color: #282828;
+    border: none;
+    outline: none;
+    color: aliceblue;
+}
+.popUp-container  textarea{
+    width: 30rem;
+    font-family: 'Josefin Sans', cursive;
+    padding: 1rem 11px;
+    background-color: #282828;
+    border: none;
+    outline: none;
+    color: aliceblue;
+    font-size: 1rem;
+}
+.popUp-container .add-container .DownDouble-container .downDouble{
+    display: flex;
+    gap: 10px;
+    width: 31.4rem;
+}
+
+.popUp-container .add-container .DownSingle-contianer .inputContainer{
+    display: flex;
+    width: 31.4rem;
+}
+.popUp-container .add-container .DownSingle-contianer .inputContainer .inputIcon{
+    height: 2.5rem;
+    background-color: #282828;;
+}
+.popUp-container .add-container .DownDouble-container .inputContainer{
+    
+    background-color: #282828;
+    cursor: pointer;
+    width: 47%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-right: 10px;
+}
+.popUp-container .add-container .DownDouble-container .inputContainer .input{
+    width: 100%;
+}
+
+
+.nextBtnEdu{
+    width: 33rem;
+    margin: auto;
+    justify-content: flex-end;
+}
+
+.popUp-container 
+::-webkit-scrollbar , .skillsContainer::-webkit-scrollbar{
+    width: 10px; 
+}
+
+.popUp-container
+::-webkit-scrollbar-track,.skillsContainer::-webkit-scrollbar-track{
+    background-color: inherit;
+}
+
+.popUp-container
+::-webkit-scrollbar-thumb,.skillsContainer::-webkit-scrollbar-thumb{
+    background: #4e4e4e;
+    border-radius: 25px;
+}
+.editImgBtn{
+    display: flex;
+    width: 31.3rem;
+    height: 2.5rem;
+    /* justify-content: center; */
+    align-items: center;
+    cursor: pointer;
+    background-color: #282828;
+    color:aliceblue;
+    border: none;
+    outline: none;
+}
+.editImgBtn input{
+    position: absolute;
+    width: 100%;
+}
+.editImgBtn h4{
+    color: aliceblue;
+    margin-top: 0.5rem;
+    font-weight: 400;
+}
+.loginsignupPage .errorMessage{
+    position: absolute;
+    top: 1rem;
+    padding: 1rem;
+    background-color: aliceblue;
+    display: flex;
+    flex-direction: column;
+    border-radius: 0.4rem;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    transition: opacity 0.5s ;
+}
+.loginsignupPage .displayError{
+    opacity: 1;
+}
+.loginsignupPage .hideError{
+    opacity: 0;
+}
+
+.loginsignupPage .errorMessage h4{
+    color: #282828;
+}

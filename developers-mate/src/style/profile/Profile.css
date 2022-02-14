@@ -1,128 +1,208 @@
-body{
-    background-color: #1C1C1C;
+h1,
+h2,
+h3,
+h4,
+h5,h6 {
+  margin: 0.3rem;
+  line-height: 1.4rem;
 }
-h1,h2,h3,h4,h5{
-    margin: 0.3rem;
+.icon {
+  padding: 0.3rem;
+  transition: 0.4s;
+  border-radius: 50%;
 }
-.commonBox{
-    background-color:  rgba(45, 45, 45, 0.5);
-    border-radius: 0.5rem;
-    padding: 1rem;
-    margin: 1rem 0;
+.icon:hover {
+  background-color: rgba(126, 126, 126, 0.5);
+  cursor: pointer;
 }
+.commonBox {
+  background-color: rgba(45, 45, 45, 0.5);
+  border-radius: 0.5rem;
+  padding: 1rem;
+  margin: 1rem 0;
+}
+
 .profile-page .head {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
 }
-.profile-page .head .editAddContainer{
-    display: flex;
-    gap: 1rem;
+.profile-page .head .editAddContainer {
+  display: flex;
+  gap: 1rem;
 }
-.profile-page{
-    /* border: 1px solid red; */
-    width: 50rem;
-    margin: auto;
-    position: relative;
-    margin-top: 3rem;
+.profile-page {
+  /* border: 1px solid red; */
+  width: 50rem;
+  margin: auto;
+  position: relative;
+  margin-top: 3rem;
 }
-.profile-page .profileDetails{
-    background-color: rgba(45, 45, 45, 0.5);
-    border-radius: 0.5rem;
-    margin: 1rem 0;
-}
-
-.profile-page .profileDetails .banner{
-    /* content: ''; */
-    /* background: url('C:/Users/nitin rajesh/OneDrive/Desktop/personel project/DevelopersMate/developers-mate/src/assets/rofile/bannerBg.jpg'); */
-    /* background-position: center center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    position: absolute;
-    left: 0;
-    top: 0; */
-    /* z-index: 10; */
-    height: 13rem;
-    background-color: aliceblue;
-    border-radius: 0.5rem 0.5rem 0 0;
-}
-.profile-page .profileDetails .profileImage img{
-    width: 11rem;
-    height: 11rem;
-    border-radius: 50% 50%;
-    margin-top: -8rem;
-    margin-left: 1rem;
-}
-.profile-page .profileDetails .userProfileDetails{
-    padding: 0 1.3rem ;
-    padding-bottom: 1rem;
-}
-.profile-page .profileDetails .userProfileDetails h4{
-    color: rgba(255, 255, 255, 0.6);;
-}
-.profile-page .profileDetails .editbtn{
-    position: absolute;
-    right: 1rem;
+.profile-page .profileDetails {
+  background-color: rgba(45, 45, 45, 0.5);
+  border-radius: 0.5rem;
+  margin: 1rem 0;
 }
 
+.profile-page .profileDetails .banner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 13rem;
+  background-color: aliceblue;
+  border-radius: 0.5rem 0.5rem 0 0;
+}
+.profile-page .profileDetails .banner img{
+  width: 100%;
+  height: 13rem;
+  background-color: aliceblue;
+  border-radius: 0.5rem 0.5rem 0 0;
+}
+.profile-page .profileDetails .banner .addBannerBtn {
+  display: flex;
+  position: relative;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.5rem;
+  border: none;
+  outline: none;
+  border-radius: 0.5rem;
+  background-color: bisque;
+  cursor: pointer;
+}
+.profile-page .profileDetails .banner .addBannerBtn input{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+}
+.profile-page .profileDetails .profileImage img {
+  width: 11rem;
+  height: 11rem;
+  border-radius: 50% 50%;
+  margin-top: -8rem;
+  margin-left: 1rem;
+}
+.profile-page .profileDetails .userProfileDetails {
+  padding: 0 1.3rem;
+  padding-bottom: 1rem;
+}
+.profile-page .profileDetails .userProfileDetails h4 {
+  color: rgba(255, 255, 255, 0.6);
+}
+.profile-page .profileDetails .editbtn {
+  position: absolute;
+  right: 1rem;
+}
+
+.profile-page .bioContainer head {
+  display: flex;
+}
 .profile-page .bioSection {
-    padding: 1rem;
+  padding: 1rem;
 }
-.profile-page .bioSection h4{
-    line-height: 1.5rem;
-    font-weight: 400;
-}
-
-.profile-page .skillsContainer .skills .skill{
-    display: flex;
-    justify-content: space-between;
-    padding: 1rem;
-    border-bottom: 1px solid rgba(16, 202, 0, 0.3);
-}
-.profile-page .skillsContainer .skills .skill h3{
-    font-weight: 500;
+.profile-page .bioSection h4 {
+  line-height: 1.5rem;
+  font-weight: 400;
 }
 
-.showMoreArrow{
-    width: 1.6rem;
-    padding: 0.5rem;
-    margin: auto;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 1rem auto;
-    border-radius: 50%;
-    background-color: rgba(126, 126, 126, 0.5);;
+.profile-page .skillsContainer .skills .skill {
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem;
+  border-bottom: 1px solid rgba(16, 202, 0, 0.3);
 }
-.profile-page .projectContainer .projects .project{
-    padding: 1rem;
-    border-bottom: 1px solid rgba(16, 202, 0, 0.3);
+.profile-page .skillsContainer .skills .skill h3 {
+  font-weight: 500;
 }
-.profile-page .projectContainer .projects .project .projectHead{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+
+.showMoreArrow {
+  width: 1.6rem;
+  padding: 0.5rem;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 1rem auto;
+  border-radius: 50%;
+  background-color: #10ca00;
 }
-.profile-page .projectContainer .projects .project .projectHead .projectIcons{
-    display: flex;
-    gap: 1rem;
+.profile-page .projectContainer .projects {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 }
-.profile-page .projectContainer .projects .project .links{
-    display: flex;
-    gap: 0.7rem;
-    margin-top: 1rem
+.profile-page .projectContainer .projects .project {
+  padding: 1rem;
+  border: 1px solid rgba(16, 202, 0, 0.3);
+  border-radius: 0.5rem;
 }
-.profile-page .projectContainer .projects .project .links button{
-    width: 6rem;
-    height: 2rem;
-    border-radius: 0.5rem;
-    outline: none;
-    cursor: pointer;
-    background-color: rgb(173, 173, 173);
-    border: none;
+.profile-page .projectContainer .projects .project .projectHead {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
-.projectContainer .projects h4{
-    margin-top: 1rem;
-    font-weight: 300;
+.profile-page .projectIcons {
+  display: flex;
+  gap: 1rem;
+}
+.profile-page .projectContainer .projects .project .links {
+  display: flex;
+  gap: 0.7rem;
+  margin-top: 1rem;
+}
+.profile-page .projectContainer .projects .project .links button {
+  width: 6rem;
+  height: 2rem;
+  border-radius: 0.3rem;
+  outline: none;
+  cursor: pointer;
+  background-color: #10ca00;
+  border: none;
+  font-size: 1.2rem;
+}
+.projectContainer .projects h4 {
+  margin-top: 1rem;
+  font-weight: 300;
+}
+
+.profile-page .experienceContainer .logoCompany img {
+  border: 1px solid white;
+  height: 4rem;
+  width: 4rem;
+  border-radius: 0.3rem;
+  display: flex;
+}
+.profile-page .experienceContainer .logoCompany {
+  border: 1px solid white;
+  height: 4rem;
+  width: 4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 0.3rem;
+}
+.profile-page .experienceContainer .experienceSection {
+  display: flex;
+  flex-direction: column;
+  border-radius: 0.5rem;
+  gap: 0.5rem;
+}
+.profile-page .experienceContainer .experienceSection .experience {
+  padding: 1rem;
+  display: flex;
+  border: 1px solid rgba(16, 202, 0, 0.3);
+  border-radius: 0.5rem;
+  gap: 0.5rem;
+}
+.profile-page .experienceContainer .companyDetails {
+  flex-basis: 90%;
+  display: flex;
+  justify-content: space-between;
 }

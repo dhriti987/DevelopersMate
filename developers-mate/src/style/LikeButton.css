@@ -1,0 +1,48 @@
+.heartBtn .content {
+  padding: 0rem 1rem;
+  display: flex;
+  position: relative;
+  width: 2rem;
+}
+.heartBtn .content .heart {
+  height: 90px;
+  width: 90px;
+  background: url("../assets/home/img.png") no-repeat;
+  background-size: 2900%;
+  position: absolute;
+  top: -1.9rem;
+  left: -1.7rem;
+  z-index: 1000;
+  cursor: pointer;
+}
+@keyframes animate1 {
+  0% {
+    background-position: left;
+  }
+  100% {
+    background-position: right;
+  }
+}
+@keyframes animate2 {
+  0% {
+    background-position: right;
+  }
+  100% {
+    background-position: left;
+  }
+}
+.heartBtn .content .liked {
+  background-position: right;
+  animation: animate1 0.8s steps(28) 1;
+}
+.heartBtn .content .notLiked {
+  background-position: left;
+  animation: animate2 0.8s steps(28) 1;
+}
+
+.heartBtn .content .like {
+  margin-left: 0.8rem;
+}
+.heartBtn .content .Number {
+  margin-left: 0.8rem;
+}

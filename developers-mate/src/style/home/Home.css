@@ -1,0 +1,16 @@
+.home-page {
+  width: 60rem;
+  /* border: 1px solid red; */
+  margin: auto;
+  margin-top: 2rem;
+  display: flex;
+  gap: 0.6rem;
+}
+.home-page .leftContainer {
+  width: 70%;
+}
+
+.home-page .rightContainer {
+  width: 30%;
+  border: 1px solid red;
+}

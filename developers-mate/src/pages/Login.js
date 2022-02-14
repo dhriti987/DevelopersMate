@@ -1,35 +1,122 @@
-import React from 'react';
-import "../style/Login.css"
-import { AiOutlineArrowRight } from 'react-icons/ai';
-import Navbar from '../components/Navbar';
-import {Link} from 'react-router-dom'
-
+import {React,useState} from "react";
+import "../style/Login.css";
+import { AiOutlineArrowRight } from "react-icons/ai";
+import Navbar from "../components/Navbar";
+import { Link } from "react-router-dom";
+import { Formik } from "formik";
+import * as yup from "yup";
+import api from "../api/UnProtectedApi";
+import close from "../assets/profile/close.png";
+import { useNavigate } from "react-router-dom";
 
 function Login() {
-  return (
-      <>
-        <Navbar title={"Sign Up"}/>
-        <main className='loginPage'>
-            <div className='Login-container'>
+  const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
-            <h1 >Login to Your Account</h1>
-            <h3>Find your perfect match for your Next Project from 1000+ Developers</h3>
-                <form className='Login-form'>
-                    <div className="email">
-                        <input type="email" className="emialInput" id="email" placeholder="Email"/>
-                    </div>
-                    <div className="password">
-                        <input type="password" className="passwordInput" id="password" placeholder="Password"/>
-                    </div>
-                    <button className='login-btn'>
-                        <h4 style={{margin:"0",fontWeight:"500"}}>Login to Your Account</h4>
-                        <AiOutlineArrowRight size={23}/>
-                    </button>
-                <Link to={"/signup"} style={{textDecoration:"none"}}><h6>Don't have an Account?</h6></Link>
-                </form>
-            </div>
-        </main>
-      </>
+  const validate = yup.object({
+    email: yup
+      .string()
+      .email("Please Enter a valid Email")
+      .required("Email is Required"),
+    password: yup.string().required("Password is Required"),
+  });
+
+  const initialValues = {
+    email: "",
+    password: "",
+  };
+  const onSubmit = async (values) => {
+    const data = {
+      username: values.email,
+      password: values.password,
+    };
+    try {
+      const response = await api.post("auth/login/", data);
+      localStorage.setItem("token", response.data.token);
+      console.log(response);
+      navigate("/profile");
+    } catch (err) {
+      console.log(err.response);
+      setError(1);
+      setTimeout(()=>{
+        setError(0);
+      },5000)
+    }
+  };
+
+  return (
+    <>
+      <Navbar title={"Sign Up"} />
+      <main className="loginsignupPage">
+        <div
+          className={`errorMessage ${
+            error ? "displayError" : "hideError"
+          }`}
+        >
+          {error && <img src={close} alt="" />}
+          {error && <h4>Please enter correct Email and Password</h4>}
+        </div>
+        <div className=" loginSignupPageContainer">
+          <h1>Login to Your Account</h1>
+          <h3>
+            Find your perfect match for your Next Project from 1000+ Developers
+          </h3>
+          <Formik
+            initialValues={initialValues}
+            onSubmit={onSubmit}
+            validationSchema={validate}
+          >
+            {(formik) => (
+              <form className="loginSignupForm" onSubmit={formik.handleSubmit}>
+                <div className="email">
+                  <input
+                    type="email"
+                    className="emialInput"
+                    name="email"
+                    id="Email"
+                    placeholder="Email"
+                    value={formik.values.email}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                  />
+                  {formik.touched.email && formik.errors.email && (
+                    <p>{formik.errors.email}</p>
+                  )}
+                </div>
+                <div className="password">
+                  <input
+                    type="password"
+                    className="passwordInput"
+                    name="password"
+                    id="Password"
+                    placeholder="Password"
+                    value={formik.values.password}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                  />
+                  {formik.touched.password && formik.errors.password && (
+                    <p>{formik.errors.password}</p>
+                  )}
+                </div>
+                <button
+                  className="loginSignupBtn"
+                  type="submit"
+                  disabled={!formik.isValid}
+                >
+                  <h4 style={{ margin: "0", fontWeight: "500" }}>
+                    Login to Your Account
+                  </h4>
+                  <AiOutlineArrowRight size={23} />
+                </button>
+                <Link to={"/signup"} style={{ textDecoration: "none" }}>
+                  <h6>Don't have an Account?</h6>
+                </Link>
+              </form>
+            )}
+          </Formik>
+        </div>
+      </main>
+    </>
   );
 }
 

@@ -1,10 +1,14 @@
 import { React, useEffect, useState } from "react";
-import "../../style/profile/UserDetails.css";
+import "../../style/profile/CommonAdd.css";
 import axios from "axios";
-import {Link} from "react-router-dom";
-import { BiChevronDown,BiChevronUp,BiRightArrowCircle } from "react-icons/bi";
+import { Link } from "react-router-dom";
+import { BiChevronDown, BiChevronUp, BiRightArrowCircle } from "react-icons/bi";
+import SingleDropDown from "../SingleDropDown";
 
 function AddUserDetails() {
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [city, setCity] = useState("");
   const [countryList, setCountryList] = useState([]);
   const [dummyCountryList, setDummyCountryList] = useState([]);
   const [dummyStateList, setDummyStateList] = useState([]);
@@ -15,9 +19,13 @@ function AddUserDetails() {
   const [displayStateList, setDisplayStateList] = useState(false);
   const [stateInput, setStateInput] = useState("");
   const [displayCity, setDisplayCity] = useState(false);
-  const [genderOptions,setGenderOptions]=useState(["Male","Female","Others"]);
+  const [genderOptions, setGenderOptions] = useState([
+    "Male",
+    "Female",
+    "Others",
+  ]);
   const [displayGender, setDisplayGender] = useState(false);
-  const [gender,setGender]=useState("");
+  const [gender, setGender] = useState("");
 
   useEffect(() => {
     const fetch = async () => {
@@ -54,7 +62,7 @@ function AddUserDetails() {
     const response = await axios.post(
       "https://countriesnow.space/api/v0.1/countries/states",
       data
-      );
+    );
     response.data.data.states.map((item) => {
       stateList.push(item.name);
       dummyStateList.push(item.name);
@@ -80,117 +88,116 @@ function AddUserDetails() {
   return (
     <main className="popUp-container">
       <h1 style={{ textAlign: "center" }}>User Details</h1>
-      <form className="form">
-        <input type="text" placeholder="First Name" />
-        <input type="text" placeholder="Last Name" />
+      <form className="add-container">
+        <input type="text" placeholder="First Name" value={firstName}
+          onChange={(e) => {
+            setFirstName(e.target.value);
+          }}/>
+        <input type="text" placeholder="Last Name" value={lastName}
+          onChange={(e) => {
+            setLastName(e.target.value);
+          }}/>
 
-        <div className=" genderContainer" >
-          <div className="gender" onClick={()=>{setDisplayGender(true)}}>
+        <div className="DownSingle-contianer">
+          <div
+            className="inputContainer"
+            onClick={() => {
+              setDisplayGender(true);
+            }}
+          >
             <input
               type="text"
               placeholder="Gender"
               defaultValue={gender}
               autoComplete="new-password"
+              className="input"
             />
-            {displayGender ? <BiChevronUp size={27} color="white" /> : <BiChevronDown size={27} color="white" />}
+            {displayGender ? (
+              <BiChevronUp size={27} color="white" className="inputIcon" />
+            ) : (
+              <BiChevronDown size={27} color="white" className="inputIcon" />
+            )}
           </div>
-          <div className={`dropDown ${displayGender ? "displayGenderOptions" : "hideGenderOptions"}`}>
-            {
-              genderOptions.map((item,idx)=>{
-                return(
-                  <h4 onClick={(e)=>{
-                    setDisplayGender(false)
-                    setGender(e.target.textContent)
-                  }} key={`gender${idx}`}>{item}</h4>
-                )
-              })
-            }
-          </div>
-        </div>
-        <div className="country">
-          <input
-            type="text"
-            placeholder="Country"
-            value={countryInput}
-            onClick={() => {
-              setDisplayCountryList(displayCountryList ? false : true);
-            }}
-            onChange={(e) => {
-              setCountryInput(e.target.value);
-              setDisplayState(false);
-            }}
-            autoComplete="new-password"
+
+          <SingleDropDown
+            arr={genderOptions}
+            setInput={setGender}
+            displayOptions={displayGender}
+            setDisplayOptions={setDisplayGender}
           />
+        </div>
+        <div className="DownSingle-contianer">
+          <div className="inputContainer">
+            <input
+              type="text"
+              placeholder="Country"
+              value={countryInput}
+              onClick={() => {
+                setDisplayCountryList(displayCountryList ? false : true);
+              }}
+              onChange={(e) => {
+                setCountryInput(e.target.value);
+                setDisplayState(false);
+              }}
+              autoComplete="new-password"
+              className="input"
+            />
+          </div>
+
           {displayCountryList && (
-            <div
-              className={`dropDown ${
-                countryList.length > 4 ? "showCountryList" : "hideCountryList"
-              }`}
-              style={{ zIndex: "10" }}
-            >
-              {countryList.map((item, idx) => {
-                return (
-                  <h4
-                    key={`country${idx}`}
-                    onClick={(e) => {
-                      handleCountry(e, item);
-                    }}
-                  >
-                    {item}
-                  </h4>
-                );
-              })}
-            </div>
+            <SingleDropDown
+              arr={countryList}
+              setInput={setCountryInput}
+              anyfuntion={handleCountry}
+              displayOptions={displayCountryList}
+              setDisplayOptions={setDisplayCountryList}
+            />
           )}
         </div>
         {displayStates && (
-          <div className="country">
-            <input
-              type="text"
-              placeholder="State"
-              autoComplete="new-password"
-              value={stateInput}
-              onClick={() => {
-                setDisplayStateList(displayStateList ? false : true);
-                setDisplayCity(false);
-              }}
-              onChange={(e) => {
-                setStateInput(e.target.value);
-              }}
-            />
-            {displayStateList && (
-              <div
-                className={`dropDown ${
-                  stateList.length > 4 ? "showStateList" : "hideStateList"
-                }`}
-              >
-                {stateList.map((item, idx) => {
-                  return (
-                    <h4
-                      key={`stateList${idx}`}
-                      onClick={(e) => handleStateClick(e)}
-                    >
-                      {item}
-                    </h4>
-                  );
-                })}
-              </div>
-            )}
+          <div className="DownSingle-contianer">
+            <div className="inputContainer">
+              <input
+                type="text"
+                placeholder="State"
+                autoComplete="new-password"
+                value={stateInput}
+                onClick={() => {
+                  setDisplayStateList(displayStateList ? false : true);
+                  setDisplayCity(false);
+                }}
+                onChange={(e) => {
+                  setStateInput(e.target.value);
+                }}
+              />
+              {displayStateList && (
+                <SingleDropDown
+                  top={"23.8rem"}
+                  arr={stateList}
+                  setInput={setStateInput}
+                  anyfuntion={handleStateClick}
+                  displayOptions={displayStateList}
+                  setDisplayOptions={setDisplayStateList}
+                />
+              )}
+            </div>
           </div>
         )}
         {displayCity && (
-          <div className="country">
-            <input type="text" placeholder="City" autoComplete="new-password" />
-          </div>
+          <input type="text" placeholder="City" autoComplete="new-password" value={city}
+          
+          onChange={(e) => {
+            setCity(e.target.value);
+          }}/>
         )}
         <div className="nextBtn-container nextBtnEdu nextBtnUserDetails">
-        <Link to="/home/addskills" style={{textDecoration:"none"}}>
-          <button className="nextbtn">
-            <h4 style={{ margin: "0" }}>Next</h4>
-            <BiRightArrowCircle size={23}/>
-          </button>
-        </Link>
-      </div>
+          <Link to="/home/addskills" style={{ textDecoration: "none" }}>
+            <button className="nextbtn">
+              <h4 style={{ margin: "0" }}>Next</h4>
+              <BiRightArrowCircle size={23} />
+            </button>
+          </Link>
+        </div>
       </form>
     </main>
   );
