@@ -1,89 +1,51 @@
-import { React, useState, useEffect } from "react";
+import axios from "axios";
+import { useState, React } from "react";
 import "../../style/profile/CommonAdd.css";
-import { BiChevronDown, BiChevronUp, BiRightArrowCircle } from "react-icons/bi";
-import { ImCross } from "react-icons/im";
-import { employmentArr } from "../../data/EmploymentData";
-import CustomizedCheckBox from "../CustomizedCheckBox";
+import { BsChevronDown, BsChevronUp } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import DoubleDropDown from "../DoubleDropDown";
-import SingleDropDown from "../SingleDropDown";
 import { yearsArray } from "../../data/YearsData";
 import { months } from "../../data/MonthData";
+import CustomizedCheckBox from "../CustomizedCheckBox";
+import { ImCross } from "react-icons/im";
 
-function AddExperience() {
-  const [displayEmploymenyOptions, setDisplayEmploymenyOptions] =
-    useState(false);
+function AddProjects() {
   const [title, setTitle] = useState("");
-  const [company, setCompany] = useState("");
-  const [employmentInput, setEmploymentInput] = useState("");
+  const [projectLink, setProjectLink] = useState("");
+  const [liveLink, setLiveLink] = useState("");
+  const [desciption, setDescription] = useState("");
   const [displayDateOption, setDisplayDateOption] = useState(0);
-  const [isChecked, setIsChecked] = useState(false);
   const [firstInput, setFirstInput] = useState("");
   const [secondInput, setSecondInput] = useState("");
   const [thirdInput, setThirdInput] = useState("");
   const [fourthInput, setFourthInput] = useState("");
-  const isAdd=window.location.href.includes("add"); 
+  const [isCheckedEndDate, setIsCheckedEndDate] = useState(false);
+  const [isCheckedDeployed, setIsCheckedDeployed] = useState(false);
+  const isAdd=window.location.href.includes("add");
 
   return (
-    <main className="popUp-container">
+    <main
+      className="popUp-container"
+      style={{ height: "40rem", top: "0.4rem" }}
+    >
       <Link to="/profile" style={{ textDecoration: "none" }}>
         <ImCross size={23} color="white" className="cancelIcon" />
       </Link>
-      <h1 style={{ textAlign: "center" }}>{isAdd ? "Add" : "Edit"} Experience</h1>
-
-      {/* <BsInfoCircle color='white'/> */}
-
-      <form className="add-container">
+      <h1 style={{ textAlign: "center" }}>{isAdd ? "Add" : "Edit"} Project</h1>
+      <form className={`add-container`}>
         <input
           type="text"
-          className="Input"
-          placeholder="Title (ex.Software Developer)"
+          placeholder="Title"
           value={title}
           onChange={(e) => {
             setTitle(e.target.value);
           }}
         />
-        <input
-          type="text"
-          className="Input"
-          placeholder="Company Name"
-          value={company}
-          onChange={(e) => {
-            setCompany(e.target.value);
-          }}
-        />
-        <div className="DownSingle-contianer">
-          <div
-            className="inputContainer"
-            onClick={() => {
-              setDisplayEmploymenyOptions(
-                displayEmploymenyOptions ? false : true
-              );
-            }}
-          >
-            <input
-              type="text"
-              placeholder="Employment"
-              defaultValue={employmentInput}
-              className="input"
-            />
-            {displayEmploymenyOptions ? (
-              <BiChevronUp size={27} color="white" className="inputIcon" />
-            ) : (
-              <BiChevronDown size={27} color="white" className="inputIcon" />
-            )}
-          </div>
-          <SingleDropDown
-            arr={employmentArr}
-            setInput={setEmploymentInput}
-            displayOptions={displayEmploymenyOptions}
-            setDisplayOptions={setDisplayEmploymenyOptions}
-          />
-        </div>
+        {/* <p style={{color:"red",margin:"0",fontSize:"0.5rem",width:"98%"}}>Enter title</p> */}
         <CustomizedCheckBox
-          title="I am Currently Working in this role."
-          setIsChecked={setIsChecked}
-          isChecked={isChecked}
+          title="I am Currently Working in this Project."
+          setIsChecked={setIsCheckedEndDate}
+          isChecked={isCheckedEndDate}
         />
         <div className="DownDouble-container">
           <div className="downDouble">
@@ -99,7 +61,7 @@ function AddExperience() {
                 defaultValue={firstInput}
                 className="input"
               />
-              <BiChevronDown size={27} color="white" className="inputIcon" />
+              <BsChevronDown size={27} color="white" className="inputIcon" />
             </div>
             <div
               className="inputContainer"
@@ -113,10 +75,11 @@ function AddExperience() {
                 defaultValue={secondInput}
                 className="input"
               />
-              <BiChevronDown size={27} color="white" className="inputIcon" />
+              <BsChevronDown size={27} color="white" className="inputIcon" />
             </div>
           </div>
           <DoubleDropDown
+            top={"13.5rem"}
             arr1={months}
             arr2={yearsArray}
             displayLeft={displayDateOption == 1 ? true : false}
@@ -125,8 +88,8 @@ function AddExperience() {
             setRightInput={setSecondInput}
           />
         </div>
-
-        {!isChecked && (
+        {/* <p style={{color:"red",margin:"0",fontSize:"0.5rem",width:"98%"}}>Enter date</p> */}
+        {!isCheckedEndDate && (
           <div className="DownDouble-container">
             <div className="downDouble">
               <div
@@ -141,7 +104,7 @@ function AddExperience() {
                   defaultValue={thirdInput}
                   className="input"
                 />
-                <BiChevronDown size={27} color="white" />
+                <BsChevronDown size={27} color="white" />
               </div>
               <div
                 className="inputContainer"
@@ -155,11 +118,12 @@ function AddExperience() {
                   defaultValue={fourthInput}
                   className="input"
                 />
-                <BiChevronDown size={27} color="white" />
+                <BsChevronDown size={27} color="white" />
               </div>
             </div>
 
             <DoubleDropDown
+              top={"16.7rem"}
               arr1={months}
               arr2={yearsArray}
               displayLeft={displayDateOption == 3 ? true : false}
@@ -169,16 +133,49 @@ function AddExperience() {
             />
           </div>
         )}
-        <div className="nextBtn-container nextBtnUserDetails">
-          <Link to="/profile" style={{ textDecoration: "none" }}>
-            <button className="nextbtn">
-              <h4 style={{ margin: "0" }}>{isAdd ? "Add" : "Edit"}</h4>
-            </button>
-          </Link>
-        </div>
+        <input
+          type="text"
+          placeholder="Project Link"
+          value={projectLink}
+          onChange={(e) => {
+            setProjectLink(e.target.value);
+          }}
+        />
+        <CustomizedCheckBox
+          title="Is this Project Deployed?"
+          setIsChecked={setIsCheckedDeployed}
+          isChecked={isCheckedDeployed}
+        />
+        {isCheckedDeployed && (
+          <input
+            type="text"
+            placeholder="Live Link"
+            value={liveLink}
+            onChange={(e) => {
+              setLiveLink(e.target.value);
+            }}
+          />
+        )}
+        <textarea
+          name="description"
+          id="Description"
+          rows="8"
+          placeholder="Description"
+          value={desciption}
+          onChange={(e) => {
+            setDescription(e.target.value);
+          }}
+        ></textarea>
+      <div className="nextBtn-container nextBtnEdu">
+        <Link to="/profile" style={{ textDecoration: "none" }}>
+          <button className="nextbtn">
+            <h4 style={{ margin: "0" }}>{isAdd ? "Add" : "Edit"}</h4>
+          </button>
+        </Link>
+      </div>
       </form>
     </main>
   );
 }
 
-export default AddExperience;
+export default AddProjects;

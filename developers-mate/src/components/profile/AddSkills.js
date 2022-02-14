@@ -3,14 +3,18 @@ import "../../style/profile/AddSkills.css";
 import { AiOutlinePlus } from "react-icons/ai";
 import { skillsArray } from "../../data/SkillsData";
 import { AiFillDelete } from "react-icons/ai";
-import { BiRightArrowCircle } from 'react-icons/bi';
+import { BiRightArrowCircle } from "react-icons/bi";
 import { Link } from "react-router-dom";
+import { ImCross } from "react-icons/im";
+import SingleDropDown from "../SingleDropDown";
 
 function AddSkills() {
   const [searchInput, setSearchInput] = useState("");
   const [displayOptions, setDisplayOptions] = useState(false);
   const [dummySkillsArray, setDummySkillsArray] = useState(skillsArray);
   const [selectedSkillsArr, setSelectedSkillsArr] = useState([]);
+  const isProfile=window.location.href.includes("profile");
+  const [input,setInput]=useState('');
 
   useEffect(() => {
     const newArray = skillsArray.filter((item) =>
@@ -19,7 +23,7 @@ function AddSkills() {
     setDummySkillsArray(newArray);
   }, [searchInput]);
 
-  const handleOptionsAdd = (e) => {
+  const handleOptionsAdd = (e,item) => {
     if (e === null) {
       setSelectedSkillsArr([...selectedSkillsArr, searchInput]);
       setSearchInput("");
@@ -30,6 +34,7 @@ function AddSkills() {
       );
     }
     setDisplayOptions(false);
+    console.log("kke")
   };
 
   const handleDeleteSkills = (idx) => {
@@ -41,16 +46,20 @@ function AddSkills() {
   };
   return (
     <main className="popUp-container">
+      {isProfile && (
+        <Link to="/profile" style={{ textDecoration: "none" }}>
+          <ImCross size={23} color="white" className="cancelIcon" />
+        </Link>
+      )}
       <h1 style={{ textAlign: "center" }}>Add Skills</h1>
       <div
-      style={{display:"flex",flexDirection:"row",gap:"0"}}
-        className={`form ${
-          displayOptions ? "noBorders" : "keepBorders"
-        }`}
+        style={{ display: "flex", flexDirection: "row", gap: "0" }}
+        className={`form ${displayOptions ? "noBorders" : "keepBorders"}`}
       >
         <input
           type="text"
           placeholder="Search your Skills"
+          className="addSkillsInput"
           value={searchInput}
           onChange={(e) => {
             setSearchInput(e.target.value);
@@ -71,27 +80,17 @@ function AddSkills() {
             onClick={() => handleOptionsAdd(null)}
           />
         </div>
-      {displayOptions && (
-        
-          <div
-            className={`dropDown  ${
-              dummySkillsArray.length <= 4
-                ? "optionsHeightLess"
-                : "optionsHeightFull"
-            }`}
-            id="options"
-            
-          >
-            {dummySkillsArray.map((item, idx) => {
-              return (
-                <div key={`Skills${idx}`} onClick={(e) => handleOptionsAdd(e)}>
-                  <h4>{item}</h4>
-                </div>
-              );
-            })}
-          
-        </div>
-      )}
+        {displayOptions && (
+
+          <SingleDropDown
+          top="7.8rem"
+            arr={dummySkillsArray}
+            anyfuntion={handleOptionsAdd}
+            displayOptions={displayOptions}
+            setInput={setInput}
+            setDisplayOptions={setDisplayOptions}
+          />
+        )}
       </div>
       <div className="skillsContainer">
         {selectedSkillsArr.map((item, idx) => {
@@ -112,10 +111,21 @@ function AddSkills() {
         })}
       </div>
       <div className="nextBtn-container">
-        <Link to="/home/addeducation" style={{textDecoration:"none"}}>
+        <Link
+          to={
+            !window.location.href.includes("profile")
+              ? "/home/addeducation"
+              : "/profile"
+          }
+          style={{ textDecoration: "none" }}
+        >
           <button className="nextbtn">
-            <h4 style={{ margin: "0" }}>Next</h4>
-            <BiRightArrowCircle size={23}/>
+            <h4 style={{ margin: "0" }}>
+              {window.location.href.includes("profile") ? "Add" : "Next"}
+            </h4>
+            {!window.location.href.includes("profile") && (
+              <BiRightArrowCircle size={23} />
+            )}
           </button>
         </Link>
       </div>

@@ -1,21 +1,17 @@
-.popUp-container{
-    width: 65%;
-    height: 32rem;
-    position: fixed;
-    margin: auto;
-    z-index: 10;
-    transform: translateX(28%);
-    background-color: rgb(20 20 20);
-    border-radius: 5px;
+.addSkillsContainer{
+    display: block;
 }
 .popUp-container .form{
     display: flex;
     justify-content: center;
 }
-#options{
-    width: 33.3rem;
-    top: 7rem;
+.popUp-container .addSkillsInput{
+    width: 28rem;
 }
+/* #options{
+    width: 33.3rem;
+    top: 7.5rem;
+} */
 .popUp-container .form .addSkill{
     display: flex;
     justify-content: center;
@@ -74,6 +70,7 @@
     justify-content: flex-start;
     flex-direction: row;
     align-content: flex-start; 
+    width: 98%;
 }
 .popUp-container .skillsContainer div{
     /* border: 1px solid red; */
@@ -97,6 +94,7 @@
 .nextBtn-container{
     display: flex;
     justify-content: flex-end;
+    width: 33rem;
 }
 .nextbtn{
     flex: 1 1 auto;
@@ -115,6 +113,7 @@
     display: flex;
     justify-content: space-evenly;
     align-items: center;
+    justify-content: space-evenly;
 }
 .nextbtn:hover {
     background-position: right center; 

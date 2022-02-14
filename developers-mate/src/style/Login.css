@@ -1,4 +1,4 @@
-.loginPage{
+.loginsignupPage{
     display: flex;
     align-items: center;
     justify-content: center;
@@ -15,18 +15,25 @@
     }
 }
 
-.Login-container h1{
+.loginSignupPageContainer h1{
     margin:0;
+    margin-bottom: 2rem;
     text-Align:center;
     font-Size:3.5rem;
 }
-.Login-container h3{
+.loginSignupPageContainer h3{
     text-Align:center;
     color: #848484;
     width: 36rem;
     line-height: 21px;
 }
-.Login-form{
+.loginSignupPageContainer p{
+    font-size: 0.6rem;
+    margin: 0;
+    margin-bottom: 0.3rem;
+    color: red;
+}
+.loginSignupForm{
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -36,7 +43,7 @@
     animation: mymove 0.8s;
     animation-iteration-count: 1
 }
-.Login-form input{
+.loginSignupForm input{
     width: 20rem;
     height: 2.5rem;
     border-radius: 5px;
@@ -47,7 +54,7 @@
     outline: none;
     color: aliceblue;
 }
-.login-btn{
+.loginSignupBtn{
     flex: 1 1 auto;
     padding: 7px 12px;
     text-align: center;
@@ -64,6 +71,6 @@
     justify-content: space-between;
     align-items: center;
 }
-.login-btn:hover{
+.loginSignupBtn:hover{
     background-position: right center;
 }

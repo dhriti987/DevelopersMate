@@ -1,13 +1,13 @@
 import {React,useState} from 'react';
 import "../style/CustomizedCheckBox.css";
 
-function CustomizedCheckBox({setIsChecked,isChecked}) {
+function CustomizedCheckBox({title,setIsChecked,isChecked}) {
   return (
       <main className='CustomizedCheckBox-container'>
           <div className={`checkBox ${isChecked ? "checked" : "unChecked"}`}onClick={()=>{setIsChecked(isChecked ? false : true)}}>
 
           </div>
-          <h4>I am Currently Working in this role.</h4>
+          <h4>{title}</h4>
       </main>
   )
 }
