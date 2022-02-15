@@ -1,3 +1,5 @@
+from distutils.command.upload import upload
+from email.policy import default
 import os
 from django.db import models
 from django.dispatch import receiver
@@ -7,12 +9,17 @@ def create_path_images(self,filename):
     email = self.user.email.split('@')[0]
     return f'user/images/{email}/{filename}'
 
+def create_path_banner_image(self,filename):
+    email = self.user.email.split('@')[0]
+    return f'user/banner/{email}/{filename}'
+
 # Create your models here.
 class Profile(models.Model):
     user = models.OneToOneField(to=User,on_delete=models.CASCADE,primary_key=True)
     first_name = models.CharField(max_length=30)
     last_name = models.CharField(max_length=30)
-    image = models.ImageField(upload_to = create_path_images,default = "/user/default.png")
+    image = models.ImageField(upload_to = create_path_images,default = "/user/default.jpg")
+    banner = models.ImageField(upload_to = create_path_banner_image, null=True)
     gender = models.CharField(max_length=8)
     country = models.CharField(max_length=50)
     state = models.CharField(max_length=50)
