@@ -6,19 +6,7 @@
     position: relative;
     padding: 0.5rem 0.7rem;
   }
-  .home-page .leftContainer .showpostContainer .head {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-.home-page .leftContainer .showpostContainer .head img{
-    width:3rem;
-    height: 3rem;
-    border-radius: 50%;
-  }
-.home-page .leftContainer .showpostContainer .head .headDetails{
-    line-height: 1rem;
-  }
+ 
 .home-page .leftContainer .showpostContainer .body{
     margin-top: 1rem;
   }
