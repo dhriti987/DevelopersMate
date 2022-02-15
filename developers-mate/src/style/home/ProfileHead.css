@@ -1,0 +1,13 @@
+.head {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+.head img{
+  width:3rem;
+  height: 3rem;
+  border-radius: 50%;
+}
+.head .headDetails{
+  line-height: 1rem;
+}

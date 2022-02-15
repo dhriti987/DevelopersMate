@@ -12,6 +12,7 @@ import AddProjects from "./components/profile/AddProjects";
 import AddBio from "./components/profile/AddBio";
 import AddInto from "./components/profile/AddInto";
 import PrivateRoute from "./utils/PrivateRoute";
+import PostDetailPopUp from "./components/home/PostDetailPopUp";
 
 function App() {
   return (
@@ -20,7 +21,6 @@ function App() {
         <Route exact path="/login" element={<Login />} />
         <Route exact path="/signup" element={<SignUp />} />
         <Route exact path="/" element={<PrivateRoute />}>
-          <Route path="/home" element={<Home />} />
           <Route path="/profile" element={<Profile />}>
             <Route exact path="adduserdetails" element={<AddUserDetails />} />
             <Route exact path="addskills" element={<AddSkills />} />
@@ -35,6 +35,9 @@ function App() {
             <Route exact path="editeducation" element={<AddEducation />} />
             <Route exact path="editproject" element={<AddProjects />} />
             <Route exact path="editintro" element={<AddInto />} />
+          </Route>
+          <Route path="/home" element={<Home />}>
+            <Route exact path="postdetailpopup" element={<PostDetailPopUp/>}/>
           </Route>
         </Route>
       </Routes>

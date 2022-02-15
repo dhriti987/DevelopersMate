@@ -5,14 +5,14 @@
   width: 2rem;
 }
 .heartBtn .content .heart {
-  height: 90px;
+  height: 49px;
   width: 90px;
   background: url("../assets/home/img.png") no-repeat;
   background-size: 2900%;
   position: absolute;
-  top: -1.9rem;
+  top: -0.6rem;
   left: -1.7rem;
-  z-index: 1000;
+  z-index: 99;
   cursor: pointer;
 }
 @keyframes animate1 {
