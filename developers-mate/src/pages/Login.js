@@ -8,6 +8,8 @@ import * as yup from "yup";
 import api from "../api/UnProtectedApi";
 import close from "../assets/profile/close.png";
 import { useNavigate } from "react-router-dom";
+import {useSelector,useDispatch} from "react-redux";
+import {setUserId} from "../redux/userId";
 
 function Login() {
   const [error, setError] = useState(null);
@@ -27,13 +29,13 @@ function Login() {
   };
   const onSubmit = async (values) => {
     const data = {
-      username: values.email,
+      email: values.email,
       password: values.password,
     };
     try {
-      const response = await api.post("auth/login/", data);
-      localStorage.setItem("token", response.data.token);
-      console.log(response);
+      const response = await api.post("api/token/", data);
+      localStorage.setItem("access", response.data.access);
+      localStorage.setItem("refresh", response.data.refresh);
       navigate("/profile");
     } catch (err) {
       console.log(err.response);
