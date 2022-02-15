@@ -15,11 +15,24 @@ class ProfileView(generics.GenericAPIView):
 
     serializer_class = ProfileSerializer
     
-    def get_queryset(self):
+    def get_queryset(self,pk=None):
+        if pk:
+            try:
+                return Profile.objects.get(user = pk)
+            except:
+                return None
         return Profile.objects.get(user = self.request.user)
 
     def get(self,request):
-        query = self.get_queryset()
+        pk = request.GET.get('id')
+        if pk:
+            query=self.get_queryset(pk)
+            if not query:
+                return Response({'status':'failed'},status=status.HTTP_404_NOT_FOUND)
+            
+        else:
+            query = self.get_queryset()
+
         serialized_data = self.serializer_class(query)
         return Response(serialized_data.data,status=status.HTTP_200_OK)
 
