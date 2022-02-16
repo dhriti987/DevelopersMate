@@ -1,4 +1,4 @@
-import {React,useState} from "react";
+import { React, useState, useEffect } from "react";
 import "../style/Login.css";
 import { AiOutlineArrowRight } from "react-icons/ai";
 import Navbar from "../components/Navbar";
@@ -8,12 +8,15 @@ import * as yup from "yup";
 import api from "../api/UnProtectedApi";
 import close from "../assets/profile/close.png";
 import { useNavigate } from "react-router-dom";
-import {useSelector,useDispatch} from "react-redux";
-import {setUserId} from "../redux/userId";
+import jwt_decode from "jwt-decode";
+import { useSelector, useDispatch } from "react-redux";
+import { setUserId } from "../redux/userId";
+import { setAuthToken } from "../redux/authTokens";
 
 function Login() {
   const [error, setError] = useState(null);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const validate = yup.object({
     email: yup
@@ -36,13 +39,15 @@ function Login() {
       const response = await api.post("api/token/", data);
       localStorage.setItem("access", response.data.access);
       localStorage.setItem("refresh", response.data.refresh);
-      navigate("/profile");
+      dispatch(setUserId(jwt_decode(response.data.access).user_id));
+      dispatch(setAuthToken(response.data));
+      navigate("/home");
     } catch (err) {
       console.log(err.response);
       setError(1);
-      setTimeout(()=>{
+      setTimeout(() => {
         setError(0);
-      },5000)
+      }, 5000);
     }
   };
 
@@ -50,11 +55,7 @@ function Login() {
     <>
       <Navbar title={"Sign Up"} />
       <main className="loginsignupPage">
-        <div
-          className={`errorMessage ${
-            error ? "displayError" : "hideError"
-          }`}
-        >
+        <div className={`errorMessage ${error ? "displayError" : "hideError"}`}>
           {error && <img src={close} alt="" />}
           {error && <h4>Please enter correct Email and Password</h4>}
         </div>

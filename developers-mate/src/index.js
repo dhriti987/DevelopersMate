@@ -7,10 +7,12 @@ import { BrowserRouter as Router } from "react-router-dom";
 import {configureStore} from "@reduxjs/toolkit";
 import {Provider} from "react-redux";
 import userIdReducer from "./redux/userId";
+import authTokenReducer from "./redux/authTokens";
 
 const store=configureStore({
   reducer:{
-    userId:userIdReducer
+    userId:userIdReducer,
+    authToken:authTokenReducer
   }
 })
 

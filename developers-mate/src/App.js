@@ -13,8 +13,34 @@ import AddBio from "./components/profile/AddBio";
 import AddInto from "./components/profile/AddInto";
 import PrivateRoute from "./utils/PrivateRoute";
 import PostDetailPopUp from "./components/home/PostDetailPopUp";
+import { useSelector, useDispatch } from "react-redux";
+import { useEffect, useState } from "react";
+import { setAuthToken } from "./redux/authTokens";
+import axios from "axios";
 
 function App() {
+  const authToken = useSelector((state) => state.authToken.value);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    const interval = setInterval(() => {
+      const updateToken = async () => {
+        if (authToken) {
+          const response = await axios.post(
+            "http://127.0.0.1:8000/api/token/refresh/",
+            {
+              refresh: localStorage.getItem("refresh"),
+            }
+          );
+          dispatch(setAuthToken(response.data));
+          localStorage.setItem("access", response.data.access);
+          console.log(authToken)
+        }
+      };
+      updateToken();
+    }, 2000);
+    return () => clearInterval(interval);
+  }, [authToken]);
+
   return (
     <div className="App">
       <Routes>
@@ -37,7 +63,7 @@ function App() {
             <Route exact path="editintro" element={<AddInto />} />
           </Route>
           <Route path="/home" element={<Home />}>
-            <Route exact path="postdetailpopup" element={<PostDetailPopUp/>}/>
+            <Route exact path="postdetailpopup" element={<PostDetailPopUp />} />
           </Route>
         </Route>
       </Routes>

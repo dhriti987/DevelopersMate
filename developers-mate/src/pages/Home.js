@@ -7,6 +7,7 @@ import ShowPost from "../components/home/ShowPost";
 import { Outlet } from "react-router-dom";
 
 function Home() {
+  
   return (
     <>
       <PrivateNavbar />
