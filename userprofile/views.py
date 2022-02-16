@@ -1,3 +1,4 @@
+from functools import partial
 from rest_framework.response import Response
 from rest_framework import generics,status
 from rest_framework_simplejwt.authentication import JWTAuthentication
@@ -21,23 +22,35 @@ class ProfileView(generics.GenericAPIView):
                 return Profile.objects.get(user = pk)
             except:
                 return None
-        return Profile.objects.get(user = self.request.user)
+        try:
+            return Profile.objects.get(user = self.request.user)
+        except:
+            return None
 
     def get(self,request):
         pk = request.GET.get('id')
         if pk:
-            query=self.get_queryset(pk)
-            if not query:
-                return Response({'status':'failed'},status=status.HTTP_404_NOT_FOUND)
-            
+            query=self.get_queryset(pk)    
         else:
             query = self.get_queryset()
-
-        serialized_data = self.serializer_class(query)
-        return Response(serialized_data.data,status=status.HTTP_200_OK)
+        if query:
+            serialized_data = self.serializer_class(query)
+            return Response(serialized_data.data,status=status.HTTP_200_OK)
+        return Response({'status':'failed'},status=status.HTTP_404_NOT_FOUND)
 
     def post(self,request):
         serialized_data = self.serializer_class(data=request.data)
         serialized_data.is_valid(raise_exception=True)
         serialized_data.save()
         return Response(serialized_data.data,status=status.HTTP_201_CREATED)
+    
+    def delete(self,request):
+        request.user.delete()
+        return Response({'status':'success'},status=status.HTTP_200_OK)
+    
+    def patch(self,request):
+        instance = self.get_queryset()
+        serializer_obj = self.serializer_class(instance=instance, data=request.data,partial=True)
+        serializer_obj.is_valid(raise_exception=True)
+        serializer_obj.save()
+        return Response(serializer_obj.data,status=status.HTTP_201_CREATED)
