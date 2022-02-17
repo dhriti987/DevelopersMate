@@ -167,11 +167,9 @@ function AddProjects() {
           }}
         ></textarea>
       <div className="nextBtn-container nextBtnEdu">
-        <Link to="/profile" style={{ textDecoration: "none" }}>
           <button className="nextbtn">
             <h4 style={{ margin: "0" }}>{isAdd ? "Add" : "Edit"}</h4>
           </button>
-        </Link>
       </div>
       </form>
     </main>

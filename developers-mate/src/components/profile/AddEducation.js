@@ -14,14 +14,16 @@ function AddEducation() {
   const [endYearInput, setEndYearInput] = useState("");
   const [displayStartYear, setDisplayStartYear] = useState(false);
   const [displayEndYear, setDisplayEndYear] = useState(false);
-  const isAdd=window.location.href.includes("add");
+  const isAdd = window.location.href.includes("add");
 
   return (
-    <main className="popUp-container" style={{justifyContent:"inherit"}}>
+    <main className="popUp-container" style={{ justifyContent: "inherit" }}>
       <Link to="/profile" style={{ textDecoration: "none" }}>
         <ImCross size={23} color="white" className="cancelIcon" />
       </Link>
-      <h1 style={{ textAlign: "center" }}>{isAdd ? "Add" : "Edit"} Education</h1>
+      <h1 style={{ textAlign: "center" }}>
+        {isAdd ? "Add" : "Edit"} Education
+      </h1>
       <form className={`add-container`}>
         <input
           type="text"
@@ -86,13 +88,11 @@ function AddEducation() {
             setDisplayRight={setDisplayEndYear}
           />
         </div>
-      <div className="nextBtn-container nextBtnEdu">
-        <Link to="/profile" style={{ textDecoration: "none" }}>
-          <button className="nextbtn">
-            <h4 style={{ margin: "0" }}>{isAdd ? "Add" : "Edit"}</h4>
-          </button>
-        </Link>
-      </div>
+        <div className="nextBtn-container nextBtnEdu">
+            <button className="nextbtn">
+              <h4 style={{ margin: "0" }}>{isAdd ? "Add" : "Edit"}</h4>
+            </button>
+        </div>
       </form>
     </main>
   );

@@ -111,14 +111,14 @@ function AddSkills() {
         })}
       </div>
       <div className="nextBtn-container">
-        <Link
+        {/* <Link
           to={
             !window.location.href.includes("profile")
               ? "/home/addeducation"
               : "/profile"
           }
           style={{ textDecoration: "none" }}
-        >
+        > */}
           <button className="nextbtn">
             <h4 style={{ margin: "0" }}>
               {window.location.href.includes("profile") ? "Add" : "Next"}
@@ -127,7 +127,7 @@ function AddSkills() {
               <BiRightArrowCircle size={23} />
             )}
           </button>
-        </Link>
+        {/* </Link> */}
       </div>
     </main>
   );

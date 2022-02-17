@@ -2,3 +2,4 @@
 db.sqlite3
 .env
 media/user/images/
+media/user/banner/

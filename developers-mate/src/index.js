@@ -6,15 +6,9 @@ import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter as Router } from "react-router-dom";
 import {configureStore} from "@reduxjs/toolkit";
 import {Provider} from "react-redux";
-import userIdReducer from "./redux/userId";
 import authTokenReducer from "./redux/authTokens";
+import {store} from "./store.js";
 
-const store=configureStore({
-  reducer:{
-    userId:userIdReducer,
-    authToken:authTokenReducer
-  }
-})
 
 ReactDOM.render(
   <React.StrictMode>

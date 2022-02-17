@@ -1,11 +1,16 @@
 import { React, useEffect, useState } from "react";
 import "../../style/profile/CommonAdd.css";
 import axios from "axios";
-import { Link } from "react-router-dom";
-import { BiChevronDown, BiChevronUp, BiRightArrowCircle } from "react-icons/bi";
+import { BiChevronDown, BiChevronUp } from "react-icons/bi";
 import SingleDropDown from "../SingleDropDown";
+import { useNavigate } from "react-router-dom";
+import { useGetRequestMutation } from "../../redux/PrivateApi";
+import close from "../../assets/profile/close.png";
+import "../../style/profile/CommonAdd.css";
 
 function AddUserDetails() {
+  const navigate = useNavigate();
+  const [postRequest, responseInfo] = useGetRequestMutation();
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [city, setCity] = useState("");
@@ -26,11 +31,20 @@ function AddUserDetails() {
   ]);
   const [displayGender, setDisplayGender] = useState(false);
   const [gender, setGender] = useState("");
+  const [error, setError] = useState(null);
+  // console.log(responseInfo)
 
   useEffect(() => {
     const fetch = async () => {
       const response = await axios.get(
-        "https://countriesnow.space/api/v0.1/countries/iso"
+        "https://countriesnow.space/api/v0.1/countries/iso",
+        {
+          headers: {
+            "X-Powered-By": "Express",
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Headers": "*",
+          },
+        }
       );
       response.data.data.map((item) => {
         countryList.push(item.name);
@@ -61,7 +75,14 @@ function AddUserDetails() {
     stateList.splice(0, stateList.length);
     const response = await axios.post(
       "https://countriesnow.space/api/v0.1/countries/states",
-      data
+      data,
+      {
+        headers: {
+          "X-Powered-By": "Express",
+          "Access-Control-Allow-Origin": "*",
+          "Access-Control-Allow-Headers": "*",
+        },
+      }
     );
     response.data.data.states.map((item) => {
       stateList.push(item.name);
@@ -85,18 +106,57 @@ function AddUserDetails() {
     setDisplayCity(true);
   };
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const data = {
+      user: localStorage.getItem("userId"),
+      first_name: firstName,
+      last_name: lastName,
+      banner: null,
+      gender: gender,
+      country: countryInput,
+      state: stateInput,
+      city: city,
+      bio: null,
+    };
+    await postRequest({ data: data, url: "/profile/profile/" })
+      .unwrap()
+      .then(() => {
+        navigate("/home");
+      })
+      .catch((err) => {
+        console.log(err);
+        setError(err.data.user[0]);
+        setTimeout(() => {
+          setError(null);
+        }, 3000);
+      });
+  };
+
   return (
     <main className="popUp-container">
+      <div className={`errorMessage ${error ? "displayError" : "hideError"}`}>
+        {error && <img src={close} alt="" />}
+        {error && <h4>{error}</h4>}
+      </div>
       <h1 style={{ textAlign: "center" }}>User Details</h1>
-      <form className="add-container">
-        <input type="text" placeholder="First Name" value={firstName}
+      <form className="add-container" onSubmit={handleSubmit}>
+        <input
+          type="text"
+          placeholder="First Name"
+          value={firstName}
           onChange={(e) => {
             setFirstName(e.target.value);
-          }}/>
-        <input type="text" placeholder="Last Name" value={lastName}
+          }}
+        />
+        <input
+          type="text"
+          placeholder="Last Name"
+          value={lastName}
           onChange={(e) => {
             setLastName(e.target.value);
-          }}/>
+          }}
+        />
 
         <div className="DownSingle-contianer">
           <div
@@ -124,6 +184,7 @@ function AddUserDetails() {
             setInput={setGender}
             displayOptions={displayGender}
             setDisplayOptions={setDisplayGender}
+            anyfuntion={() => {}}
           />
         </div>
         <div className="DownSingle-contianer">
@@ -172,7 +233,7 @@ function AddUserDetails() {
               />
               {displayStateList && (
                 <SingleDropDown
-                  top={"23.8rem"}
+                  top={"20.3rem"}
                   arr={stateList}
                   setInput={setStateInput}
                   anyfuntion={handleStateClick}
@@ -184,19 +245,20 @@ function AddUserDetails() {
           </div>
         )}
         {displayCity && (
-          <input type="text" placeholder="City" autoComplete="new-password" value={city}
-          
-          onChange={(e) => {
-            setCity(e.target.value);
-          }}/>
+          <input
+            type="text"
+            placeholder="City"
+            autoComplete="new-password"
+            value={city}
+            onChange={(e) => {
+              setCity(e.target.value);
+            }}
+          />
         )}
         <div className="nextBtn-container nextBtnEdu nextBtnUserDetails">
-          <Link to="/home/addskills" style={{ textDecoration: "none" }}>
-            <button className="nextbtn">
-              <h4 style={{ margin: "0" }}>Next</h4>
-              <BiRightArrowCircle size={23} />
-            </button>
-          </Link>
+          <button className="nextbtn" type="submit">
+            <h4 style={{ margin: "0" }}>Next</h4>
+          </button>
         </div>
       </form>
     </main>

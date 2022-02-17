@@ -9,14 +9,10 @@ import api from "../api/UnProtectedApi";
 import close from "../assets/profile/close.png";
 import { useNavigate } from "react-router-dom";
 import jwt_decode from "jwt-decode";
-import { useSelector, useDispatch } from "react-redux";
-import { setUserId } from "../redux/userId";
-import { setAuthToken } from "../redux/authTokens";
 
 function Login() {
   const [error, setError] = useState(null);
   const navigate = useNavigate();
-  const dispatch = useDispatch();
 
   const validate = yup.object({
     email: yup
@@ -39,8 +35,7 @@ function Login() {
       const response = await api.post("api/token/", data);
       localStorage.setItem("access", response.data.access);
       localStorage.setItem("refresh", response.data.refresh);
-      dispatch(setUserId(jwt_decode(response.data.access).user_id));
-      dispatch(setAuthToken(response.data));
+      localStorage.setItem("userId",jwt_decode(response.data.access).user_id);
       navigate("/home");
     } catch (err) {
       console.log(err.response);

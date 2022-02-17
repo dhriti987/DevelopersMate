@@ -16,31 +16,40 @@ import PostDetailPopUp from "./components/home/PostDetailPopUp";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import { setAuthToken } from "./redux/authTokens";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 function App() {
+  const navigate = useNavigate();
   const authToken = useSelector((state) => state.authToken.value);
   const dispatch = useDispatch();
+  dispatch(setAuthToken(localStorage.getItem("access") ? localStorage.getItem("access") : null));
   useEffect(() => {
     const interval = setInterval(() => {
       const updateToken = async () => {
         if (authToken) {
-          const response = await axios.post(
-            "http://127.0.0.1:8000/api/token/refresh/",
-            {
-              refresh: localStorage.getItem("refresh"),
-            }
-          );
-          dispatch(setAuthToken(response.data));
-          localStorage.setItem("access", response.data.access);
-          console.log(authToken)
+          try {
+            const response = await axios.post(
+              "http://127.0.0.1:8000/api/token/refresh/",
+              {
+                refresh: localStorage.getItem("refresh"),
+              }
+            );
+            dispatch(setAuthToken(response.data));
+            // console.log(response.data)
+            localStorage.setItem("access", response.data.access);
+          } catch (err) {
+            dispatch(setAuthToken(null));
+            localStorage.clear();
+            navigate("/login");
+          }
         }
       };
       updateToken();
     }, 2000);
     return () => clearInterval(interval);
   }, [authToken]);
-
+  
   return (
     <div className="App">
       <Routes>
@@ -48,7 +57,6 @@ function App() {
         <Route exact path="/signup" element={<SignUp />} />
         <Route exact path="/" element={<PrivateRoute />}>
           <Route path="/profile" element={<Profile />}>
-            <Route exact path="adduserdetails" element={<AddUserDetails />} />
             <Route exact path="addskills" element={<AddSkills />} />
             <Route exact path="addexperience" element={<AddExperience />} />
             <Route exact path="addeducation" element={<AddEducation />} />
@@ -63,6 +71,7 @@ function App() {
             <Route exact path="editintro" element={<AddInto />} />
           </Route>
           <Route path="/home" element={<Home />}>
+            <Route exact path="adduserdetails" element={<AddUserDetails />} />
             <Route exact path="postdetailpopup" element={<PostDetailPopUp />} />
           </Route>
         </Route>

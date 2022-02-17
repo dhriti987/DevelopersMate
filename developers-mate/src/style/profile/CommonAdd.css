@@ -86,7 +86,7 @@
 
 .nextBtnEdu{
     width: 33rem;
-    margin: auto;
+    /* margin: auto; */
     justify-content: flex-end;
 }
 
@@ -126,7 +126,7 @@
     margin-top: 0.5rem;
     font-weight: 400;
 }
-.loginsignupPage .errorMessage{
+.errorMessage{
     position: absolute;
     top: 1rem;
     padding: 1rem;
@@ -139,13 +139,13 @@
     gap: 0.5rem;
     transition: opacity 0.5s ;
 }
-.loginsignupPage .displayError{
+.displayError{
     opacity: 1;
 }
-.loginsignupPage .hideError{
+.hideError{
     opacity: 0;
 }
 
-.loginsignupPage .errorMessage h4{
+ .errorMessage h4{
     color: #282828;
 }
