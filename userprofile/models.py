@@ -1,5 +1,3 @@
-from distutils.command.upload import upload
-from email.policy import default
 import os
 from django.db import models
 from django.dispatch import receiver
@@ -86,4 +84,4 @@ def auto_delete_image_on_change(sender,instance,*args,**kwargs):
             if os.path.isfile(old_file.path):
                 os.remove(old_file.path)
     except:
-        return
+        return False

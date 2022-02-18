@@ -1,12 +1,11 @@
-from functools import partial
 from rest_framework.response import Response
 from rest_framework import generics,status
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.authentication import TokenAuthentication
-from userprofile.models import Profile, Skill
+from userprofile.models import Education, Profile, Skill
 
-from userprofile.serializers import ProfileSerializer, SkillSerializer
+from userprofile.serializers import EducationSerializer, ProfileSerializer, SkillSerializer
 
 # Create your views here.
 
@@ -54,3 +53,94 @@ class ProfileView(generics.GenericAPIView):
         serializer_obj.is_valid(raise_exception=True)
         serializer_obj.save()
         return Response(serializer_obj.data,status=status.HTTP_201_CREATED)
+
+class EducationView(generics.GenericAPIView):
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated]
+    serializer_class = EducationSerializer
+
+    def get_queryset(self):
+        return Education.objects.filter(user_profile = Profile.objects.get(user = self.request.user)) 
+
+    def get(self,request):
+        query = self.get_queryset()
+        serialized_data = self.serializer_class(query,many=True)
+        return Response(serialized_data.data,status=status.HTTP_200_OK)
+    
+    def post(self,request):
+        serialized_data = self.serializer_class(data=request.data)
+        serialized_data.is_valid(raise_exception=True)
+        serialized_data.save()
+        return Response(serialized_data.data,status=status.HTTP_201_CREATED)
+
+class EducationRetriveUpdateDeleteAPIView(generics.GenericAPIView):
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated]
+    serializer_class = EducationSerializer
+
+    def get_queryset(self,pk):
+        try:
+            return Education.objects.get(pk=pk)
+        except Education.DoesNotExist:
+            return None
+
+
+    def get(self,request,pk):
+        query = self.get_queryset(pk)
+        if not query:
+            return Response({'status':'failed'},status=status.HTTP_404_NOT_FOUND)
+        serialized_data = self.serializer_class(query)
+        return Response(serialized_data.data,status=status.HTTP_200_OK)
+    
+    def put(self,request,pk):
+        query = self.get_queryset(pk)
+        if not query:
+            return Response({'status':'failed'},status=status.HTTP_404_NOT_FOUND)
+        serializer_obj = self.serializer_class(instance=query,data=request.data)
+        serializer_obj.is_valid(raise_exception=True)
+        serializer_obj.save()
+        return Response(serializer_obj.data,status = status.HTTP_200_OK)
+    
+    def delete(self,request,pk):
+        query = self.get_queryset(pk)
+        if not query:
+            return Response({'status':'failed'},status=status.HTTP_404_NOT_FOUND)
+        query.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+class SkillAPIView(generics.GenericAPIView):
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated]
+    serializer_class = SkillSerializer
+
+    def get_queryset(self):
+        return Skill.objects.filter(user_profile = Profile.objects.get(user = self.request.user))
+    
+    def get(self,request):
+        query = self.get_queryset()
+        serialized_data = self.serializer_class(query,many=True)
+        return Response(serialized_data.data,status=status.HTTP_200_OK)
+    
+    def post(self,request):
+        try:
+            user = Profile.objects.get(user = request.user)
+            print(request.data.get('skill'))
+            skill , _ = Skill.objects.get_or_create(skill=request.data.get('skill'))
+            skill.save()
+            user.skills.add(skill)
+            user.save()
+        except:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+        return Response(self.serializer_class(skill).data,status=status.HTTP_200_OK)
+
+
+class SkillDeleteAPIView(generics.GenericAPIView):
+    def delete(self,request,pk):
+        try:
+            user = Profile.objects.get(user = request.user)
+            skill = Skill.objects.get(pk=pk)
+            user.skills.remove(skill)
+            user.save()
+        except:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+        return Response(status=status.HTTP_200_OK)

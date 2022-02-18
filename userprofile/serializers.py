@@ -14,9 +14,9 @@ class EducationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Education
         fields = "__all__"
-        extra_kwargs = {
-            'user_profile': {'write_only': True},
-        }
+        # extra_kwargs = {
+        #     'user_profile': {'write_only': True},
+        # }
 
 class LinkSerializer(serializers.ModelSerializer):
     class Meta:
