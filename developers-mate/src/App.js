@@ -46,7 +46,7 @@ function App() {
         }
       };
       updateToken();
-    }, 2000);
+    }, 180000);
     return () => clearInterval(interval);
   }, [authToken]);
   
