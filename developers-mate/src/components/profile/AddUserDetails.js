@@ -4,13 +4,16 @@ import axios from "axios";
 import { BiChevronDown, BiChevronUp } from "react-icons/bi";
 import SingleDropDown from "../SingleDropDown";
 import { useNavigate } from "react-router-dom";
-import { useGetRequestMutation } from "../../redux/PrivateApi";
+import { usePostRequestMutation } from "../../redux/PrivateApi";
 import close from "../../assets/profile/close.png";
 import "../../style/profile/CommonAdd.css";
 
+
 function AddUserDetails() {
+
   const navigate = useNavigate();
-  const [postRequest, responseInfo] = useGetRequestMutation();
+  const [postRequest, responseInfo] = usePostRequestMutation();
+  // let fs = require('fs');
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [city, setCity] = useState("");
@@ -112,13 +115,13 @@ function AddUserDetails() {
       user: localStorage.getItem("userId"),
       first_name: firstName,
       last_name: lastName,
-      banner: null,
       gender: gender,
       country: countryInput,
       state: stateInput,
       city: city,
       bio: null,
     };
+
     await postRequest({ data: data, url: "/profile/profile/" })
       .unwrap()
       .then(() => {

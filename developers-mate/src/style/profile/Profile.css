@@ -81,6 +81,29 @@ h5,h6 {
   opacity: 0;
   cursor: pointer;
 }
+.profile-page .profileDetails .profileImage .addProfilePicBtn {
+  border-radius: 50%;
+    height: 11rem;
+    width: 11rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-left: 1rem;
+    margin-top: -8rem;
+    background-color: aliceblue;
+    position: relative;
+ 
+}
+.profile-page .profileDetails .profileImage .addProfilePicBtn input{
+  opacity: 0;
+  border-radius: 50%;
+  height: 11rem;
+  width: 11rem;
+  position: absolute;
+  cursor: pointer;
+ 
+}
 .profile-page .profileDetails .profileImage img {
   width: 11rem;
   height: 11rem;
