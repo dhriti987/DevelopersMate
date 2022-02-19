@@ -3,9 +3,9 @@ from rest_framework import generics,status
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.authentication import TokenAuthentication
-from userprofile.models import Education, Profile, Skill
+from userprofile.models import Education, Experience, Link, Profile, Project, Skill
 
-from userprofile.serializers import EducationSerializer, ProfileSerializer, SkillSerializer
+from userprofile.serializers import EducationSerializer, ExperienceSerializer, LinkSerializer, ProfileSerializer, ProjectSerializer, SkillSerializer
 
 # Create your views here.
 
@@ -144,3 +144,78 @@ class SkillDeleteAPIView(generics.GenericAPIView):
         except:
             return Response(status=status.HTTP_400_BAD_REQUEST)
         return Response(status=status.HTTP_200_OK)
+
+class LinkAPIView(generics.GenericAPIView):
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated]
+    serializer_class = LinkSerializer
+
+    def get_queryset(self):
+        return Link.objects.filter(user_profile = Profile.objects.get(user = self.request.user))
+
+    def get(self,request):
+        query = self.get_queryset()
+        serialized_data = self.serializer_class(query,many=True)
+        return Response(serialized_data.data,status=status.HTTP_200_OK)
+    
+    def post(self,request):
+        serialized_data = self.serializer_class(data=request.data)
+        serialized_data.is_valid(raise_exception=True)
+        serialized_data.save()
+        return Response(serialized_data.data,status=status.HTTP_201_CREATED)
+
+class LinkRetriveUpdateDeleteAPIView(generics.RetrieveUpdateDestroyAPIView):
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated]
+    serializer_class = LinkSerializer
+    queryset = Link.objects.all()
+
+class ProjectAPIView(generics.GenericAPIView):
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated]
+    serializer_class = ProjectSerializer
+
+    def get_queryset(self):
+        return Project.objects.filter(user_profile = Profile.objects.get(user = self.request.user))
+
+    def get(self,request):
+        query = self.get_queryset()
+        serialized_data = self.serializer_class(query,many=True)
+        return Response(serialized_data.data,status=status.HTTP_200_OK)
+    
+    def post(self,request):
+        serialized_data = self.serializer_class(data=request.data)
+        serialized_data.is_valid(raise_exception=True)
+        serialized_data.save()
+        return Response(serialized_data.data,status=status.HTTP_201_CREATED)
+
+class ProjectRetriveUpdateDeleteAPIView(generics.RetrieveUpdateDestroyAPIView):
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated]
+    serializer_class = ProjectSerializer
+    queryset = Project.objects.all()
+    
+class ExperienceAPIView(generics.GenericAPIView):
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated]
+    serializer_class = ExperienceSerializer
+
+    def get_queryset(self):
+        return Experience.objects.filter(user_profile = Profile.objects.get(user = self.request.user))
+
+    def get(self,request):
+        query = self.get_queryset()
+        serialized_data = self.serializer_class(query,many=True)
+        return Response(serialized_data.data,status=status.HTTP_200_OK)
+    
+    def post(self,request):
+        serialized_data = self.serializer_class(data=request.data)
+        serialized_data.is_valid(raise_exception=True)
+        serialized_data.save()
+        return Response(serialized_data.data,status=status.HTTP_201_CREATED)
+
+class ExperienceRetriveUpdateDeleteAPIView(generics.RetrieveUpdateDestroyAPIView):
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated]
+    serializer_class = ExperienceSerializer
+    queryset = Experience.objects.all()
