@@ -1,3 +1,5 @@
+from rest_framework.decorators import api_view
+from .utils import get_favicon_url
 from rest_framework.response import Response
 from rest_framework import generics,status
 from rest_framework_simplejwt.authentication import JWTAuthentication
@@ -219,3 +221,17 @@ class ExperienceRetriveUpdateDeleteAPIView(generics.RetrieveUpdateDestroyAPIView
     permission_classes = [IsAuthenticated]
     serializer_class = ExperienceSerializer
     queryset = Experience.objects.all()
+
+@api_view()
+def get_favicon(request):
+    url = request.GET.get('url')
+    print(url)
+    if url:
+        try:
+            icon_url = get_favicon_url(url)
+            print(icon_url)
+            return Response({"icon":icon_url})
+        except Exception as err:
+            return Response({"message":str(err)},status=status.HTTP_404_NOT_FOUND)
+    else:
+        return Response({"message":"Required Parameter url"},status=status.HTTP_400_BAD_REQUEST)

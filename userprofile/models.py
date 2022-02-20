@@ -16,6 +16,7 @@ class Profile(models.Model):
     user = models.OneToOneField(to=User,on_delete=models.CASCADE,primary_key=True)
     first_name = models.CharField(max_length=30)
     last_name = models.CharField(max_length=30)
+    headline = models.CharField(max_length=200,null=True)
     image = models.ImageField(upload_to = create_path_images,default = "/user/default.jpg")
     banner = models.ImageField(upload_to = create_path_banner_image, null=True)
     gender = models.CharField(max_length=8)

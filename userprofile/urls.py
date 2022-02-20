@@ -11,7 +11,8 @@ from userprofile.views import (
     ProjectAPIView,
     ProjectRetriveUpdateDeleteAPIView, 
     SkillAPIView, 
-    SkillDeleteAPIView
+    SkillDeleteAPIView,
+    get_favicon
     )
 urlpatterns = [
     # path('skill/',SkillView.as_view(), name = 'skill'),
@@ -26,4 +27,5 @@ urlpatterns = [
     path('project/<int:pk>',ProjectRetriveUpdateDeleteAPIView.as_view(),name = "Project-details"),
     path('experience/',ExperienceAPIView.as_view(),name = 'Experience'),
     path('experience/<int:pk>',ExperienceRetriveUpdateDeleteAPIView.as_view(),name = 'Experience-details'),
+    path('icon/',get_favicon,name='Icon'),
 ]
