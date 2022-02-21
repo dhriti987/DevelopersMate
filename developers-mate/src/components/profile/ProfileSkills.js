@@ -1,10 +1,26 @@
-import React from "react";
+import React, { useState } from "react";
 import { MdDelete } from "react-icons/md";
 import { IoMdAdd } from "react-icons/io";
-import { AiOutlineDown } from "react-icons/ai";
-import {Link} from "react-router-dom";
+import { AiOutlineDown, AiOutlineUp } from "react-icons/ai";
+import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+import {
+  usePostRequestMutation,
+  useDeleteRequestMutation,
+} from "../../redux/PrivateApi";
 
 function ProfileSkills() {
+  const userDetails = useSelector((state) => state.userDetails.value);
+  const [deleteSkill, responseInfo] = useDeleteRequestMutation();
+  const [isGreaterThanThree, setIsGreaterThanThree] = useState(false);
+
+  const handleDelete = async (id) => {
+    deleteSkill(`profile/skill/${id}`)
+      .unwrap()
+      .then((payload) => {
+        console.log(payload);
+      });
+  };
   return (
     <div className="skillsContainer commonBox">
       <div className="head">
@@ -20,38 +36,49 @@ function ProfileSkills() {
           </Link>
         </div>
       </div>
-      <div className="skills">
-        <div className="skill">
-          <h3>React</h3>
-          <MdDelete
-            color="white"
-            size={28}
-            style={{ cursor: "pointer" }}
-            className="icon"
-          />
-        </div>
-        <div className="skill">
-          <h3>JavasScript</h3>
-          <MdDelete
-            color="white"
-            size={28}
-            style={{ cursor: "pointer" }}
-            className="icon"
-          />
-        </div>
-        <div className="skill">
-          <h3>Python</h3>
-          <MdDelete
-            color="white"
-            size={28}
-            style={{ cursor: "pointer" }}
-            className="icon"
-          />
-        </div>
+      <div
+        className={`skills ${isGreaterThanThree ? "showSkills" : "hideSkills"}`}
+      >
+        {userDetails &&
+          userDetails.skills.map((item, idx) => {
+            return (
+              <div className="skill" key={`skills${idx}`}>
+                <h3>{item.skill}</h3>
+                <MdDelete
+                  color="white"
+                  size={28}
+                  style={{ cursor: "pointer" }}
+                  className="icon"
+                  onClick={() => handleDelete(item.id)}
+                />
+              </div>
+            );
+          })}
       </div>
-      <div className="showMoreArrow">
-        <AiOutlineDown style={{ cursor: "pointer" }} color="white" size={25} />
-      </div>
+      {userDetails && userDetails.skills.length > 3 && (
+        <div className="showMoreArrow">
+          {isGreaterThanThree ? (
+            <AiOutlineUp
+              style={{ cursor: "pointer" }}
+              color="white"
+              size={25}
+              onClick={() => {
+                setIsGreaterThanThree(isGreaterThanThree ? false : true);
+              }}
+            />
+          ) : (
+            <AiOutlineDown
+              style={{ cursor: "pointer" }}
+              color="white"
+              size={25}
+              onClick={() => {
+                setIsGreaterThanThree(isGreaterThanThree ? false : true);
+              }}
+            />
+          )}
+          
+        </div>
+      )}
     </div>
   );
 }

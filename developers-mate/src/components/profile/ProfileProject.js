@@ -3,8 +3,12 @@ import { BiEdit } from "react-icons/bi";
 import { IoMdAdd } from "react-icons/io";
 import { MdDelete } from "react-icons/md";
 import { Link } from "react-router-dom";
+import {useSelector} from "react-redux";
 
 function ProfileProject() {
+
+  const userDetails = useSelector((state)=>state.userDetails.value);
+  console.log(userDetails)
   return (
     <div className="projectContainer commonBox">
       <div className="head">
@@ -21,6 +25,9 @@ function ProfileProject() {
         </div>
       </div>
       <div className="projects">
+        {/* {userDetails && 
+          userDetails.
+        } */}
         <div className="project">
           <div className="projectHead">
             <h3>Quiz Portal</h3>

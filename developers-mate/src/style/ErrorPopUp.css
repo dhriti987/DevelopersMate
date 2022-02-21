@@ -1,0 +1,29 @@
+.errorPopUpContainer{
+    position: fixed;
+    background-color: aliceblue;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    justify-content: center;
+    align-items: center;
+    border-radius: 0.5rem;
+    top: 1rem;
+    transition: 0.5s opacity;
+}
+.errorPopUpContainer h3{
+    color: black;
+    width: 70%;
+    text-align: center;
+}
+.errorPopUpContainer img{
+    width: 2rem;
+    height: 2rem;
+}
+.hide{
+    opacity: 0;
+    z-index: -101;
+}
+.show{
+    opacity: 1;
+    z-index: 101;
+}

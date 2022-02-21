@@ -4,9 +4,7 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter as Router } from "react-router-dom";
-import {configureStore} from "@reduxjs/toolkit";
 import {Provider} from "react-redux";
-import authTokenReducer from "./redux/authTokens";
 import {store} from "./store.js";
 
 

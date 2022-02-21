@@ -1,10 +1,18 @@
-import React from 'react'
+import {React,useEffect, useState} from 'react'
 import "../../style/home/AddPost.css";
 import { BiPencil } from 'react-icons/bi';
-import profile from "../../assets/profile/profile.svg";
-
+import {useGetRequestMutation} from "../../redux/PrivateApi";
 
 function AddPost() {
+  const [getUserDetails,responseInfo] = useGetRequestMutation();
+  const [userProfilePic,setUserProfilePic]=useState(null);
+  useEffect(async()=>{
+    await getUserDetails("profile/profile/")
+    .unwrap()
+    .then((payload)=>{
+      setUserProfilePic(payload.image)
+    })
+   },[])
   return (
     <div className='addPost'>
         <div className="head">
@@ -12,7 +20,7 @@ function AddPost() {
             <h3 style={{marginTop:"0.5rem",fontWeight:"500",color:"rgba(16, 202, 0, 0.7)"}}>Create Post</h3>
         </div>
         <div className="createPostBtn">
-            <img src={profile} alt="" />
+            <img src={`http://127.0.0.1:8000${userProfilePic}`} alt="" />
             <button><h3 style={{fontWeight:"300",}}>Create Post...</h3></button>
         </div>
     </div>

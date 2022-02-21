@@ -1,48 +1,40 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { MdInsertPhoto } from "react-icons/md";
-import profilePic from "../../assets/profile/profile.svg";
-import bannerBg from "../../assets/profile/bannerBg.jpg";
 import { BiEdit } from "react-icons/bi";
 import { Link } from "react-router-dom";
-import axios from "axios";
 import { useGetRequestMutation } from "../../redux/PrivateApi";
-
+import { useSelector,useDispatch } from "react-redux";
+import { setUserDetails } from "../../redux/UserDetails";
+import api from "../../api/ImageApi";
 
 function ProfileDetails() {
   let formData = new FormData();
+  const userDetails = useSelector((state)=>state.userDetails.value)
+  const dispatch = useDispatch();
   const [profileDetails, responseInfo] = useGetRequestMutation();
-  useEffect(() => {
-    profileDetails("profile/profile/");
-  }, []);
-  console.log(
-    responseInfo.status === "fulfilled" ? responseInfo.data.banner : ""
-  );
+  const [loading,setLoading]=useState(true);
+  
   const handleChange = async (e) => {
     formData.append("user", localStorage.getItem("userId"));
     formData.append(`${e.target.name}`, e.target.files[0]);
-
+    const x=e.target.name;
     try {
-      const response = await axios.patch(
-        "http://127.0.0.1:8000/profile/profile/",
+      const response = await api.patch(
+        "profile/profile/",
         formData,
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("access")}`,
-          },
-        }
       );
-      console.log(response);
+      setLoading(loading ? false : true)
+      dispatch(setUserDetails(response.data))
     } catch (err) {
       console.log(err.response);
     }
   };
-
   return (
     <div className="profileDetails">
       <div className="banner">
-        {responseInfo.status === "fulfilled" && responseInfo.data["banner"] ? (
+        {userDetails && userDetails.banner ? (
           <img
-            src={`http://127.0.0.1:8000${responseInfo.data.banner}`}
+            src={`http://127.0.0.1:8000${userDetails.banner}`}
             alt=""
           />
         ) : (
@@ -62,9 +54,9 @@ function ProfileDetails() {
          )}
       </div>
       <div className="profileImage">
-        {/* {responseInfo.status === "fulfilled" && responseInfo.data["image"] ? 
-           <img src={`http://127.0.0.1:8000${responseInfo.data.image}`} alt="" />  
-           :  */}
+        {userDetails && userDetails.image!== "/media/user/default.jpg" ? 
+           <img src={`http://127.0.0.1:8000${userDetails.image}`} alt="" />  
+           : 
 
         <button className="addProfilePicBtn">
           <MdInsertPhoto size={24} />
@@ -78,16 +70,19 @@ function ProfileDetails() {
             }}
           />
         </button>
-        {/* } */}
+       } 
       </div>
       <Link to="/profile/editintro" style={{ textDecoration: "none" }}>
         <BiEdit color="white" className="editbtn icon" size={24} />
       </Link>
       <div className="userProfileDetails">
-        <h2>Nitin Rajesh</h2>
+        <h2>{userDetails && `${userDetails.first_name} ${userDetails.last_name}`}</h2>
         <h4 style={{ fontWeight: "500" }}>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto
-          inventore iure maiores totam, illo optio nostrum blandi
+          {
+            userDetails && 
+            userDetails.headline
+          }
+         
         </h4>
       </div>
     </div>

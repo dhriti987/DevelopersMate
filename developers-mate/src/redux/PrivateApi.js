@@ -21,7 +21,6 @@ export const fetchData = createApi({
     postRequest: builder.mutation({
       query: (val) => {
         const {data,url}=val;
-        console.log(data)
         return {
           url: `${url}`,
           method: "POST",
@@ -65,4 +64,4 @@ export const fetchData = createApi({
 
   }),
 });
-export const { useGetRequestMutation,usePostRequestMutation } = fetchData;
+export const { useGetRequestMutation,usePostRequestMutation,usePatchRequestMutation,useDeleteRequestMutation } = fetchData;

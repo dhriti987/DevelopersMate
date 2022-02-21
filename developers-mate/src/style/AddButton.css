@@ -1,0 +1,18 @@
+.addBtn{
+    display: flex;
+    padding: 0.5rem;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    border-radius: 0.5rem;
+    outline: none;
+    border: none;
+    cursor: pointer;
+    margin: auto;
+    background-color: bisque;
+}
+.addBtn h2{
+    margin: 0;
+    margin-top: 0.24rem;
+    color: black;
+}

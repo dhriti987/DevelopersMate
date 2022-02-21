@@ -10,6 +10,8 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding-bottom: 0.5rem;
+    overflow: auto;
 }
 .popUp-container h1{
     margin-top: 2.9rem;

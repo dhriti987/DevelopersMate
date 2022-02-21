@@ -1,18 +1,39 @@
-import React from 'react'
-import bannerBg from "../../assets/home/banner.jpg";
-import profile from "../../assets/profile/profile.svg";
+import {React,useEffect,useState} from 'react'
+import blackBanner from "../../assets/home/blackBanner.jpg";
 import "../../style/home/Banner.css";
+import {useGetRequestMutation} from "../../redux/PrivateApi";
 
 function Banner() {
+  const [getUserDetails,responseInfo] = useGetRequestMutation();
+  const [userDetails,setUserDetails] = useState({
+    firstName:'',
+    lastName:'',
+    image:null,
+    banner:null
+  });
+  useEffect(async()=>{
+     await getUserDetails("profile/profile/")
+    .unwrap()
+    .then((payload)=>{
+      setUserDetails({
+        firstName:payload.first_name,
+        lastName:payload.last_name,
+        image:payload.image,
+        banner:payload.banner
+      })
+     
+    })
+    
+  },[])
   return (
     <div className="banner">
-            <img src={bannerBg} alt="" />
+            <img src={userDetails.banner ? `http://127.0.0.1:8000${userDetails.banner}` : blackBanner} alt="" />
             <div className="profileDetails">
               <div className="profileImg">
-                <img src={profile} alt="" />
+                <img src={`http://127.0.0.1:8000${userDetails.image}`} alt="" />
               </div>
               <div className="profileText">
-                <h3 style={{ fontWeight: "600" }}>Nitin Rajesh</h3>
+                <h3 style={{ fontWeight: "600" }}>{userDetails.firstName} {userDetails.lastName}</h3>
                 <h5
                   style={{
                     fontWeight: "300",

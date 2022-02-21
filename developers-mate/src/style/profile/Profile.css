@@ -128,12 +128,22 @@ h5,h6 {
 }
 .profile-page .bioSection {
   padding: 1rem;
+  padding-top: 0;
 }
 .profile-page .bioSection h4 {
   line-height: 1.5rem;
   font-weight: 400;
 }
 
+
+.profile-page .skillsContainer .hideSkills {
+  height: 14rem;
+  overflow-y: hidden;
+}
+.profile-page .skillsContainer .showSkills {
+  max-height: 100rem;
+  /* transition:max-height 1s ease-in; */
+}
 .profile-page .skillsContainer .skills .skill {
   display: flex;
   justify-content: space-between;

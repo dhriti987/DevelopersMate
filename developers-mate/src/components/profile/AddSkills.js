@@ -7,14 +7,22 @@ import { BiRightArrowCircle } from "react-icons/bi";
 import { Link } from "react-router-dom";
 import { ImCross } from "react-icons/im";
 import SingleDropDown from "../SingleDropDown";
+import { useSelector,useDispatch } from "react-redux";
+import {usePostRequestMutation} from "../../redux/PrivateApi";
+import {setUserDetails} from "../../redux/UserDetails";
+import ErrorPopUp from "../ErrorPopUp";
 
 function AddSkills() {
+  const userDetails = useSelector((state)=>state.userDetails.value);
+  const dispatch = useDispatch();
   const [searchInput, setSearchInput] = useState("");
   const [displayOptions, setDisplayOptions] = useState(false);
   const [dummySkillsArray, setDummySkillsArray] = useState(skillsArray);
   const [selectedSkillsArr, setSelectedSkillsArr] = useState([]);
   const isProfile=window.location.href.includes("profile");
   const [input,setInput]=useState('');
+  const [addSkills,responseInfo] = usePostRequestMutation();
+  const [showError,setShowError] = useState(false);
 
   useEffect(() => {
     const newArray = skillsArray.filter((item) =>
@@ -23,29 +31,61 @@ function AddSkills() {
     setDummySkillsArray(newArray);
   }, [searchInput]);
 
-  const handleOptionsAdd = (e,item) => {
+  const checkAlreadyPresent=(val)=>{
+    for(let i=0;i<userDetails.skills.length;i++){
+      if(userDetails.skills[i].skill.toLowerCase() === val.toLowerCase()) return true;
+    }
+    return false;
+  }
+
+  const handleOptionsAdd = (e) => {
     if (e === null) {
+      if(checkAlreadyPresent(searchInput)){
+        setShowError(true) 
+        setTimeout(()=>{
+          setShowError(false)
+        },3000)
+        return
+      }
       setSelectedSkillsArr([...selectedSkillsArr, searchInput]);
+      handleSubmit(searchInput)
+
       setSearchInput("");
     } else {
+      if(checkAlreadyPresent(e.target.textContent)){
+        setShowError(true) 
+        setTimeout(()=>{
+          setShowError(false)
+        },3000)
+        return
+      }
       setSelectedSkillsArr([...selectedSkillsArr, e.target.textContent]);
-      setDummySkillsArray(
-        dummySkillsArray.filter((item) => item !== e.target.textContent)
-      );
+      handleSubmit(e.target.textContent)
     }
     setDisplayOptions(false);
-    console.log("kke")
   };
 
-  const handleDeleteSkills = (idx) => {
-    const deleted = selectedSkillsArr[idx];
-    const newArray = [...selectedSkillsArr];
-    newArray.splice(idx, 1);
-    setSelectedSkillsArr(newArray);
-    setDummySkillsArray([...dummySkillsArray, deleted]);
-  };
+  
+
+  const handleSubmit=async(skill)=>{
+    const data={
+      skill:skill
+    }
+    // console.log(data)
+    await addSkills({data:data,url:"profile/skill/"})
+    .unwrap()
+    .then((payload)=>{
+      const x=userDetails.skills
+      dispatch(setUserDetails({
+        ...userDetails,
+        skills:[...x,payload]
+      }))
+    })
+  }
   return (
+    <>
     <main className="popUp-container">
+    <ErrorPopUp error="Oops! You have Already added this Skill." display={showError ? `show` : `hide`}/>
       {isProfile && (
         <Link to="/profile" style={{ textDecoration: "none" }}>
           <ImCross size={23} color="white" className="cancelIcon" />
@@ -97,39 +137,25 @@ function AddSkills() {
           return (
             <div className="skills" key={`addedSkills${idx}`}>
               <h4>{item}</h4>
-              <AiFillDelete
-                className="skillsDeleteIcon"
-                style={{ cursor: "pointer" }}
-                color="white"
-                size={25}
-                onClick={() => {
-                  handleDeleteSkills(idx);
-                }}
-              />
+              
             </div>
           );
         })}
       </div>
       <div className="nextBtn-container">
-        {/* <Link
-          to={
-            !window.location.href.includes("profile")
-              ? "/home/addeducation"
-              : "/profile"
-          }
-          style={{ textDecoration: "none" }}
-        > */}
-          <button className="nextbtn">
+        <Link to="/profile" style={{textDecoration:"none"}}>
+          <button className="nextbtn" onClick={handleSubmit}>
             <h4 style={{ margin: "0" }}>
-              {window.location.href.includes("profile") ? "Add" : "Next"}
+              {window.location.href.includes("profile") ? "Done" : "Next"}
             </h4>
             {!window.location.href.includes("profile") && (
               <BiRightArrowCircle size={23} />
             )}
           </button>
-        {/* </Link> */}
+        </Link>
       </div>
     </main>
+    </>
   );
 }
 

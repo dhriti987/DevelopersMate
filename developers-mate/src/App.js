@@ -46,9 +46,11 @@ function App() {
         }
       };
       updateToken();
-    }, 180000);
+    }, 600000);
     return () => clearInterval(interval);
   }, [authToken]);
+
+  
   
   return (
     <div className="App">
