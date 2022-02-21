@@ -52,6 +52,8 @@ class Project(models.Model):
     description = models.CharField(max_length=500,null = True)
     project_link = models.URLField()
     live_link = models.URLField(null=True)
+    start_date = models.CharField(max_length=20,default='')
+    end_date = models.CharField(max_length=20,default='')
 
 class Experience(models.Model):
     user_profile = models.ForeignKey(to=Profile,on_delete=models.CASCADE,related_name='experiences')
@@ -59,8 +61,8 @@ class Experience(models.Model):
     description = models.CharField(max_length=500,null = True)
     employment_type = models.CharField(max_length=50)
     company_name = models.CharField(max_length=50)
-    start_date = models.CharField(max_length=10)
-    end_date = models.CharField(max_length=10)
+    start_date = models.CharField(max_length=20)
+    end_date = models.CharField(max_length=20)
 
 @receiver(models.signals.post_delete,sender=Profile)
 def auto_delete_image_on_delete(sender,instance,*args,**kwargs):
