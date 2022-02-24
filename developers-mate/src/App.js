@@ -67,9 +67,9 @@ function App() {
             <Route exact path="addbio" element={<AddBio />} />
             <Route exact path="editbio" element={<AddBio />} />
             <Route exact path="edituserdetails" element={<AddUserDetails />} />
-            <Route exact path="editexperience" element={<AddExperience />} />
-            <Route exact path="editeducation" element={<AddEducation />} />
-            <Route exact path="editproject" element={<AddProjects />} />
+            <Route exact path="editexperience/:id" element={<AddExperience />} />
+            <Route exact path="editeducation/:id" element={<AddEducation />} />
+            <Route exact path="editproject/:id" element={<AddProjects />} />
             <Route exact path="editintro" element={<AddInto />} />
           </Route>
           <Route path="/home" element={<Home />}>

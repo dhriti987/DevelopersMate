@@ -22,6 +22,8 @@ function Profile() {
       dispatch(setUserDetails(payload));
     })
   },[])
+  
+  
   return (
     <>
       <PrivateNavbar />

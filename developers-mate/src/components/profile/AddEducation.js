@@ -10,10 +10,8 @@ import { yearsArray } from "../../data/YearsData";
 function AddEducation() {
   const [title, setTitle] = useState("");
   const [degree, setDegree] = useState("");
-  const [startYearInput, setStartYearInput] = useState("");
-  const [endYearInput, setEndYearInput] = useState("");
-  const [displayStartYear, setDisplayStartYear] = useState(false);
-  const [displayEndYear, setDisplayEndYear] = useState(false);
+  const [year, setYear] = useState(["", ""]);
+  const [display, setDisplay] = useState([false, false]);
   const isAdd = window.location.href.includes("add");
 
   return (
@@ -46,14 +44,14 @@ function AddEducation() {
             <div className="inputContainer">
               <input
                 type="text"
-                defaultValue={startYearInput}
+                defaultValue={year[0]}
                 placeholder="Start Year"
                 className="input"
                 onClick={() => {
-                  setDisplayStartYear(displayStartYear ? false : true);
+                  setDisplay(display[0] ? [false, false] : [true, false]);
                 }}
               />
-              {displayStartYear ? (
+              {display[0] ? (
                 <BsChevronUp color="white" />
               ) : (
                 <BsChevronDown color="white" />
@@ -62,14 +60,14 @@ function AddEducation() {
             <div className="inputContainer">
               <input
                 type="text"
-                defaultValue={endYearInput}
+                defaultValue={year[1]}
                 placeholder="End Year"
                 className="input"
                 onClick={() => {
-                  setDisplayEndYear(displayEndYear ? false : true);
+                  setDisplay(display[1] ? [false, false] : [false, true]);
                 }}
               />
-              {displayEndYear ? (
+              {display[1] ? (
                 <BsChevronUp color="white" />
               ) : (
                 <BsChevronDown color="white" />
@@ -80,12 +78,10 @@ function AddEducation() {
             top={"14rem"}
             arr1={yearsArray}
             arr2={yearsArray}
-            displayLeft={displayStartYear}
-            displayRight={displayEndYear}
-            setLeftInput={setStartYearInput}
-            setRightInput={setEndYearInput}
-            setDisplayLeft={setDisplayStartYear}
-            setDisplayRight={setDisplayEndYear}
+            display={display}
+            setDisplay={setDisplay}
+            input={year}
+            setInput={setYear}
           />
         </div>
         <div className="nextBtn-container nextBtnEdu">

@@ -1,29 +1,114 @@
 import axios from "axios";
-import { useState, React } from "react";
+import { useState, React, useEffect } from "react";
 import "../../style/profile/CommonAdd.css";
 import { BsChevronDown, BsChevronUp } from "react-icons/bs";
-import { Link } from "react-router-dom";
+import { Link, useParams,useNavigate } from "react-router-dom";
 import DoubleDropDown from "../DoubleDropDown";
 import { yearsArray } from "../../data/YearsData";
 import { months } from "../../data/MonthData";
 import CustomizedCheckBox from "../CustomizedCheckBox";
 import { ImCross } from "react-icons/im";
+import { useDispatch, useSelector } from "react-redux";
+import { setUserDetails } from "../../redux/UserDetails";
+import { usePostRequestMutation,usePatchRequestMutation } from "../../redux/PrivateApi";
 
 function AddProjects() {
-  const [title, setTitle] = useState("");
-  const [projectLink, setProjectLink] = useState("");
-  const [liveLink, setLiveLink] = useState("");
-  const [desciption, setDescription] = useState("");
-  const [displayDateOption, setDisplayDateOption] = useState(0);
-  const [firstInput, setFirstInput] = useState("");
-  const [secondInput, setSecondInput] = useState("");
-  const [thirdInput, setThirdInput] = useState("");
-  const [fourthInput, setFourthInput] = useState("");
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { id } = useParams();
+  const [addProject, responseAddInfo] = usePostRequestMutation();
+  const [editProject, responseEditInfo] = usePatchRequestMutation();
+  const isAdd = window.location.href.includes("add");
+  const userDetails = useSelector((state) => state.userDetails.value);
+  useEffect(() => {
+    if(userDetails === null || userDetails === undefined){
+      navigate("/profile")
+    }
+  }, []);
+  const projectDetail =
+    !isAdd &&
+    userDetails &&
+    userDetails.projects.filter((item) => item.id == id)[0];
+  const [addProjectsObj, setAddProjectsObj] = useState(
+    isAdd
+      ? {
+          title: "",
+          projectLink: "",
+          liveLink: "",
+          desciption: "",
+        }
+      :  {
+          title: projectDetail && projectDetail.project_name,
+          projectLink: projectDetail && projectDetail.project_link,
+          liveLink: projectDetail && projectDetail.live_link,
+          desciption: projectDetail && projectDetail.description,
+        }
+  );
   const [isCheckedEndDate, setIsCheckedEndDate] = useState(false);
   const [isCheckedDeployed, setIsCheckedDeployed] = useState(false);
-  const isAdd=window.location.href.includes("add");
+  const editStartData = !isAdd && (projectDetail && projectDetail.start_date.split(" "));
+  const editEndData = !isAdd && (projectDetail && projectDetail.end_date.split(" "));
+  const [startDate, setStartDate] = useState(
+    isAdd ? ["", ""] : (projectDetail && [editStartData[0], editStartData[1]])
+  );
+  const [endDate, setEndDate] = useState(
+    isAdd ? ["", ""] : (projectDetail && [editEndData[0], editEndData[1]])
+  );
+  const [display1, setDisplay1] = useState([false, false]);
+  const [display2, setDisplay2] = useState([false, false]);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const data = {
+      user_profile: localStorage.userId,
+      project_name: addProjectsObj.title,
+      description: addProjectsObj.desciption,
+      project_link: addProjectsObj.projectLink,
+      live_link: isAdd ? (isCheckedDeployed ? addProjectsObj.liveLink : null) : addProjectsObj.liveLink,
+      start_date: `${startDate[0]} ${startDate[1]}`,
+      end_date:  (!isCheckedEndDate
+        ? `${endDate[0]} ${endDate[1]}`
+        : "Present") 
+    };
+    if(isAdd){
 
+      addProject({ data: data, url: "profile/project/" })
+      .unwrap()
+      .then((payload) => {
+        const newArray = Array.from(userDetails.projects);
+          dispatch(
+            setUserDetails({
+              ...userDetails,
+              projects: [...newArray, payload],
+            })
+            );
+        });
+      }
+      else{
+      editProject({ data: data, url: `profile/project/${id}` })
+        .unwrap()
+        .then((payload) => {
+          const idx=userDetails.projects.indexOf(projectDetail)
+          // const x = userDetails.projects;
+          // console.log(x);
+          const newArray = Array.from(userDetails.projects);
+          newArray[idx]=payload;
+          dispatch(
+            setUserDetails({
+              ...userDetails,
+              projects: [...newArray],
+            })
+          );
+        });
+
+    }
+    navigate("/profile")
+  };
+ 
   return (
+    <>
+    {
+      userDetails && 
+
     <main
       className="popUp-container"
       style={{ height: "40rem", top: "0.4rem" }}
@@ -32,13 +117,16 @@ function AddProjects() {
         <ImCross size={23} color="white" className="cancelIcon" />
       </Link>
       <h1 style={{ textAlign: "center" }}>{isAdd ? "Add" : "Edit"} Project</h1>
-      <form className={`add-container`}>
+      <form className={`add-container`} onSubmit={handleSubmit}>
         <input
           type="text"
           placeholder="Title"
-          value={title}
+          value={addProjectsObj.title}
           onChange={(e) => {
-            setTitle(e.target.value);
+            setAddProjectsObj({
+              ...addProjectsObj,
+              title: e.target.value,
+            });
           }}
         />
         {/* <p style={{color:"red",margin:"0",fontSize:"0.5rem",width:"98%"}}>Enter title</p> */}
@@ -52,27 +140,29 @@ function AddProjects() {
             <div
               className="inputContainer"
               onClick={() => {
-                setDisplayDateOption(displayDateOption == 1 ? 0 : 1);
+                setDisplay1(display1[0] ? [false, false] : [true, false]);
               }}
             >
               <input
                 type="text"
                 placeholder="Start Month"
-                defaultValue={firstInput}
                 className="input"
+                value={startDate[0]}
+                onChange={()=>{}}
               />
               <BsChevronDown size={27} color="white" className="inputIcon" />
             </div>
             <div
               className="inputContainer"
               onClick={() => {
-                setDisplayDateOption(displayDateOption == 2 ? 0 : 2);
+                setDisplay1(display1[1] ? [false, false] : [false, true]);
               }}
             >
               <input
                 type="text"
                 placeholder="Start Year"
-                defaultValue={secondInput}
+                value={startDate[1]}
+                onChange={()=>{}}
                 className="input"
               />
               <BsChevronDown size={27} color="white" className="inputIcon" />
@@ -82,10 +172,10 @@ function AddProjects() {
             top={"13.5rem"}
             arr1={months}
             arr2={yearsArray}
-            displayLeft={displayDateOption == 1 ? true : false}
-            displayRight={displayDateOption == 2 ? true : false}
-            setLeftInput={setFirstInput}
-            setRightInput={setSecondInput}
+            display={display1}
+            setDisplay={setDisplay1}
+            input={startDate}
+            setInput={setStartDate}
           />
         </div>
         {/* <p style={{color:"red",margin:"0",fontSize:"0.5rem",width:"98%"}}>Enter date</p> */}
@@ -95,13 +185,14 @@ function AddProjects() {
               <div
                 className="inputContainer"
                 onClick={() => {
-                  setDisplayDateOption(displayDateOption == 3 ? 0 : 3);
+                  setDisplay2(display2[0] ? [false, false] : [true, false]);
                 }}
               >
                 <input
                   type="text"
                   placeholder="End Month"
-                  defaultValue={thirdInput}
+                  value={endDate[0]}
+                  onChange={()=>{}}
                   className="input"
                 />
                 <BsChevronDown size={27} color="white" />
@@ -109,13 +200,14 @@ function AddProjects() {
               <div
                 className="inputContainer"
                 onClick={() => {
-                  setDisplayDateOption(displayDateOption == 4 ? 0 : 4);
+                  setDisplay2(display2[1] ? [false, false] : [false, true]);
                 }}
               >
                 <input
                   type="text"
                   placeholder="End Year"
-                  defaultValue={fourthInput}
+                  value={endDate[1]}
+                  onChange={()=>{}}
                   className="input"
                 />
                 <BsChevronDown size={27} color="white" />
@@ -126,19 +218,22 @@ function AddProjects() {
               top={"16.7rem"}
               arr1={months}
               arr2={yearsArray}
-              displayLeft={displayDateOption == 3 ? true : false}
-              displayRight={displayDateOption == 4 ? true : false}
-              setLeftInput={setThirdInput}
-              setRightInput={setFourthInput}
+              display={display2}
+              setDisplay={setDisplay2}
+              input={endDate}
+              setInput={setEndDate}
             />
           </div>
         )}
         <input
           type="text"
           placeholder="Project Link"
-          value={projectLink}
+          value={addProjectsObj.projectLink}
           onChange={(e) => {
-            setProjectLink(e.target.value);
+            setAddProjectsObj({
+              ...addProjectsObj,
+              projectLink: e.target.value,
+            });
           }}
         />
         <CustomizedCheckBox
@@ -150,9 +245,12 @@ function AddProjects() {
           <input
             type="text"
             placeholder="Live Link"
-            value={liveLink}
+            value={addProjectsObj.liveLink}
             onChange={(e) => {
-              setLiveLink(e.target.value);
+              setAddProjectsObj({
+                ...addProjectsObj,
+                liveLink: e.target.value,
+              });
             }}
           />
         )}
@@ -161,18 +259,23 @@ function AddProjects() {
           id="Description"
           rows="8"
           placeholder="Description"
-          value={desciption}
+          value={addProjectsObj.desciption}
           onChange={(e) => {
-            setDescription(e.target.value);
+            setAddProjectsObj({
+              ...addProjectsObj,
+              desciption: e.target.value,
+            });
           }}
         ></textarea>
-      <div className="nextBtn-container nextBtnEdu">
-          <button className="nextbtn">
+        <div className="nextBtn-container nextBtnEdu">
+          <button className="nextbtn" type="submit">
             <h4 style={{ margin: "0" }}>{isAdd ? "Add" : "Edit"}</h4>
           </button>
-      </div>
+        </div>
       </form>
     </main>
+    }
+    </>
   );
 }
 

@@ -16,24 +16,29 @@ function AddExperience() {
   const [title, setTitle] = useState("");
   const [company, setCompany] = useState("");
   const [employmentInput, setEmploymentInput] = useState("");
-  const [displayDateOption, setDisplayDateOption] = useState(0);
   const [isChecked, setIsChecked] = useState(false);
-  const [firstInput, setFirstInput] = useState("");
-  const [secondInput, setSecondInput] = useState("");
-  const [thirdInput, setThirdInput] = useState("");
-  const [fourthInput, setFourthInput] = useState("");
-  const isAdd=window.location.href.includes("add"); 
+  const isAdd = window.location.href.includes("add");
+  const [startDate, setStartDate] = useState(["", ""]);
+  const [endDate, setEndDate] = useState(["", ""]);
+  const [display1, setDisplay1] = useState([false, false]);
+  const [display2, setDisplay2] = useState([false, false]);
+
+  const handleSubmit=async()=>{
+
+  }
 
   return (
     <main className="popUp-container">
       <Link to="/profile" style={{ textDecoration: "none" }}>
         <ImCross size={23} color="white" className="cancelIcon" />
       </Link>
-      <h1 style={{ textAlign: "center" }}>{isAdd ? "Add" : "Edit"} Experience</h1>
+      <h1 style={{ textAlign: "center" }}>
+        {isAdd ? "Add" : "Edit"} Experience
+      </h1>
 
       {/* <BsInfoCircle color='white'/> */}
 
-      <form className="add-container">
+      <form className="add-container" onSubmit={handleSubmit}>
         <input
           type="text"
           className="Input"
@@ -90,13 +95,13 @@ function AddExperience() {
             <div
               className="inputContainer"
               onClick={() => {
-                setDisplayDateOption(displayDateOption == 1 ? 0 : 1);
+                setDisplay1(display1[0] ? [false, false] : [true, false]);
               }}
             >
               <input
                 type="text"
                 placeholder="Start Month"
-                defaultValue={firstInput}
+                defaultValue={startDate[0]}
                 className="input"
               />
               <BiChevronDown size={27} color="white" className="inputIcon" />
@@ -104,13 +109,13 @@ function AddExperience() {
             <div
               className="inputContainer"
               onClick={() => {
-                setDisplayDateOption(displayDateOption == 2 ? 0 : 2);
+                setDisplay1(display1[1] ? [false, false] : [false, true]);
               }}
             >
               <input
                 type="text"
                 placeholder="Start Year"
-                defaultValue={secondInput}
+                defaultValue={startDate[1]}
                 className="input"
               />
               <BiChevronDown size={27} color="white" className="inputIcon" />
@@ -119,10 +124,10 @@ function AddExperience() {
           <DoubleDropDown
             arr1={months}
             arr2={yearsArray}
-            displayLeft={displayDateOption == 1 ? true : false}
-            displayRight={displayDateOption == 2 ? true : false}
-            setLeftInput={setFirstInput}
-            setRightInput={setSecondInput}
+            display={display1}
+            setDisplay={setDisplay1}
+            input={startDate}
+            setInput={setStartDate}
           />
         </div>
 
@@ -132,13 +137,13 @@ function AddExperience() {
               <div
                 className="inputContainer"
                 onClick={() => {
-                  setDisplayDateOption(displayDateOption == 3 ? 0 : 3);
+                  setDisplay2(display2[0] ? [false, false] : [true, false]);
                 }}
               >
                 <input
                   type="text"
                   placeholder="End Month"
-                  defaultValue={thirdInput}
+                  defaultValue={endDate[0]}
                   className="input"
                 />
                 <BiChevronDown size={27} color="white" />
@@ -146,13 +151,13 @@ function AddExperience() {
               <div
                 className="inputContainer"
                 onClick={() => {
-                  setDisplayDateOption(displayDateOption == 4 ? 0 : 4);
+                  setDisplay2(display2[1] ? [false, false] : [false, true]);
                 }}
               >
                 <input
                   type="text"
                   placeholder="End Year"
-                  defaultValue={fourthInput}
+                  defaultValue={endDate[1]}
                   className="input"
                 />
                 <BiChevronDown size={27} color="white" />
@@ -162,17 +167,17 @@ function AddExperience() {
             <DoubleDropDown
               arr1={months}
               arr2={yearsArray}
-              displayLeft={displayDateOption == 3 ? true : false}
-              displayRight={displayDateOption == 4 ? true : false}
-              setLeftInput={setThirdInput}
-              setRightInput={setFourthInput}
+              display={display2}
+              setDisplay={setDisplay2}
+              input={endDate}
+              setInput={setEndDate}
             />
           </div>
         )}
         <div className="nextBtn-container nextBtnUserDetails">
-            <button className="nextbtn">
-              <h4 style={{ margin: "0" }}>{isAdd ? "Add" : "Edit"}</h4>
-            </button>
+          <button className="nextbtn" type="submit">
+            <h4 style={{ margin: "0" }}>{isAdd ? "Add" : "Edit"}</h4>
+          </button>
         </div>
       </form>
     </main>
