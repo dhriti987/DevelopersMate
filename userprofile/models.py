@@ -36,7 +36,7 @@ class Skill(models.Model):
 class Education(models.Model):
     user_profile = models.ForeignKey(to=Profile,on_delete=models.CASCADE,related_name='education')
     college_name = models.CharField(max_length=150)
-    degree = models.CharField(max_length=20,null=True)
+    degree = models.CharField(max_length=100,null=True)
     start_year = models.CharField(max_length=5,null=True)
     passing_year = models.CharField(max_length=5,null=True)
 

@@ -94,11 +94,11 @@ class EducationRetriveUpdateDeleteAPIView(generics.GenericAPIView):
         serialized_data = self.serializer_class(query)
         return Response(serialized_data.data,status=status.HTTP_200_OK)
     
-    def put(self,request,pk):
+    def patch(self,request,pk):
         query = self.get_queryset(pk)
         if not query:
             return Response({'status':'failed'},status=status.HTTP_404_NOT_FOUND)
-        serializer_obj = self.serializer_class(instance=query,data=request.data)
+        serializer_obj = self.serializer_class(instance=query,data=request.data,partial=True)
         serializer_obj.is_valid(raise_exception=True)
         serializer_obj.save()
         return Response(serializer_obj.data,status = status.HTTP_200_OK)
