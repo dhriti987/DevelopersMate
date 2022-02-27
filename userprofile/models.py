@@ -43,13 +43,13 @@ class Education(models.Model):
 class Link(models.Model):
     user_profile = models.ForeignKey(to=Profile,on_delete=models.CASCADE,related_name='links')
     title = models.CharField(max_length=50)
-    description = models.CharField(max_length=500,null = True)
+    description = models.CharField(max_length=500,null = True,blank=True)
     link = models.URLField()
 
 class Project(models.Model):
     user_profile = models.ForeignKey(to=Profile,on_delete=models.CASCADE,related_name='projects')
     project_name = models.CharField(max_length=50)
-    description = models.CharField(max_length=500,null = True)
+    description = models.CharField(max_length=500,null = True,blank=True)
     project_link = models.URLField()
     live_link = models.URLField(null=True)
     start_date = models.CharField(max_length=20,default='')
@@ -58,7 +58,7 @@ class Project(models.Model):
 class Experience(models.Model):
     user_profile = models.ForeignKey(to=Profile,on_delete=models.CASCADE,related_name='experiences')
     title = models.CharField(max_length=50)
-    description = models.CharField(max_length=500,null = True)
+    description = models.CharField(max_length=500,null = True,blank=True)
     employment_type = models.CharField(max_length=50)
     company_name = models.CharField(max_length=50)
     start_date = models.CharField(max_length=20)
