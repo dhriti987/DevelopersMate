@@ -54,7 +54,7 @@ function Login() {
           {error && <img src={close} alt="" />}
           {error && <h4>Please enter correct Email and Password</h4>}
         </div>
-        <div className=" loginSignupPageContainer">
+        <div className="loginSignupPageContainer">
           <h1>Login to Your Account</h1>
           <h3>
             Find your perfect match for your Next Project from 1000+ Developers

@@ -1,0 +1,47 @@
+.warningPopUpContainer{
+    position: fixed;
+    background-color: aliceblue;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: center;
+    border-radius: 0.5rem;
+    transition: 0.5s opacity;
+    z-index: 1000;
+    padding: 1rem;
+    top: 40%;
+    left: 50%;
+    transform: translateX(-50%);
+
+}
+.warningPopUpContainer h2{
+    color: black;
+    width: 70%;
+    text-align: center;
+}
+.warningPopUpContainer .warningBtn{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+.warningPopUpContainer .warningBtn button{
+    border: 2px solid #10CA00;
+    border-radius: 10px;
+    padding: 0.2rem 0.8rem;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: inherit;
+    transition: 0.5s;
+}
+.warningPopUpContainer .warningBtn button:hover{
+    background-color: #10CA00;
+}
+.warningPopUpContainer .warningBtn  h3{
+    margin: 0;
+    color: #2B2B2B;
+    font-weight: normal;
+    margin-top: 0.2rem;
+}

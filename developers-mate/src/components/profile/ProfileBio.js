@@ -7,7 +7,7 @@ import AddButton from "../AddButton";
 
 function ProfileBio() {
   const userDetails = useSelector((state) => state.userDetails.value);
-
+  console.log(userDetails)
   return (
     <div className="bioContainer commonBox">
       <div className="head">
@@ -27,12 +27,12 @@ function ProfileBio() {
         </div>
       </div>
       <div className="bioSection">
-        {userDetails && userDetails.bio.length <= 0 && (
+        {userDetails &&  userDetails.bio.length <= 0 && (
           <AddButton to="/profile/addbio/" />
         )}
         {userDetails && <h4>{userDetails.bio}</h4>}
       </div>
-      {userDetails && userDetails.bio.length >= 800 && (
+      {userDetails &&  userDetails.bio.length >= 800 && (
         <div className="showMoreArrow" style={{ margin: "0 auto" }}>
           <AiOutlineDown
             style={{ cursor: "pointer" }}

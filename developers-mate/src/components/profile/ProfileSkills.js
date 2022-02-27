@@ -8,6 +8,7 @@ import {
   usePostRequestMutation,
   useDeleteRequestMutation,
 } from "../../redux/PrivateApi";
+import AddButton from "../AddButton";
 
 function ProfileSkills() {
   const userDetails = useSelector((state) => state.userDetails.value);
@@ -36,6 +37,11 @@ function ProfileSkills() {
           </Link>
         </div>
       </div>
+      {
+                  userDetails && userDetails.skills.length<=0 && (
+                    <AddButton to="/profile/addskills/"/>
+                  )
+                }
       <div
         className={`skills ${isGreaterThanThree ? "showSkills" : "hideSkills"}`}
       >
