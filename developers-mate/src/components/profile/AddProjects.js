@@ -14,6 +14,7 @@ import {
   usePostRequestMutation,
   usePatchRequestMutation,
 } from "../../redux/PrivateApi";
+import CoverBackground from "../CoverBackground";
 
 function AddProjects() {
   const navigate = useNavigate();
@@ -110,6 +111,7 @@ function AddProjects() {
 
   return (
     <>
+    <CoverBackground/>
       {userDetails && (
         <main
           className="popUp-container"

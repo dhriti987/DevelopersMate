@@ -11,6 +11,7 @@ import { useSelector,useDispatch } from "react-redux";
 import {usePostRequestMutation} from "../../redux/PrivateApi";
 import {setUserDetails} from "../../redux/UserDetails";
 import ErrorPopUp from "../ErrorPopUp";
+import CoverBackground from "../CoverBackground";
 
 function AddSkills() {
   const userDetails = useSelector((state)=>state.userDetails.value);
@@ -84,6 +85,7 @@ function AddSkills() {
   }
   return (
     <>
+    <CoverBackground/>
     <main className="popUp-container">
     <ErrorPopUp error="Oops! You have Already added this Skill." display={showError ? `show` : `hide`}/>
       {isProfile && (

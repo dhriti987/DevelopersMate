@@ -12,6 +12,7 @@ import {
 } from "../../redux/PrivateApi";
 import { useSelector, useDispatch } from "react-redux";
 import { setUserDetails } from "../../redux/UserDetails";
+import CoverBackground from "../CoverBackground";
 
 function AddEducation() {
   const navigate = useNavigate();
@@ -86,6 +87,7 @@ function AddEducation() {
 
   return (
     <>
+    <CoverBackground/>
       {userDetails && (
         <main className="popUp-container" style={{ justifyContent: "inherit" }}>
           <Link to="/profile" style={{ textDecoration: "none" }}>

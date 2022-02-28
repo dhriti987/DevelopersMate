@@ -18,6 +18,7 @@ import { useEffect, useState } from "react";
 import { setAuthToken } from "./redux/authTokens";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import EditBanner from "./components/profile/EditBanner";
 
 function App() {
   const navigate = useNavigate();
@@ -71,6 +72,7 @@ function App() {
             <Route exact path="editeducation/:id" element={<AddEducation />} />
             <Route exact path="editproject/:id" element={<AddProjects />} />
             <Route exact path="editintro" element={<AddInto />} />
+            <Route exact path="editbanner" element={<EditBanner />} />
           </Route>
           <Route path="/home" element={<Home />}>
             <Route exact path="adduserdetails" element={<AddUserDetails />} />

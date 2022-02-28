@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { usePostRequestMutation } from "../../redux/PrivateApi";
 import close from "../../assets/profile/close.png";
 import "../../style/profile/CommonAdd.css";
+import CoverBackground from "../CoverBackground";
 
 
 function AddUserDetails() {
@@ -119,7 +120,7 @@ function AddUserDetails() {
       country: countryInput,
       state: stateInput,
       city: city,
-      bio: null,
+      bio: "",
     };
 
     await postRequest({ data: data, url: "/profile/profile/" })
@@ -137,6 +138,8 @@ function AddUserDetails() {
   };
 
   return (
+    <>
+    <CoverBackground/>
     <main className="popUp-container">
       <div className={`errorMessage ${error ? "displayError" : "hideError"}`}>
         {error && <img src={close} alt="" />}
@@ -265,6 +268,7 @@ function AddUserDetails() {
         </div>
       </form>
     </main>
+    </>
   );
 }
 

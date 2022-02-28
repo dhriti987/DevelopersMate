@@ -3,28 +3,24 @@ import { MdInsertPhoto } from "react-icons/md";
 import { BiEdit } from "react-icons/bi";
 import { Link } from "react-router-dom";
 import { useGetRequestMutation } from "../../redux/PrivateApi";
-import { useSelector,useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { setUserDetails } from "../../redux/UserDetails";
 import api from "../../api/ImageApi";
+import { BiPencil } from "react-icons/bi";
 
 function ProfileDetails() {
   let formData = new FormData();
-  const userDetails = useSelector((state)=>state.userDetails.value)
+  const userDetails = useSelector((state) => state.userDetails.value);
   const dispatch = useDispatch();
-  const [profileDetails, responseInfo] = useGetRequestMutation();
-  const [loading,setLoading]=useState(true);
-  
+  const [loading, setLoading] = useState(true);
+
   const handleChange = async (e) => {
     formData.append("user", localStorage.getItem("userId"));
     formData.append(`${e.target.name}`, e.target.files[0]);
-    const x=e.target.name;
     try {
-      const response = await api.patch(
-        "profile/profile/",
-        formData,
-      );
-      setLoading(loading ? false : true)
-      dispatch(setUserDetails(response.data))
+      const response = await api.patch("profile/profile/", formData);
+      setLoading(loading ? false : true);
+      dispatch(setUserDetails(response.data));
     } catch (err) {
       console.log(err.response);
     }
@@ -33,10 +29,17 @@ function ProfileDetails() {
     <div className="profileDetails">
       <div className="banner">
         {userDetails && userDetails.banner ? (
-          <img
-            src={`http://127.0.0.1:8000${userDetails.banner}`}
-            alt=""
-          />
+          <>
+          <Link to="/profile/editbanner">
+              <BiPencil
+                color="white"
+                size={28}
+                style={{ cursor: "pointer",position:"absolute",right:"0.5rem",top:"0.5rem" }}
+                className="icon"
+              />
+            </Link>
+          <img src={`http://127.0.0.1:8000${userDetails.banner}`} alt="" />
+          </>
         ) : (
           <button className="addBannerBtn">
             <MdInsertPhoto size={24} className="icon" />
@@ -51,38 +54,35 @@ function ProfileDetails() {
               style={{ opacity: "0" }}
             />
           </button>
-         )}
+        )}
       </div>
       <div className="profileImage">
-        {userDetails && userDetails.image!== "/media/user/default.jpg" ? 
-           <img src={`http://127.0.0.1:8000${userDetails.image}`} alt="" />  
-           : 
-
-        <button className="addProfilePicBtn">
-          <MdInsertPhoto size={24} />
-          <h4 style={{ color: "black", margin: "0" }}>Add Profile</h4>
-          <input
-            type="file"
-            name="image"
-            accept="image/*"
-            onChange={(e) => {
-              handleChange(e);
-            }}
-          />
-        </button>
-       } 
+        {userDetails && userDetails.image !== "/media/user/default.jpg" ? (
+          <img src={`http://127.0.0.1:8000${userDetails.image}`} alt="" />
+        ) : (
+          <button className="addProfilePicBtn">
+            <MdInsertPhoto size={24} />
+            <h4 style={{ color: "black", margin: "0" }}>Add Profile</h4>
+            <input
+              type="file"
+              name="image"
+              accept="image/*"
+              onChange={(e) => {
+                handleChange(e);
+              }}
+            />
+          </button>
+        )}
       </div>
       <Link to="/profile/editintro" style={{ textDecoration: "none" }}>
         <BiEdit color="white" className="editbtn icon" size={24} />
       </Link>
       <div className="userProfileDetails">
-        <h2>{userDetails && `${userDetails.first_name} ${userDetails.last_name}`}</h2>
+        <h2>
+          {userDetails && `${userDetails.first_name} ${userDetails.last_name}`}
+        </h2>
         <h4 style={{ fontWeight: "500" }}>
-          {
-            userDetails && 
-            userDetails.headline
-          }
-         
+          {userDetails && userDetails.headline}
         </h4>
       </div>
     </div>

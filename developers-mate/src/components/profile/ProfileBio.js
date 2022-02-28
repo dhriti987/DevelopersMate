@@ -7,7 +7,6 @@ import AddButton from "../AddButton";
 
 function ProfileBio() {
   const userDetails = useSelector((state) => state.userDetails.value);
-  console.log(userDetails)
   return (
     <div className="bioContainer commonBox">
       <div className="head">

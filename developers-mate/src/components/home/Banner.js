@@ -36,10 +36,8 @@ function Banner() {
       />
       <div className="profileDetails">
         <div className="profileImg">
-          {userDetails.image ? (
+          {userDetails.image && (
             <img src={`http://127.0.0.1:8000${userDetails.image}`} alt="" />
-          ) : (
-            <img src={profileImg} alt="" />
           )}
         </div>
         <div className="profileText">

@@ -16,6 +16,7 @@ import {
   usePatchRequestMutation,
 } from "../../redux/PrivateApi";
 import { setUserDetails } from "../../redux/UserDetails";
+import CoverBackground from "../CoverBackground";
 
 function AddExperience() {
   const [displayEmploymenyOptions, setDisplayEmploymenyOptions] =
@@ -112,6 +113,7 @@ function AddExperience() {
   };
   return (
     <>
+    <CoverBackground/>
       {userDetails && (
         <main className="popUp-container">
           <Link to="/profile" style={{ textDecoration: "none" }}>

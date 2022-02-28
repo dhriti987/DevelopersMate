@@ -5,6 +5,7 @@ import { ImCross } from "react-icons/im";
 import {usePatchRequestMutation} from "../../redux/PrivateApi";
 import {useSelector,useDispatch} from "react-redux";
 import {setUserDetails} from "../../redux/UserDetails";
+import CoverBackground from "../CoverBackground";
 function AddBio() {
 
   const [addBio,responseInfo] = usePatchRequestMutation(); 
@@ -30,6 +31,8 @@ function AddBio() {
   }
 
   return (
+    <>
+    <CoverBackground/>
     <form className="popUp-container" onSubmit={handleSubmit}>
       <Link to="/profile" style={{ textDecoration: "none" }}>
         <ImCross size={23} color="white" className="cancelIcon" />
@@ -50,6 +53,7 @@ function AddBio() {
       </div>
       
     </form>
+    </>
   );
 }
 

@@ -9,13 +9,13 @@ import ProfileExperience from "../components/profile/ProfileExperience";
 import ProfileEducation from "../components/profile/ProfileEducation";
 import { Outlet } from "react-router-dom";
 import { useGetRequestMutation } from "../redux/PrivateApi";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setUserDetails } from "../redux/UserDetails";
-import WarningPopUp from "../components/WarningPopUp";
-import CoverBackground from "../components/CoverBackground";
+import Spinner from "../assets/common/Spinner.gif";
 
 function Profile() {
   const dispatch = useDispatch();
+  const userDetails = useSelector((state) => state.userDetails.value);
   const [post, response] = useGetRequestMutation();
   useEffect(() => {
     post("profile/profile/")
@@ -24,19 +24,29 @@ function Profile() {
         dispatch(setUserDetails(payload));
       });
   }, []);
-
   return (
     <>
       <PrivateNavbar />
-      <main className="profile-page">
-        <Outlet />
-        <ProfileDetails />
-        <ProfileBio />
-        <ProfileSkills />
-        <ProfileProject />
-        <ProfileExperience />
-        <ProfileEducation />
-      </main>
+      {response.isLoading ? (
+        <div style={{
+          display:"flex",
+          justifyContent:"center",
+          marginTop:"5rem"
+        }}>
+
+          <img src={Spinner} alt="" style={{background:"inherit"}}/>
+        </div>
+      ) : (
+        <main className="profile-page">
+          <Outlet />
+          <ProfileDetails />
+          <ProfileBio />
+          <ProfileSkills />
+          <ProfileProject />
+          <ProfileExperience />
+          <ProfileEducation />
+        </main>
+      )}
     </>
   );
 }
