@@ -115,7 +115,7 @@ function AddProjects() {
       {userDetails && (
         <main
           className="popUp-container"
-          style={{ height: "40rem", top: "0.4rem" }}
+          style={{ height: "40rem" }}
         >
           <Link to="/profile" style={{ textDecoration: "none" }}>
             <ImCross size={23} color="white" className="cancelIcon" />

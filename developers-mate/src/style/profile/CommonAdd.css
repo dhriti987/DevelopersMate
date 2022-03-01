@@ -1,10 +1,11 @@
 .popUp-container{
     width: 65%;
-    height: 32rem;
+    height: auto;
     position: fixed;
     z-index: 100;
     left: 50%;
-    transform: translate(-50%, 0);
+    top: 50%;
+    transform: translate(-50%,-50%);
     background-color: rgb(20 20 20);
     border-radius: 5px;
     display: flex;
@@ -12,6 +13,7 @@
     align-items: center;
     padding-bottom: 0.5rem;
     overflow: auto;
+    overflow-y: auto;
 }
 
 .popUp-container h1{
