@@ -23,7 +23,7 @@ function ShowPost() {
         </Link>
       </div>
       <div className="icons">
-        <LikeButton />
+        <LikeButton/>
         <div className="comment">
           <Link to="/home/postdetailpopup">
             <BiCommentDots size={31} color="rgba(243, 243, 243, 0.8)" />

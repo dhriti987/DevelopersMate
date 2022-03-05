@@ -14,6 +14,7 @@
   left: -1.7rem;
   z-index: 99;
   cursor: pointer;
+  background-position: left;
 }
 @keyframes animate1 {
   0% {
@@ -23,22 +24,12 @@
     background-position: right;
   }
 }
-@keyframes animate2 {
-  0% {
-    background-position: right;
-  }
-  100% {
-    background-position: left;
-  }
-}
+
 .heartBtn .content .liked {
   background-position: right;
   animation: animate1 0.8s steps(28) 1;
 }
-.heartBtn .content .notLiked {
-  background-position: left;
-  animation: animate2 0.8s steps(28) 1;
-}
+
 
 .heartBtn .content .like {
   margin-left: 0.8rem;

@@ -25,7 +25,8 @@ function EditBanner() {
   };
   const onSubmit = async (e) => {
     e.preventDefault();
-    formData.append("banner", null);
+    if(imageBannerName.banner===null) navigate("/profile")
+    formData.append("banner", imageBannerName.banner);
     try {
       const response = await api.patch("profile/profile/", formData);
       dispatch(setUserDetails(response.data));

@@ -12,6 +12,7 @@ import { useGetRequestMutation } from "../redux/PrivateApi";
 import { useDispatch, useSelector } from "react-redux";
 import { setUserDetails } from "../redux/UserDetails";
 import Spinner from "../assets/common/Spinner.gif";
+import ProfileLinks from "../components/profile/ProfileLinks";
 
 function Profile() {
   const dispatch = useDispatch();
@@ -45,6 +46,7 @@ function Profile() {
           <ProfileProject />
           <ProfileExperience />
           <ProfileEducation />
+          <ProfileLinks/>
         </main>
       )}
     </>

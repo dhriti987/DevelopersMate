@@ -32,7 +32,7 @@ function PostDetailPopUp() {
           <AiOutlineShareAlt
             size={31}
             color="rgba(243, 243, 243, 0.8)"
-            style={{ marginBottom: "0.4rem", cursor: "pointer",marginLeft: "1.1rem" }}
+            style={{ cursor: "pointer",marginLeft: "1.1rem" }}
           />
         </div>
         <div className="userComment">

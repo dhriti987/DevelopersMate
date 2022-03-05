@@ -2,7 +2,9 @@ import { React, useEffect, useState } from "react";
 import blackBanner from "../../assets/home/blackBanner.jpg";
 import "../../style/home/Banner.css";
 import { useGetRequestMutation } from "../../redux/PrivateApi";
+import { useSelector } from "react-redux";
 import profileImg from "../../assets/profile/profile.svg";
+import CoverBackGround from "../CoverBackground";
 
 function Banner() {
   const [getUserDetails, responseInfo] = useGetRequestMutation();
@@ -21,11 +23,13 @@ function Banner() {
           lastName: payload.last_name,
           image: payload.image,
           banner: payload.banner,
+          headline:payload.headline
         });
       });
   }, []);
   return (
     <div className="banner">
+      <div className="background-Cover"></div>
       <img
         src={
           userDetails.banner
@@ -50,9 +54,7 @@ function Banner() {
               color: "rgba(243, 243, 243, 0.8)",
             }}
           >
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-            Dignissimos, accusamus nostrum. Reprehenderit sint natus ad,
-            delectus dic
+            {userDetails.headline}
           </h5>
           <div className="followers">
             <h6>

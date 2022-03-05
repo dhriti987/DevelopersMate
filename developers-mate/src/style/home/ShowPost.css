@@ -17,7 +17,6 @@
   }
 .home-page .leftContainer .showpostContainer  .icons{
     display: flex;
-    align-items: center;
     margin-top: 1rem;
     gap: 1.5rem;
   }

@@ -1,8 +1,8 @@
 
 .cover{
     width: 100%;
-    background-color: rgba(28, 28, 28, 0.78);
-    position: fixed;
+    background-color: rgba(28, 28, 28, 0.68);
+    position: absolute;
     top: 0;
     left: 0;
     bottom: 0;

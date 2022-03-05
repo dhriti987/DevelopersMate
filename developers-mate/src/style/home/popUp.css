@@ -2,7 +2,7 @@
   width: 65rem;
   height: 32rem;
   position: fixed;
-  z-index: 100;
+  z-index: 200;
   left: 50%;
   transform: translate(-50%, 0);
   background-color: rgb(20 20 20);
@@ -11,6 +11,7 @@
   align-items: center;
   border-radius: 0.5rem;
 }
+
 .popUp .leftContainer {
   width: 65%;
   height: 100%;

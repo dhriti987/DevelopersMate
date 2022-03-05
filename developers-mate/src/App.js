@@ -19,6 +19,7 @@ import { setAuthToken } from "./redux/authTokens";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import EditBanner from "./components/profile/EditBanner";
+import CreatePostSection from "./components/home/CreatePostSection";
 
 function App() {
   const navigate = useNavigate();
@@ -77,6 +78,7 @@ function App() {
           <Route path="/home" element={<Home />}>
             <Route exact path="adduserdetails" element={<AddUserDetails />} />
             <Route exact path="postdetailpopup" element={<PostDetailPopUp />} />
+            <Route exact path="createpost" element={<CreatePostSection/>} />
           </Route>
         </Route>
       </Routes>

@@ -1,0 +1,21 @@
+.createPostContainer {
+    /* margin: 1rem ; */
+    width: 35rem;
+    flex-direction: column;
+    align-items: unset;
+    padding: 1rem;
+}
+.createPostContainer h1{
+    margin: 0 1rem ;
+    margin-top: 0.5rem;
+    margin-bottom: 1.2rem;
+}
+.createPostContainer .postContent{
+    border: none;
+    outline: none;
+    margin-top: 0.5rem;
+    border-radius: 0.5rem;
+    background-color: #282828;
+    padding: 0.5rem;
+    color: aliceblue;
+}
