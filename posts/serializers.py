@@ -4,6 +4,7 @@ from .models import Comment, Like, Post
 class PostSerializer(serializers.ModelSerializer):
     post_date = serializers.DateTimeField(format="%d/%b/%y %H:%M:%S",read_only = True)
     user = serializers.ReadOnlyField(source='posted_by.fullname')
+    user_image = serializers.ReadOnlyField(source = 'posted_by.image.url')
     class Meta:
         model = Post
         fields = "__all__"
