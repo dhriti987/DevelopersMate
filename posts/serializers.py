@@ -1,8 +1,11 @@
+from codecs import lookup_error
+from numpy import source
 from rest_framework import serializers
 from .models import Comment, Like, Post
 
 class PostSerializer(serializers.ModelSerializer):
     post_date = serializers.DateTimeField(format="%d/%b/%y %H:%M:%S",read_only = True)
+    user = serializers.ReadOnlyField(source='posted_by.fullname')
     class Meta:
         model = Post
         fields = "__all__"
