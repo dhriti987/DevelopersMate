@@ -2,6 +2,7 @@ from rest_framework import serializers
 from .models import Comment, Like, Post
 
 class PostSerializer(serializers.ModelSerializer):
+    post_date = serializers.DateTimeField(format="%d/%b/%y %H:%M:%S")
     class Meta:
         model = Post
         fields = "__all__"
