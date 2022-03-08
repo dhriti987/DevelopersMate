@@ -7,25 +7,24 @@ import { AiOutlineShareAlt } from "react-icons/ai";
 import ProfileHead from "./ProfileHead";
 import { Link } from "react-router-dom";
 
-function ShowPost() {
+function ShowPost({item}) {
   return (
     <div className="showpostContainer">
-      <ProfileHead />
+      <ProfileHead item={item}/>
       <div className="body">
         <h4 style={{ color: "rgba(243, 243, 243, 0.8)", fontWeight: "400" }}>
-          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Laboriosam
-          labore, alias exercitationem aliquid quo veniam eveniet neque ipsam,
-          consectetur illum illo. Quis quia quo sit reiciendis enim, aperiam
-          blanditiis officiis?
+          {item.text}
         </h4>
+        {item.image && 
         <Link to="/home/postdetailpopup">
-          <img src={bannerBg} alt="" />
+          <img src={`${item.image}`} alt="" />
         </Link>
+        }
       </div>
       <div className="icons">
         <LikeButton/>
         <div className="comment">
-          <Link to="/home/postdetailpopup">
+          <Link to={`/home/postdetailpopup/${item.post_id}/`}>
             <BiCommentDots size={31} color="rgba(243, 243, 243, 0.8)" />
           </Link>
           <h5 style={{ color: "rgba(156, 145, 145, 0.8)", margin: "0 0.1rem" }}>

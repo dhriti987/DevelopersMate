@@ -17,9 +17,9 @@ import ProfileLinks from "../components/profile/ProfileLinks";
 function Profile() {
   const dispatch = useDispatch();
   const userDetails = useSelector((state) => state.userDetails.value);
-  const [post, response] = useGetRequestMutation();
+  const [getProfile, response] = useGetRequestMutation();
   useEffect(() => {
-    post("profile/profile/")
+    getProfile("profile/profile/")
       .unwrap()
       .then((payload) => {
         dispatch(setUserDetails(payload));

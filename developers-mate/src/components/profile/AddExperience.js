@@ -2,7 +2,6 @@ import { React, useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import "../../style/profile/CommonAdd.css";
 import { BiChevronDown, BiChevronUp } from "react-icons/bi";
-import { ImCross } from "react-icons/im";
 import { employmentArr } from "../../data/EmploymentData";
 import CustomizedCheckBox from "../CustomizedCheckBox";
 import { Link } from "react-router-dom";
@@ -17,6 +16,7 @@ import {
 } from "../../redux/PrivateApi";
 import { setUserDetails } from "../../redux/UserDetails";
 import CoverBackground from "../CoverBackground";
+import CloseButton from "../CloseButton";
 
 function AddExperience() {
   const [displayEmploymenyOptions, setDisplayEmploymenyOptions] =
@@ -117,7 +117,7 @@ function AddExperience() {
       {userDetails && (
         <main className="popUp-container">
           <Link to="/profile" style={{ textDecoration: "none" }}>
-            <ImCross size={23} color="white" className="cancelIcon" />
+            <CloseButton/>
           </Link>
           <h1 style={{ textAlign: "center" }}>
             {isAdd ? "Add" : "Edit"} Experience

@@ -2,6 +2,7 @@ import {React,useEffect, useState} from 'react'
 import "../../style/home/AddPost.css";
 import { BiPencil } from 'react-icons/bi';
 import {useGetRequestMutation} from "../../redux/PrivateApi";
+import {Link} from "react-router-dom";
 
 function AddPost() {
   const [getUserDetails,responseInfo] = useGetRequestMutation();
@@ -21,7 +22,7 @@ function AddPost() {
         </div>
         <div className="createPostBtn">
             <img src={`http://127.0.0.1:8000${userProfilePic}`} alt="" />
-            <button><h3 style={{fontWeight:"300",}}>Create Post...</h3></button>
+            <Link to="createpost/"><button><h3 style={{fontWeight:"300",}}>Create Post...</h3></button></Link>
         </div>
     </div>
   )

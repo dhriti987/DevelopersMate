@@ -1,11 +1,11 @@
 import { React, useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { MdInsertPhoto } from "react-icons/md";
-import { ImCross } from "react-icons/im";
 import { useSelector, useDispatch } from "react-redux";
 import api from "../../api/ImageApi";
 import { setUserDetails } from "../../redux/UserDetails";
 import CoverBackground from "../CoverBackground";
+import CloseButton from "../CloseButton";
 
 function EditBanner() {
   let formData = new FormData();
@@ -43,7 +43,7 @@ function EditBanner() {
         style={{ height: "14rem", overflow: "hidden" }}
       >
         <Link to="/profile" style={{ textDecoration: "none" }}>
-          <ImCross size={23} color="white" className="cancelIcon" />
+          <CloseButton/>
         </Link>
         <h1 style={{ textAlign: "center" }}>Edit Bannner</h1>
         <form className="add-container" onSubmit={onSubmit}>

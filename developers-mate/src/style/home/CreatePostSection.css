@@ -4,6 +4,8 @@
     flex-direction: column;
     align-items: unset;
     padding: 1rem;
+    overflow-y: auto;
+    /* height: 80rem; */
 }
 .createPostContainer h1{
     margin: 0 1rem ;
@@ -18,4 +20,24 @@
     background-color: #282828;
     padding: 0.5rem;
     color: aliceblue;
+    min-height: 10rem;
+}
+.createPostContainer .createPostImg {
+    margin-top: 2rem;
+    border-radius: 0.5rem;
+}
+.createPostContainer .createPostControl {
+    display: flex;
+    width: 30%;
+    align-items: center;
+
+}
+.createPostContainer .createPostControl .postBtn{
+    padding: 0.3rem;
+}
+.createPostContainer .createPostControl input{
+    opacity: 0;
+    position: absolute;
+    width: 1.9rem;
+    cursor: pointer;
 }

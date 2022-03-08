@@ -4,7 +4,7 @@ export const fetchData = createApi({
   reducerPath: "fetchData",
   baseQuery: fetchBaseQuery({ baseUrl: "http://127.0.0.1:8000/" }),
   endpoints: (builder) => ({
-
+    tagTypes: ['Post'],
     getRequest:builder.mutation({
       query:(url)=>{
         return {

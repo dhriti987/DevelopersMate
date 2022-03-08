@@ -1,4 +1,3 @@
-import axios from "axios";
 import { useState, React, useEffect } from "react";
 import "../../style/profile/CommonAdd.css";
 import { BsChevronDown, BsChevronUp } from "react-icons/bs";
@@ -7,7 +6,6 @@ import DoubleDropDown from "../DoubleDropDown";
 import { yearsArray } from "../../data/YearsData";
 import { months } from "../../data/MonthData";
 import CustomizedCheckBox from "../CustomizedCheckBox";
-import { ImCross } from "react-icons/im";
 import { useDispatch, useSelector } from "react-redux";
 import { setUserDetails } from "../../redux/UserDetails";
 import {
@@ -15,6 +13,7 @@ import {
   usePatchRequestMutation,
 } from "../../redux/PrivateApi";
 import CoverBackground from "../CoverBackground";
+import CloseButton from "../CloseButton";
 
 function AddProjects() {
   const navigate = useNavigate();
@@ -118,7 +117,7 @@ function AddProjects() {
           style={{ height: "40rem" }}
         >
           <Link to="/profile" style={{ textDecoration: "none" }}>
-            <ImCross size={23} color="white" className="cancelIcon" />
+            <CloseButton/>
           </Link>
           <h1 style={{ textAlign: "center" }}>
             {isAdd ? "Add" : "Edit"} Project
