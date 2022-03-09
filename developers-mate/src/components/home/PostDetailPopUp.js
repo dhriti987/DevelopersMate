@@ -22,7 +22,7 @@ function PostDetailPopUp() {
         <Link to="/home">
           <ImCross color="white" size={20} className="cancelBtn"/>
         </Link>
-          <ProfileHead/>
+          <ProfileHead />
           <div className="body">
             <h4 style={{fontWeight:"500"}}>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quasi incidunt ad aspernatur! Deserunt, vero laboriosam alias inventore atque iusto sed animi culpa quas sapiente perferendis voluptates dicta, eius nobis quidem!</h4>
           </div>

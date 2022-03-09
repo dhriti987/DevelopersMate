@@ -3,6 +3,9 @@
     margin: 10px;
     padding: 12px;
     text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     transition: 0.5s;
     background-size: 200% auto;
     color: white;
@@ -10,6 +13,9 @@
     border-radius: 4px;
     background-image: linear-gradient(to right, #f6d365 0%, #fda085 51%, #f6d365 100%);
     cursor: pointer;
+   }
+   .btn h4{
+       margin: 0;
    }
 .btn:hover {
     background-position: right center;

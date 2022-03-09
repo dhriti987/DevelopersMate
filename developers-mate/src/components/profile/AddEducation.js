@@ -2,7 +2,6 @@ import { useState, React,useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import "../../style/profile/CommonAdd.css";
 import { BsChevronDown, BsChevronUp } from "react-icons/bs";
-import { ImCross } from "react-icons/im";
 import { Link } from "react-router-dom";
 import DoubleDropDown from "../DoubleDropDown";
 import { yearsArray } from "../../data/YearsData";
@@ -13,6 +12,7 @@ import {
 import { useSelector, useDispatch } from "react-redux";
 import { setUserDetails } from "../../redux/UserDetails";
 import CoverBackground from "../CoverBackground";
+import CloseButton from "../CloseButton";
 
 function AddEducation() {
   const navigate = useNavigate();
@@ -91,7 +91,7 @@ function AddEducation() {
       {userDetails && (
         <main className="popUp-container" style={{ justifyContent: "inherit" }}>
           <Link to="/profile" style={{ textDecoration: "none" }}>
-            <ImCross size={23} color="white" className="cancelIcon" />
+            <CloseButton/>
           </Link>
           <h1 style={{ textAlign: "center" }}>
             {isAdd ? "Add" : "Edit"} Education

@@ -38,7 +38,6 @@ function App() {
               }
             );
             dispatch(setAuthToken(response.data));
-            // console.log(response.data)
             localStorage.setItem("access", response.data.access);
           } catch (err) {
             dispatch(setAuthToken(null));
@@ -48,7 +47,7 @@ function App() {
         }
       };
       updateToken();
-    }, 600000);
+    }, 3600000*20);
     return () => clearInterval(interval);
   }, [authToken]);
 
@@ -77,7 +76,7 @@ function App() {
           </Route>
           <Route path="/home" element={<Home />}>
             <Route exact path="adduserdetails" element={<AddUserDetails />} />
-            <Route exact path="postdetailpopup" element={<PostDetailPopUp />} />
+            <Route exact path="postdetailpopup/:postId" element={<PostDetailPopUp />} />
             <Route exact path="createpost" element={<CreatePostSection/>} />
           </Route>
         </Route>

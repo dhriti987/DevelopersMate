@@ -1,27 +1,46 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "../style/home/Home.css";
 import PrivateNavbar from "../components/PrivateNavbar";
 import Banner from "../components/home/Banner";
 import AddPost from "../components/home/AddPost";
 import ShowPost from "../components/home/ShowPost";
 import { Outlet } from "react-router-dom";
+import { useGetRequestMutation } from "../redux/PrivateApi";
+import Spinner from "../assets/common/Spinner.gif";
 
 function Home() {
+  const [getPosts, responseInfo] = useGetRequestMutation();
+  const [allPosts, setAllPosts] = useState(null);
+
+  useEffect(async () => {
+    getPosts("post-details/posts/")
+      .unwrap()
+      .then((payload) => {
+        setAllPosts(payload);
+      });
+      console.log("hello")
+  }, []);
 
   return (
     <>
       <PrivateNavbar />
-      <Outlet/>
+      <Outlet />
       <main className="home-page">
         <div className="leftContainer">
-          <Banner/>
-          <AddPost/>
-          <div className="postContainer">
-            <ShowPost/>
-            <ShowPost/>
-            <ShowPost/>
-            <ShowPost/>
-          </div>
+          <Banner />
+          <AddPost />
+          {allPosts ? (
+            <div className="postContainer">
+              {
+                allPosts.map((item,idx)=>{
+                  return(<ShowPost item={item} key={idx}/>)
+                })
+              }
+
+            </div>
+          ) : (
+            <img src={Spinner} alt="" style={{background:"inherit"}}/>
+          )}
         </div>
         <div className="rightContainer"></div>
       </main>

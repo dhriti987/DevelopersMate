@@ -5,13 +5,13 @@ import { skillsArray } from "../../data/SkillsData";
 import { AiFillDelete } from "react-icons/ai";
 import { BiRightArrowCircle } from "react-icons/bi";
 import { Link } from "react-router-dom";
-import { ImCross } from "react-icons/im";
 import SingleDropDown from "../SingleDropDown";
 import { useSelector,useDispatch } from "react-redux";
 import {usePostRequestMutation} from "../../redux/PrivateApi";
 import {setUserDetails} from "../../redux/UserDetails";
 import ErrorPopUp from "../ErrorPopUp";
 import CoverBackground from "../CoverBackground";
+import CloseButton from "../CloseButton";
 
 function AddSkills() {
   const userDetails = useSelector((state)=>state.userDetails.value);
@@ -90,7 +90,7 @@ function AddSkills() {
     <ErrorPopUp error="Oops! You have Already added this Skill." display={showError ? `show` : `hide`}/>
       {isProfile && (
         <Link to="/profile" style={{ textDecoration: "none" }}>
-          <ImCross size={23} color="white" className="cancelIcon" />
+          <CloseButton/>
         </Link>
       )}
       <h1 style={{ textAlign: "center" }}>Add Skills</h1>

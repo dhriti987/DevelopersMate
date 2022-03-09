@@ -1,12 +1,12 @@
 import { React, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { ImCross } from "react-icons/im";
 import { MdInsertPhoto } from "react-icons/md";
 import { useSelector, useDispatch } from "react-redux";
 import { usePatchRequestMutation } from "../../redux/PrivateApi";
 import {setUserDetails} from "../../redux/UserDetails";
 import api from "../../api/ImageApi";
 import CoverBackground from "../../components/CoverBackground";
+import CloseButton from "../CloseButton";
 
 function AddInto() {
   const dispatch = useDispatch();
@@ -41,7 +41,7 @@ function AddInto() {
       navigate("/profile")
     }
     catch(err){
-      console.log(err.response)
+      console.log(err.message)
     }
   };
   return (
@@ -53,7 +53,7 @@ function AddInto() {
           style={{ height: "auto", paddingBottom: "1rem",overflow:"hidden"}}
         >
           <Link to="/profile" style={{ textDecoration: "none" }}>
-            <ImCross size={23} color="white" className="cancelIcon" />
+            <CloseButton/>
           </Link>
           <h1 style={{ textAlign: "center" }}>
             {isAdd ? "Add" : "Edit"} Introduction

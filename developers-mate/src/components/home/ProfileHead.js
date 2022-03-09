@@ -3,12 +3,12 @@ import "../../style/home/ProfileHead.css";
 import bannerBg from "../../assets/home/banner.jpg";
 
 
-function ProfileHead() {
+function ProfileHead({item}) {
   return (
     <div className="head">
-      <img src={bannerBg} alt="" />
+      <img src={`http://127.0.0.1:8000${item.user_image}`} alt="" />
       <div className="headDetails">
-        <h4 style={{ fontWeight: "500", margin: "0 0.3rem" }}>Nitin Rajesh</h4>
+        <h4 style={{ fontWeight: "500", margin: "0 0.3rem" }}>{item.user}</h4>
         <h5
           style={{
             fontWeight: "300",
@@ -17,7 +17,7 @@ function ProfileHead() {
             lineHeight: "0.9rem",
           }}
         >
-          3days ago
+          {item.post_date}
         </h5>
       </div>
     </div>
