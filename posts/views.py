@@ -1,11 +1,20 @@
 from rest_framework import generics
+from authentication.models import User
 
 from posts.models import Comment, Post
 from posts.serializers import PostSerializer
+from userprofile.models import Profile
 
 class PostAPIView(generics.ListCreateAPIView):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
+
+    def get_queryset(self):
+        id = self.request.GET.get('id')
+        if id:
+            profile = Profile.objects.get(user = User.objects.get(pk = id))
+            return self.queryset.filter(posted_by = profile)
+        return super().get_queryset()
 
 class PostRetriveUpdateDeleteAPIView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Post.objects.all()
