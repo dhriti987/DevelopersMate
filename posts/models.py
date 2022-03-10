@@ -17,6 +17,9 @@ class Post(models.Model):
     text = models.TextField(blank=True,null=True)
     post_date = models.DateTimeField(auto_now=True)
 
+    class Meta:
+        ordering = ('-post_date',)
+
 class Like(models.Model):
     post = models.OneToOneField(to=Post,on_delete=models.CASCADE,related_name='likes')
     user_profile = models.ManyToManyField(to=Profile,blank=True)
