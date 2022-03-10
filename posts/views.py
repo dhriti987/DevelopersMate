@@ -2,7 +2,7 @@ from rest_framework import generics
 from authentication.models import User
 
 from posts.models import Comment, Post
-from posts.serializers import PostSerializer
+from posts.serializers import CommentSerializer, PostSerializer
 from userprofile.models import Profile
 
 class PostAPIView(generics.ListCreateAPIView):
@@ -25,9 +25,15 @@ class LikeAPIView(generics.GenericAPIView):
         pass 
 
 class CommentAPIView(generics.ListCreateAPIView):
-    serializer_class = PostSerializer
+    serializer_class = CommentSerializer
     
     def get_queryset(self):
         post_id = self.request.GET.get("id")
-        post_obj = Post.objects.get(post_id = post_id)
-        return Comment.objects.filter(post = post_obj)
+        if post_id:
+            post_obj = Post.objects.get(post_id = post_id)
+            return Comment.objects.filter(post = post_obj)
+        return None
+    
+class CommentRetriveDeleteAPIView(generics.RetrieveDestroyAPIView):
+    serializer_class = CommentSerializer
+    queryset = Comment.objects.all()
