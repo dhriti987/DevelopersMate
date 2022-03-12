@@ -1,3 +1,5 @@
+from django.db.models import Value
+from django.db.models.functions import Concat
 from rest_framework.decorators import api_view
 from .utils import get_favicon_url
 from rest_framework.response import Response
@@ -221,6 +223,18 @@ class ExperienceRetriveUpdateDeleteAPIView(generics.RetrieveUpdateDestroyAPIView
     permission_classes = [IsAuthenticated]
     serializer_class = ExperienceSerializer
     queryset = Experience.objects.all()
+
+class SearchProfile(generics.ListAPIView):
+    serializer_class = ProfileSerializer
+
+    def get_queryset(self):
+        search = self.request.GET.get('query')
+        if search:
+            return Profile.objects.annotate(
+                name = Concat('first_name',Value(' '),'last_name'),
+            ).filter(name__istartswith=search)
+        return None
+
 
 @api_view()
 def get_favicon(request):

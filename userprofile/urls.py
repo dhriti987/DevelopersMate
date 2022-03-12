@@ -9,7 +9,8 @@ from userprofile.views import (
     LinkRetriveUpdateDeleteAPIView, 
     ProfileView,
     ProjectAPIView,
-    ProjectRetriveUpdateDeleteAPIView, 
+    ProjectRetriveUpdateDeleteAPIView,
+    SearchProfile, 
     SkillAPIView, 
     SkillDeleteAPIView,
     get_favicon
@@ -28,4 +29,5 @@ urlpatterns = [
     path('experience/',ExperienceAPIView.as_view(),name = 'Experience'),
     path('experience/<int:pk>',ExperienceRetriveUpdateDeleteAPIView.as_view(),name = 'Experience-details'),
     path('icon/',get_favicon,name='Icon'),
+    path('search/',SearchProfile.as_view()),
 ]
