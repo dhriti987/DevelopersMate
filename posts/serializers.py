@@ -19,6 +19,7 @@ class LikeSerializer(serializers.ModelSerializer):
 class CommentSerializer(serializers.ModelSerializer):
     user = serializers.ReadOnlyField(source='user_profile.fullname')
     user_image = serializers.ReadOnlyField(source = 'user_profile.image.url')
+    time_interval = serializers.ReadOnlyField(source = 'time')
     class Meta:
         model = Comment
         fields = "__all__"
