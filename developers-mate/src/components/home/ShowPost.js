@@ -6,23 +6,50 @@ import { BiCommentDots } from "react-icons/bi";
 import { AiOutlineShareAlt } from "react-icons/ai";
 import ProfileHead from "./ProfileHead";
 import { Link } from "react-router-dom";
+import { AiFillDelete } from "react-icons/ai";
 
-function ShowPost({item}) {
+function ShowPost({ item, isEdit, isPost, setDisplayWarning,setSelectedPostId }) {
   return (
     <div className="showpostContainer">
-      <ProfileHead item={item}/>
+      <ProfileHead
+        item={item}
+        isEdit={isEdit}
+        isPost={isPost}
+        setDisplayWarning={setDisplayWarning}
+      />
+      {
+        isPost && 
+
+        <AiFillDelete
+          color="white"
+          size={28}
+          style={{
+            cursor: "pointer",
+            position: "absolute",
+            right: "0.5rem",
+            top: "0.8rem",
+          }}
+          onClick={()=>{
+            setDisplayWarning(true)
+            setSelectedPostId(item.post_id)
+          }}
+        />
+      }
       <div className="body">
         <h4 style={{ color: "rgba(243, 243, 243, 0.8)", fontWeight: "400" }}>
           {item.text}
         </h4>
-        {item.image && 
-        <Link to="/home/postdetailpopup">
-          <img src={`${item.image}`} alt="" />
-        </Link>
-        }
+        {item.image && (
+          <Link
+            Link
+            to={isEdit ? "" : `/home/postdetailpopup/${item.post_id}/`}
+          >
+            <img src={`${item.image}`} alt="" />
+          </Link>
+        )}
       </div>
       <div className="icons">
-        <LikeButton/>
+        <LikeButton />
         <div className="comment">
           <Link to={`/home/postdetailpopup/${item.post_id}/`}>
             <BiCommentDots size={31} color="rgba(243, 243, 243, 0.8)" />

@@ -239,3 +239,8 @@ h5,h6 {
   display: flex;
   justify-content: space-between;
 }
+ .profile-page .showPostsContainer{
+   background-color: rgba(45, 45, 45, 0.5);
+   padding: 1rem;
+   border-radius: 0.5rem;
+ }

@@ -11,6 +11,7 @@ import Spinner from "../assets/common/Spinner.gif";
 function Home() {
   const [getPosts, responseInfo] = useGetRequestMutation();
   const [allPosts, setAllPosts] = useState(null);
+  const [loading,setLoading] = useState(false);
 
   useEffect(async () => {
     getPosts("post-details/posts/")
@@ -18,13 +19,12 @@ function Home() {
       .then((payload) => {
         setAllPosts(payload);
       });
-      console.log("hello")
-  }, []);
+  }, [loading]);
 
   return (
     <>
       <PrivateNavbar />
-      <Outlet />
+      <Outlet context={[loading,setLoading]}/>
       <main className="home-page">
         <div className="leftContainer">
           <Banner />
@@ -33,7 +33,7 @@ function Home() {
             <div className="postContainer">
               {
                 allPosts.map((item,idx)=>{
-                  return(<ShowPost item={item} key={idx}/>)
+                  return(<ShowPost item={item} key={idx} isEdit={false}/>)
                 })
               }
 

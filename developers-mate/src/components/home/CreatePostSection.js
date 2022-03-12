@@ -1,5 +1,5 @@
 import { React, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate,useOutletContext } from "react-router-dom";
 import "../../style/home/CreatePostSection.css";
 import { BsFillImageFill } from "react-icons/bs";
 import Button from "../Button";
@@ -15,25 +15,26 @@ function CreatePostSection() {
     image: null,
   });
   const navigate = useNavigate();
+  const [loading,setLoading] = useOutletContext();
   let formData = new FormData();
   const onSubmit = async (e) => {
     e.preventDefault();
     formData.append("posted_by",localStorage.getItem("userId"))
     formData.append("text",createPostDetails.text);
-    formData.append("image",createPostDetails.image ? createPostDetails.image : null);
+    formData.append("image",createPostDetails.image ? createPostDetails.image : '');
     try{
       const response = await api.post("post-details/posts/",formData);
+      setLoading(loading ? false : true);
       navigate("/home")
     }
     catch(err){
-      console.log(err.message)
+      console.log(err.response)
     } 
   };
-
   return (
     <>
       <CoverBackground />
-      <form className="createPostContainer popUp" onSubmit={onSubmit}>
+      <form className="createPostContainer popUp" onSubmit={onSubmit} style={!createPostDetails.image ? {height:"auto"} : {}}>
         <div className="heading">
           <Link to="/home" style={{ textDecoration: "none" }}>
             <CloseButton />

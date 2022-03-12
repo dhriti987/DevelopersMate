@@ -20,6 +20,8 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import EditBanner from "./components/profile/EditBanner";
 import CreatePostSection from "./components/home/CreatePostSection";
+import ShowAllPost from "./components/profile/ShowAllPost";
+import EditPost from "./components/profile/EditPost";
 
 function App() {
   const navigate = useNavigate();
@@ -73,6 +75,9 @@ function App() {
             <Route exact path="editproject/:id" element={<AddProjects />} />
             <Route exact path="editintro" element={<AddInto />} />
             <Route exact path="editbanner" element={<EditBanner />} />
+          </Route>
+          <Route path="showallpost" element={<ShowAllPost/>}>
+            <Route exact path="editpost/:postId" element={<EditPost/>} />
           </Route>
           <Route path="/home" element={<Home />}>
             <Route exact path="adduserdetails" element={<AddUserDetails />} />
