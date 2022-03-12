@@ -37,11 +37,9 @@ function ProfileSkills() {
           </Link>
         </div>
       </div>
-      {
-                  userDetails && userDetails.skills.length<=0 && (
-                    <AddButton to="/profile/addskills/"/>
-                  )
-                }
+      {userDetails && userDetails.skills.length <= 0 && (
+        <AddButton to="/profile/addskills/" />
+      )}
       <div
         className={`skills ${isGreaterThanThree ? "showSkills" : "hideSkills"}`}
       >
@@ -82,7 +80,6 @@ function ProfileSkills() {
               }}
             />
           )}
-          
         </div>
       )}
     </div>

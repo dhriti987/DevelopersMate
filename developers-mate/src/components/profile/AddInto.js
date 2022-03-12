@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { MdInsertPhoto } from "react-icons/md";
 import { useSelector, useDispatch } from "react-redux";
 import { usePatchRequestMutation } from "../../redux/PrivateApi";
-import {setUserDetails} from "../../redux/UserDetails";
+import { setUserDetails } from "../../redux/UserDetails";
 import api from "../../api/ImageApi";
 import CoverBackground from "../../components/CoverBackground";
 import CloseButton from "../CloseButton";
@@ -23,37 +23,36 @@ function AddInto() {
     firstName: userDetails && userDetails.first_name,
     lastName: userDetails && userDetails.last_name,
   });
-  const [imageObj,setImageObj] = useState({
-    image:userDetails && userDetails.image.split("/").pop(),
-    imageUrl:null
-  })
+  const [imageObj, setImageObj] = useState({
+    image: userDetails && userDetails.image.split("/").pop(),
+    imageUrl: null,
+  });
   const isAdd = window.location.href.includes("add");
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    formData.append("headline",introObj.headline);
-    formData.append("first_name",introObj.firstName);
-    formData.append("last_name",introObj.lastName);
-    if(imageObj.imageUrl) formData.append("image",imageObj.imageUrl);
-    try{
-      const response = await api.patch("profile/profile/",formData);
-      dispatch(setUserDetails(response.data))
-      navigate("/profile")
-    }
-    catch(err){
-      console.log(err.message)
+    formData.append("headline", introObj.headline);
+    formData.append("first_name", introObj.firstName);
+    formData.append("last_name", introObj.lastName);
+    if (imageObj.imageUrl) formData.append("image", imageObj.imageUrl);
+    try {
+      const response = await api.patch("profile/profile/", formData);
+      dispatch(setUserDetails(response.data));
+      navigate("/profile");
+    } catch (err) {
+      console.log(err.message);
     }
   };
   return (
     <>
-      <CoverBackground/>
+      <CoverBackground />
       {userDetails && (
         <main
           className="popUp-container"
-          style={{ height: "auto", paddingBottom: "1rem",overflow:"hidden"}}
+          style={{ height: "auto", paddingBottom: "1rem", overflow: "hidden" }}
         >
           <Link to="/profile" style={{ textDecoration: "none" }}>
-            <CloseButton/>
+            <CloseButton />
           </Link>
           <h1 style={{ textAlign: "center" }}>
             {isAdd ? "Add" : "Edit"} Introduction
@@ -93,23 +92,23 @@ function AddInto() {
               }}
             />
             <button className="editImgBtn">
-          <MdInsertPhoto size={24} className="icon" />
-          <h4 style={{ color: "aliceblue", marginTop: "0.5rem" }}>
-            {imageObj.image}
-          </h4>
-          <input
-            type="file"
-            name="banner"
-            accept="image/*"
-            style={{ opacity: "0" }}
-            onChange={(e) => {
-              setImageObj({
-                image:e.target.files[0].name,
-                imageUrl:e.target.files[0]
-              })
-            }}
-          />
-        </button>
+              <MdInsertPhoto size={24} className="icon" />
+              <h4 style={{ color: "aliceblue", marginTop: "0.5rem" }}>
+                {imageObj.image}
+              </h4>
+              <input
+                type="file"
+                name="banner"
+                accept="image/*"
+                style={{ opacity: "0" }}
+                onChange={(e) => {
+                  setImageObj({
+                    image: e.target.files[0].name,
+                    imageUrl: e.target.files[0],
+                  });
+                }}
+              />
+            </button>
             <div className="nextBtn-container nextBtnEdu">
               <button className="nextbtn" type="submit">
                 <h4 style={{ margin: "0" }}>{isAdd ? "Add" : "Edit"}</h4>

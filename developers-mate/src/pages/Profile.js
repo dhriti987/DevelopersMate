@@ -13,6 +13,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setUserDetails } from "../redux/UserDetails";
 import Spinner from "../assets/common/Spinner.gif";
 import ProfileLinks from "../components/profile/ProfileLinks";
+import RecentPost from "../components/profile/RecentPost";
 
 function Profile() {
   const dispatch = useDispatch();
@@ -46,6 +47,7 @@ function Profile() {
           <ProfileProject />
           <ProfileExperience />
           <ProfileEducation />
+          <RecentPost/>
           <ProfileLinks/>
         </main>
       )}
