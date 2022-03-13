@@ -57,7 +57,7 @@ function EditBanner() {
             <input
               type="file"
               name="banner"
-              accept="image/*"
+              accept="image/png, image/gif, image/jpeg"
               style={{ opacity: "0" }}
               onChange={(e) => {
                 handleChange(e);

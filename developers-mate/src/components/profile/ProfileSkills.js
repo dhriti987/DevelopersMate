@@ -12,6 +12,7 @@ import AddButton from "../AddButton";
 
 function ProfileSkills() {
   const userDetails = useSelector((state) => state.userDetails.value);
+  const otherUserId = useSelector((state)=>state.otherUserId.value)
   const [deleteSkill, responseInfo] = useDeleteRequestMutation();
   const [isGreaterThanThree, setIsGreaterThanThree] = useState(false);
 
@@ -26,6 +27,7 @@ function ProfileSkills() {
     <div className="skillsContainer commonBox">
       <div className="head">
         <h1>Skills</h1>
+        {!otherUserId && 
         <div className="editAddContainer">
           <Link to="/profile/addskills">
             <IoMdAdd
@@ -36,6 +38,7 @@ function ProfileSkills() {
             />
           </Link>
         </div>
+        }
       </div>
       {userDetails && userDetails.skills.length <= 0 && (
         <AddButton to="/profile/addskills/" />
@@ -48,6 +51,7 @@ function ProfileSkills() {
             return (
               <div className="skill" key={`skills${idx}`}>
                 <h3>{item.skill}</h3>
+                {!otherUserId && 
                 <MdDelete
                   color="white"
                   size={28}
@@ -55,6 +59,7 @@ function ProfileSkills() {
                   className="icon"
                   onClick={() => handleDelete(item.id)}
                 />
+                }
               </div>
             );
           })}

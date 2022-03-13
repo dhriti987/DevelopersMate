@@ -9,10 +9,13 @@ import { Outlet } from "react-router-dom";
 import WarningPopUp from "../WarningPopUp";
 import CoverBackground from "../../components/CoverBackground";
 import Spinner from "../../assets/common/Spinner.gif";
+import {useSelector} from "react-redux";
+
 
 function ShowAllPost() {
   const [getUserPost] = useGetRequestMutation();
   const [deleteUserPost] = useDeleteRequestMutation();
+  const otherUserId = useSelector((state)=>state.otherUserId.value)
   const [userPost, setUserPosts] = useState(null);
   const [fetchAgain, setFetchAgain] = useState(true);
   const [isDeleted, setIsDeleted] = useState(false);
@@ -20,7 +23,7 @@ function ShowAllPost() {
   const [selectedPostId, setSelectedPostId] = useState(null);
 
   useEffect(() => {
-    getUserPost(`post-details/posts/?id=${localStorage.getItem("userId")}`)
+    getUserPost(`post-details/posts/?id=${otherUserId ? otherUserId : localStorage.getItem("userId")}`)
       .unwrap()
       .then((payload) => {
         setUserPosts(payload);

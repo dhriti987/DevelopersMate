@@ -45,6 +45,7 @@ function PostDetailPopUp() {
     .unwrap()
     .then((payload)=>{
       setFetchAgain(fetchAgain ? false :true);
+      setSubmitComment("");
     })
   }
 

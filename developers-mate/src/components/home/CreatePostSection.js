@@ -60,7 +60,7 @@ function CreatePostSection() {
           <input
             type="file"
             name="postImg"
-            accept="image/*"
+            accept="image/png, image/gif, image/jpeg"
             onChange={(e) => {
               setCreatePostDetails({
                 ...createPostDetails,

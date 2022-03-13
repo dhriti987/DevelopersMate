@@ -7,10 +7,13 @@ import AddButton from "../AddButton";
 
 function ProfileBio() {
   const userDetails = useSelector((state) => state.userDetails.value);
+  const otherUserId = useSelector((state)=>state.otherUserId.value)
   return (
     <div className="bioContainer commonBox">
       <div className="head">
         <h1>Bio</h1>
+        {
+          !otherUserId && 
 
         <div className="editAddContainer">
           {userDetails && userDetails.bio.length > 0 && (
@@ -24,9 +27,11 @@ function ProfileBio() {
             </Link>
           )}
         </div>
+        }
       </div>
       <div className="bioSection">
         {userDetails &&  userDetails.bio.length <= 0 && (
+          !otherUserId && 
           <AddButton to="/profile/addbio/" />
         )}
         {userDetails && <h4>{userDetails.bio}</h4>}

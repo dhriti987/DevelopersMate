@@ -7,8 +7,10 @@ import { AiOutlineShareAlt } from "react-icons/ai";
 import ProfileHead from "./ProfileHead";
 import { Link } from "react-router-dom";
 import { AiFillDelete } from "react-icons/ai";
+import {useSelector} from "react-redux";
 
 function ShowPost({ item, isEdit, isPost, setDisplayWarning,setSelectedPostId }) {
+  const otherUserId = useSelector((state)=>state.otherUserId.value)
   return (
     <div className="showpostContainer">
       <ProfileHead
@@ -18,7 +20,7 @@ function ShowPost({ item, isEdit, isPost, setDisplayWarning,setSelectedPostId })
         setDisplayWarning={setDisplayWarning}
       />
       {
-        isPost && 
+        isPost && !otherUserId &&
 
         <AiFillDelete
           color="white"
@@ -39,7 +41,7 @@ function ShowPost({ item, isEdit, isPost, setDisplayWarning,setSelectedPostId })
         <h4 style={{ color: "rgba(243, 243, 243, 0.8)", fontWeight: "400" }}>
           {item.text}
         </h4>
-        {item.image && (
+        {item.image && !otherUserId &&(
           <Link
             Link
             to={isEdit ? "" : `/home/postdetailpopup/${item.post_id}/`}

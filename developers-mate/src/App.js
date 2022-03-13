@@ -53,7 +53,9 @@ function App() {
     return () => clearInterval(interval);
   }, [authToken]);
 
-  
+  useEffect(()=>{
+    
+  },[])
   
   return (
     <div className="App">

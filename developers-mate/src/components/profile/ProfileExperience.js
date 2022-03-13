@@ -13,6 +13,7 @@ import AddButton from "../AddButton";
 
 function ProfileExperience() {
   const userDetails = useSelector((state) => state.userDetails.value);
+  const otherUserId = useSelector((state) => state.otherUserId.value);
   const [deleteExperience] = useDeleteRequestMutation();
   const [displayWarning, setDisplayWarning] = useState(false);
   const [isExperienceDeleted, setIsExperienceDeleted] = useState(false);
@@ -33,13 +34,12 @@ function ProfileExperience() {
     });
     console.log("hello");
   };
-  useEffect(()=>{
-
+  useEffect(() => {
     if (isExperienceDeleted) {
       handleDelete();
       setIsExperienceDeleted(false);
     }
-  },[isExperienceDeleted])
+  }, [isExperienceDeleted]);
   return (
     <>
       {displayWarning && <CoverBackground />}
@@ -52,22 +52,22 @@ function ProfileExperience() {
       <div className="experienceContainer commonBox">
         <div className="head">
           <h1>Experience</h1>
-          <div className="editAddContainer">
-            <Link to="/profile/addexperience">
-              <IoMdAdd
-                color="white"
-                size={28}
-                style={{ cursor: "pointer" }}
-                className="icon"
-              />
-            </Link>
-          </div>
+          {!otherUserId && (
+            <div className="editAddContainer">
+              <Link to="/profile/addexperience">
+                <IoMdAdd
+                  color="white"
+                  size={28}
+                  style={{ cursor: "pointer" }}
+                  className="icon"
+                />
+              </Link>
+            </div>
+          )}
         </div>
-        {
-                  userDetails && userDetails.experiences.length<=0 && (
-                    <AddButton to="/profile/addexperience/"/>
-                  )
-                }
+        {userDetails && userDetails.experiences.length <= 0 && !otherUserId &&(
+          <AddButton to="/profile/addexperience/" />
+        )}
         <div className="experienceSection">
           {userDetails &&
             userDetails.experiences.map((item, idx) => {
@@ -96,6 +96,7 @@ function ProfileExperience() {
                         {item.description}
                       </h4>
                     </div>
+                    {!otherUserId && 
                     <div className="projectIcons">
                       <Link to={`/profile/editexperience/${item.id}`}>
                         <BiEdit
@@ -115,6 +116,7 @@ function ProfileExperience() {
                         }}
                       />
                     </div>
+                    }
                   </div>
                 </div>
               );

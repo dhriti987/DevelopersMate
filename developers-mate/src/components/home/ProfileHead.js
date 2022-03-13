@@ -3,9 +3,11 @@ import "../../style/home/ProfileHead.css";
 import bannerBg from "../../assets/home/banner.jpg";
 import { BiPencil } from "react-icons/bi";
 import { AiFillDelete } from "react-icons/ai";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
 function ProfileHead({ item, isEdit,isPost }) {
+  const otherUserId = useSelector((state)=>state.otherUserId.value)
   return (
     <>
       {item && (
@@ -25,7 +27,7 @@ function ProfileHead({ item, isEdit,isPost }) {
             >
               {isEdit ? item.post_date : item.time_interval}
             </h5>
-            {isPost && 
+            {isPost && !otherUserId &&
             <div className="alterPosts">
               <Link to={`/showallpost/editpost/${item.post_id}/`}>
                 <BiPencil

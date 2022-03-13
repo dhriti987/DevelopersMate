@@ -6,12 +6,15 @@ import AddPost from "../components/home/AddPost";
 import ShowPost from "../components/home/ShowPost";
 import { Outlet } from "react-router-dom";
 import { useGetRequestMutation } from "../redux/PrivateApi";
+import { useDispatch } from "react-redux";
+import { setOtherUserId } from "../redux/OtherUserId";
 import Spinner from "../assets/common/Spinner.gif";
 
 function Home() {
   const [getPosts, responseInfo] = useGetRequestMutation();
   const [allPosts, setAllPosts] = useState(null);
   const [loading,setLoading] = useState(false);
+  const dispatch = useDispatch();
 
   useEffect(async () => {
     getPosts("post-details/posts/")
@@ -21,6 +24,10 @@ function Home() {
       });
   }, [loading]);
 
+  useEffect(()=>{
+    dispatch(setOtherUserId(null));
+  },[])
+  console.log("he")
   return (
     <>
       <PrivateNavbar />

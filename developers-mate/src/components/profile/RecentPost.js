@@ -4,12 +4,14 @@ import { useGetRequestMutation } from "../../redux/PrivateApi";
 import { Link } from "react-router-dom";
 import { BiPencil } from "react-icons/bi";
 import { AiOutlineDown } from "react-icons/ai";
+import {useSelector} from "react-redux";
 
 function EditPosts() {
   const [getUserPost] = useGetRequestMutation();
   const [userPosts, setUserPosts] = useState(null);
+  const otherUserId = useSelector((state)=>state.otherUserId.value)
   useEffect(async () => {
-    getUserPost(`post-details/posts/?id=${localStorage.getItem("userId")}`)
+    getUserPost(`post-details/posts/?id=${otherUserId ? otherUserId : localStorage.getItem("userId")}`)
       .unwrap()
       .then((payload) => {
         setUserPosts(payload);
@@ -20,6 +22,7 @@ function EditPosts() {
     <main className="editPostsContainer commonBox">
       <div className="head">
         <h1>Recent Posts</h1>
+        {!otherUserId && 
         <Link to="/showAllPost">
           <BiPencil
             color="white"
@@ -28,6 +31,7 @@ function EditPosts() {
             className="icon"
           />
         </Link>
+        }
       </div>
       {userPosts && (
         <>
@@ -41,7 +45,7 @@ function EditPosts() {
           </div>
         </>
       )}
-      {userPosts.length >= 3 && (
+      {userPosts && userPosts.length >= 3 && (
         <Link to="/showAllPost" className="showMoreArrow">
           <AiOutlineDown
             style={{ cursor: "pointer" }}

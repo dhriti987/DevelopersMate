@@ -1,0 +1,61 @@
+.navbarContainer{
+    background-color: black;
+}
+.navbarContainer .navbarContent{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.navbarContainer .navbarContent .navbarSearchBar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.navbarContainer .navbarContent .navbarSearchBar input{
+    width: 16rem;
+    height: 1.5rem;
+    outline: none;
+    border-radius: 0 0.3rem 0.3rem 0;
+    padding: 0.3rem;
+    border: none;
+    font-size: 0.9rem;
+    background-color: #282828;
+    color: aliceblue;
+    font-family: 'Courier New', Courier, monospace;
+    transition: 0.3s;
+}
+.navbarContainer .navbarContent .navbarSearchBar .searchIcon{
+    width: 1.4rem;
+    height: 1.5rem;
+    padding: 0.3rem;
+    border-radius: 0.3rem 0 0 0.3rem;
+    background-color: #282828;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.navbarContainer .navbarContent .navbarSearchBar .searchedResults{
+    width: 20.6rem;
+    /* height: 1.5rem; */
+    position: absolute;
+    top: 3rem;
+    background-color: #282828;
+    border-radius: 0 0 0.3rem 0.3rem;
+}
+.navbarContainer .navbarContent .navbarSearchBar .searchedResults .searchedUserDetails{
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    padding: 0.5rem;
+    text-decoration: none;
+    transition: 0.4s;
+    border-radius: 0 0 0.3rem 0.3rem;
+}
+.navbarContainer .navbarContent .navbarSearchBar .searchedResults .searchedUserDetails:hover{
+    background-color: #302f2f;
+}
+.navbarContainer .navbarContent .navbarSearchBar .searchedResults .searchedUserDetails img{
+    width: 2rem;
+    height: 2rem; 
+    border-radius: 50%;
+}

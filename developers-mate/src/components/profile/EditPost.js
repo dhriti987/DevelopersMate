@@ -2,7 +2,6 @@ import { React, useEffect, useState } from "react";
 import { MdInsertPhoto } from "react-icons/md";
 import { useParams, useNavigate, useOutletContext,Link } from "react-router-dom";
 import CloseButton from "../CloseButton";
-
 import {
   usePatchRequestMutation,
   useGetRequestMutation,
@@ -10,9 +9,12 @@ import {
 import api from "../../api/ImageApi";
 import WarningPopUp from "../WarningPopUp";
 import CoverBackground from "../CoverBackground";
+import { useSelector } from "react-redux";
+
 
 function EditPost() {
   let formData = new FormData();
+  const otherUserId = useSelector((state)=>state.otherUserId.value);
   const { postId } = useParams();
   const [fetchAgain, setFetchAgain] = useOutletContext();
   const [postContent, setPostContent] = useState(null);
@@ -32,6 +34,12 @@ function EditPost() {
       });
   }, []);
 
+  useEffect(()=>{
+    if(otherUserId){
+      navigate("/showallpost");
+    }
+  },[])
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     formData.append("text", postContent.text);
@@ -47,7 +55,6 @@ function EditPost() {
       console.log(err.response);
     }
   };
-
   return (
     <>
     <CoverBackground/>
@@ -78,7 +85,7 @@ function EditPost() {
               <input
                 type="file"
                 name="postImage"
-                accept="image/*"
+                accept="image/png, image/gif, image/jpeg"
                 style={{ opacity: "0" }}
                 onChange={(e) => {
                   setImageName(e.target.files[0].name);

@@ -13,6 +13,7 @@ import AddButton from "../AddButton";
 
 function ProfileEducation() {
   const userDetails = useSelector((state) => state.userDetails.value);
+  const otherUserId = useSelector((state)=>state.otherUserId.value)
   const dispatch = useDispatch();
   const [deleteEducation] = useDeleteRequestMutation();
   const [displayWarning, setDisplayWarning] = useState(false);
@@ -52,6 +53,8 @@ function ProfileEducation() {
       <div className="educationContainer experienceContainer commonBox">
         <div className="head">
           <h1>Education</h1>
+          {
+            !otherUserId && 
           <div className="editAddContainer">
             <Link to="/profile/addeducation">
               <IoMdAdd
@@ -62,9 +65,10 @@ function ProfileEducation() {
                 />
             </Link>
           </div>
+          }
         </div>
                 {
-                  userDetails && userDetails.education.length<=0 && (
+                  userDetails && userDetails.education.length<=0 &&  !otherUserId && (
                     <AddButton to="/profile/addeducation/"/>
                   )
                 }
@@ -93,6 +97,7 @@ function ProfileEducation() {
                         {`${item.start_year} - ${item.passing_year}`}
                       </h3>
                     </div>
+                    {!otherUserId && 
                     <div className="projectIcons">
                       <Link to={`/profile/editeducation/${item.id}`}>
                         <BiEdit
@@ -112,6 +117,7 @@ function ProfileEducation() {
                         }}
                       />
                     </div>
+                    }
                   </div>
                 </div>
               );

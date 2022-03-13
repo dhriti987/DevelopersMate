@@ -12,6 +12,7 @@ import AddButton from "../AddButton";
 
 function ProfileProject() {
   const userDetails = useSelector((state) => state.userDetails.value);
+  const otherUserId = useSelector((state)=>state.otherUserId.value)
   const dispatch = useDispatch();
   const [deleteProject] = useDeleteRequestMutation();
   const [displayWarning, setDisplayWarning] = useState(false);
@@ -50,6 +51,7 @@ function ProfileProject() {
       <div className="projectContainer commonBox">
         <div className="head">
           <h1>Projects</h1>
+          {!otherUserId && 
           <div className="editAddContainer">
             <Link to="/profile/addproject">
               <IoMdAdd
@@ -60,8 +62,9 @@ function ProfileProject() {
               />
             </Link>
           </div>
+          }
         </div>
-        {userDetails && userDetails.projects.length <= 0 && (
+        {userDetails && userDetails.projects.length <= 0 && !otherUserId && (
           <AddButton to="/profile/addproject/" />
         )}
         <div className="projects">
@@ -71,6 +74,7 @@ function ProfileProject() {
                 <div className="project" key={`{project${idx}}`}>
                   <div className="projectHead">
                     <h2>{item.project_name}</h2>
+                    {!otherUserId && 
                     <div className="projectIcons">
                       <Link to={`/profile/editproject/${item.id}`}>
                         <BiEdit
@@ -91,6 +95,7 @@ function ProfileProject() {
                         }}
                       />
                     </div>
+                    }
                   </div>
                   <h5 style={{ fontWeight: "400", color: "#E5E5E5" }}>
                     {`${item.start_date} - ${item.end_date}`}

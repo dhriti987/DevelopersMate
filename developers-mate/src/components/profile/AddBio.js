@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import "../../style/profile/CommonAdd.css";
 import { Link,useNavigate } from "react-router-dom";
 import {usePatchRequestMutation} from "../../redux/PrivateApi";
@@ -13,8 +13,12 @@ function AddBio() {
   const navigate=useNavigate();
   const userDetails = useSelector((state)=>state.userDetails.value)
   const isAdd=window.location.href.includes("add");
-  const [bio,setBio]= useState(isAdd ? "" : userDetails.bio)
-
+  const [bio,setBio]= useState(isAdd ? "" : (userDetails && userDetails.bio))
+  useEffect(() => {
+    if (userDetails === null || userDetails === undefined) {
+      navigate("/profile");
+    }
+  }, []);
   const handleSubmit=async(e)=>{
     e.preventDefault();
       const data={

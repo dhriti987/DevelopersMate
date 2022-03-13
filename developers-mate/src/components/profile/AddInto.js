@@ -14,6 +14,7 @@ function AddInto() {
   let formData = new FormData();
   const [updateUserDetails] = usePatchRequestMutation();
   const userDetails = useSelector((state) => state.userDetails.value);
+  const otherUserId = useSelector((state)=>state.otherUserId.value)
   useEffect(() => {
     if (userDetails == null || userDetails == undefined) navigate("/profile");
   }, []);
@@ -91,6 +92,7 @@ function AddInto() {
                 });
               }}
             />
+            {!otherUserId && 
             <button className="editImgBtn">
               <MdInsertPhoto size={24} className="icon" />
               <h4 style={{ color: "aliceblue", marginTop: "0.5rem" }}>
@@ -99,7 +101,7 @@ function AddInto() {
               <input
                 type="file"
                 name="banner"
-                accept="image/*"
+                accept="image/png, image/jpeg"
                 style={{ opacity: "0" }}
                 onChange={(e) => {
                   setImageObj({
@@ -109,6 +111,7 @@ function AddInto() {
                 }}
               />
             </button>
+            }
             <div className="nextBtn-container nextBtnEdu">
               <button className="nextbtn" type="submit">
                 <h4 style={{ margin: "0" }}>{isAdd ? "Add" : "Edit"}</h4>

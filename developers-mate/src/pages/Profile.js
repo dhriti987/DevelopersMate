@@ -11,20 +11,33 @@ import { Outlet } from "react-router-dom";
 import { useGetRequestMutation } from "../redux/PrivateApi";
 import { useDispatch, useSelector } from "react-redux";
 import { setUserDetails } from "../redux/UserDetails";
+import { setOtherUserId } from "../redux/OtherUserId";
 import Spinner from "../assets/common/Spinner.gif";
 import ProfileLinks from "../components/profile/ProfileLinks";
 import RecentPost from "../components/profile/RecentPost";
 
 function Profile() {
   const dispatch = useDispatch();
-  const userDetails = useSelector((state) => state.userDetails.value);
+  const otherUserId = useSelector((state)=>state.otherUserId.value);
   const [getProfile, response] = useGetRequestMutation();
   useEffect(() => {
-    getProfile("profile/profile/")
-      .unwrap()
-      .then((payload) => {
-        dispatch(setUserDetails(payload));
-      });
+    if(otherUserId){
+      
+      getProfile(`profile/profile/?id=${otherUserId}`)
+        .unwrap()
+        .then((payload) => {
+          dispatch(setUserDetails(payload));
+        });
+      }
+      else{
+        
+        getProfile(`profile/profile/`)
+          .unwrap()
+          .then((payload) => {
+            dispatch(setUserDetails(payload));
+            
+          });
+      }
   }, []);
   return (
     <>

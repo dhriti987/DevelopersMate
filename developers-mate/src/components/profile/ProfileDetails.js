@@ -11,6 +11,7 @@ import { BiPencil } from "react-icons/bi";
 function ProfileDetails() {
   let formData = new FormData();
   const userDetails = useSelector((state) => state.userDetails.value);
+  const otherUserId = useSelector((state)=>state.otherUserId.value)
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(true);
 
@@ -28,7 +29,7 @@ function ProfileDetails() {
   return (
     <div className="profileDetails">
       <div className="banner">
-        {userDetails && userDetails.banner ? (
+        {userDetails && userDetails.banner && !otherUserId ? (
           <>
           <Link to="/profile/editbanner">
               <BiPencil
@@ -41,42 +42,48 @@ function ProfileDetails() {
           <img src={`http://127.0.0.1:8000${userDetails.banner}`} alt="" />
           </>
         ) : (
-          <button className="addBannerBtn">
+          !otherUserId && 
+          (<button className="addBannerBtn">
             <MdInsertPhoto size={24} className="icon" />
             <h4 style={{ color: "black", margin: "0" }}>Add Banner</h4>
             <input
               type="file"
-              accept="image/*"
+              accept="image/png, image/gif, image/jpeg"
               name="banner"
               onChange={(e) => {
                 handleChange(e);
               }}
               style={{ opacity: "0" }}
             />
-          </button>
+          </button>)
         )}
       </div>
       <div className="profileImage">
         {userDetails && userDetails.image !== "/media/user/default.jpg" ? (
           <img src={`http://127.0.0.1:8000${userDetails.image}`} alt="" />
         ) : (
-          <button className="addProfilePicBtn">
+          
+          !otherUserId && (
+            <button className="addProfilePicBtn">
             <MdInsertPhoto size={24} />
             <h4 style={{ color: "black", margin: "0" }}>Add Profile</h4>
             <input
               type="file"
               name="image"
-              accept="image/*"
+              accept="image/png, image/gif, image/jpeg"
               onChange={(e) => {
                 handleChange(e);
               }}
             />
           </button>
+          )
         )}
       </div>
+      {!otherUserId && 
       <Link to="/profile/editintro" style={{ textDecoration: "none" }}>
         <BiEdit color="white" className="editbtn icon" size={24} />
       </Link>
+      }
       <div className="userProfileDetails">
         <h2>
           {userDetails && `${userDetails.first_name} ${userDetails.last_name}`}
