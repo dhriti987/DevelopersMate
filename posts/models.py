@@ -47,6 +47,17 @@ class Post(models.Model):
             return f"{interval_mins} mins ago" if interval_mins>1 else "1 min ago"
         
         return "{} sec ago".format(interval.seconds)
+    
+    @property
+    def no_of_comments(self):
+        return self.comments.count()
+    
+    @property
+    def no_of_likes(self):
+        try:
+            return self.likes.user_profile.count()
+        except:
+            return 0
 
 class Like(models.Model):
     post = models.OneToOneField(to=Post,on_delete=models.CASCADE,related_name='likes')

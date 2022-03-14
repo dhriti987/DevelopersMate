@@ -1,8 +1,10 @@
+from django.shortcuts import get_object_or_404
 from rest_framework import generics
 from authentication.models import User
-
-from posts.models import Comment, Post
-from posts.serializers import CommentSerializer, PostSerializer
+from rest_framework.response import Response
+from rest_framework import status
+from posts.models import Comment, Like, Post
+from posts.serializers import CommentSerializer, LikeSerializer, PostSerializer
 from userprofile.models import Profile
 
 class PostAPIView(generics.ListCreateAPIView):
@@ -21,18 +23,37 @@ class PostRetriveUpdateDeleteAPIView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = PostSerializer
 
 class LikeAPIView(generics.GenericAPIView):
-    def post(self,request):
-        pass 
+    def get_serializer_class(self):
+        return LikeSerializer
 
+    def post(self,request,pk):
+        post_obj = get_object_or_404(Post,post_id=pk)
+        like_obj, _ = Like.objects.get_or_create(post = post_obj)
+        profile_obj = Profile.objects.get(user = request.user)
+        like_obj.user_profile.add(profile_obj)
+        like_obj.save()
+        return Response()
+    
+    def delete(self,request,pk):
+        like_obj = get_object_or_404(Like,post = pk)
+        try:
+            profile_obj = Profile.objects.get(user = request.user)
+            like_obj.user_profile.remove(profile_obj)
+            like_obj.save()
+            return Response()
+        except:
+            Response(status=status.HTTP_400_BAD_REQUEST)
+        
 class CommentAPIView(generics.ListCreateAPIView):
     serializer_class = CommentSerializer
     
     def get_queryset(self):
         post_id = self.request.GET.get("id")
-        if post_id:
+        try:
             post_obj = Post.objects.get(post_id = post_id)
             return Comment.objects.filter(post = post_obj)
-        return None
+        except:
+            return None
     
 class CommentRetriveDeleteAPIView(generics.RetrieveDestroyAPIView):
     serializer_class = CommentSerializer
