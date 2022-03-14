@@ -6,8 +6,12 @@ from rest_framework import status
 from posts.models import Comment, Like, Post
 from posts.serializers import CommentSerializer, LikeSerializer, PostSerializer
 from userprofile.models import Profile
+from rest_framework_simplejwt.authentication import JWTAuthentication
+from rest_framework.permissions import IsAuthenticated
 
 class PostAPIView(generics.ListCreateAPIView):
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated]
     queryset = Post.objects.all()
     serializer_class = PostSerializer
 
@@ -19,10 +23,14 @@ class PostAPIView(generics.ListCreateAPIView):
         return super().get_queryset()
 
 class PostRetriveUpdateDeleteAPIView(generics.RetrieveUpdateDestroyAPIView):
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated]
     queryset = Post.objects.all()
     serializer_class = PostSerializer
 
 class LikeAPIView(generics.GenericAPIView):
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated]
     def get_serializer_class(self):
         return LikeSerializer
 
@@ -45,6 +53,8 @@ class LikeAPIView(generics.GenericAPIView):
             Response(status=status.HTTP_400_BAD_REQUEST)
         
 class CommentAPIView(generics.ListCreateAPIView):
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated]
     serializer_class = CommentSerializer
     
     def get_queryset(self):
@@ -56,5 +66,7 @@ class CommentAPIView(generics.ListCreateAPIView):
             return None
     
 class CommentRetriveDeleteAPIView(generics.RetrieveDestroyAPIView):
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated]
     serializer_class = CommentSerializer
     queryset = Comment.objects.all()
