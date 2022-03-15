@@ -27,7 +27,11 @@ function App() {
   const navigate = useNavigate();
   const authToken = useSelector((state) => state.authToken.value);
   const dispatch = useDispatch();
-  dispatch(setAuthToken(localStorage.getItem("access") ? localStorage.getItem("access") : null));
+  dispatch(
+    setAuthToken(
+      localStorage.getItem("access") ? localStorage.getItem("access") : null
+    )
+  );
   useEffect(() => {
     const interval = setInterval(() => {
       const updateToken = async () => {
@@ -49,19 +53,16 @@ function App() {
         }
       };
       updateToken();
-    }, 3600000*20);
+    }, 360000 * 20);
     return () => clearInterval(interval);
   }, [authToken]);
 
-  useEffect(()=>{
-    
-  },[])
-  
   return (
     <div className="App">
       <Routes>
         <Route exact path="/login" element={<Login />} />
         <Route exact path="/signup" element={<SignUp />} />
+        <Route exact path="/addUserDetails" element={<AddUserDetails />} />
         <Route exact path="/" element={<PrivateRoute />}>
           <Route path="/profile" element={<Profile />}>
             <Route exact path="addskills" element={<AddSkills />} />
@@ -71,20 +72,27 @@ function App() {
             <Route exact path="addintro" element={<AddInto />} />
             <Route exact path="addbio" element={<AddBio />} />
             <Route exact path="editbio" element={<AddBio />} />
-            <Route exact path="edituserdetails" element={<AddUserDetails />} />
-            <Route exact path="editexperience/:id" element={<AddExperience />} />
+            <Route
+              exact
+              path="editexperience/:id"
+              element={<AddExperience />}
+            />
             <Route exact path="editeducation/:id" element={<AddEducation />} />
             <Route exact path="editproject/:id" element={<AddProjects />} />
             <Route exact path="editintro" element={<AddInto />} />
             <Route exact path="editbanner" element={<EditBanner />} />
           </Route>
-          <Route path="showallpost" element={<ShowAllPost/>}>
-            <Route exact path="editpost/:postId" element={<EditPost/>} />
+          <Route path="showallpost" element={<ShowAllPost />}>
+            <Route exact path="editpost/:postId" element={<EditPost />} />
           </Route>
+          <Route
+            exact
+            path="postdetailpopup/:postId"
+            element={<PostDetailPopUp />}
+          />
           <Route path="/home" element={<Home />}>
             <Route exact path="adduserdetails" element={<AddUserDetails />} />
-            <Route exact path="postdetailpopup/:postId" element={<PostDetailPopUp />} />
-            <Route exact path="createpost" element={<CreatePostSection/>} />
+            <Route exact path="createpost" element={<CreatePostSection />} />
           </Route>
         </Route>
       </Routes>

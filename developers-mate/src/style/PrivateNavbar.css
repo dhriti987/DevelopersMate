@@ -18,6 +18,7 @@
     border-radius: 0 0.3rem 0.3rem 0;
     padding: 0.3rem;
     border: none;
+    z-index: 200;
     font-size: 0.9rem;
     background-color: #282828;
     color: aliceblue;
@@ -25,6 +26,7 @@
     transition: 0.3s;
 }
 .navbarContainer .navbarContent .navbarSearchBar .searchIcon{
+    z-index: 200;
     width: 1.4rem;
     height: 1.5rem;
     padding: 0.3rem;
@@ -35,12 +37,14 @@
     justify-content: center;
 }
 .navbarContainer .navbarContent .navbarSearchBar .searchedResults{
-    width: 20.6rem;
+    width: 18.6rem;
+    transition: 0.3s;
     /* height: 1.5rem; */
     position: absolute;
     top: 3rem;
     background-color: #282828;
     border-radius: 0 0 0.3rem 0.3rem;
+    z-index: 200;
 }
 .navbarContainer .navbarContent .navbarSearchBar .searchedResults .searchedUserDetails{
     display: flex;
