@@ -44,20 +44,20 @@ function ShowPost({ item, isEdit, isPost, setDisplayWarning,setSelectedPostId })
         {item.image && !otherUserId &&(
           <Link
             Link
-            to={isEdit ? "" : `/home/postdetailpopup/${item.post_id}/`}
+            to={isEdit ? "" : `/postdetailpopup/${item.post_id}/`}
           >
             <img src={`${item.image}`} alt="" />
           </Link>
         )}
       </div>
       <div className="icons">
-        <LikeButton />
+        <LikeButton item={item}/>
         <div className="comment">
-          <Link to={`/home/postdetailpopup/${item.post_id}/`}>
+          <Link to={`/postdetailpopup/${item.post_id}/`}>
             <BiCommentDots size={31} color="rgba(243, 243, 243, 0.8)" />
           </Link>
           <h5 style={{ color: "rgba(156, 145, 145, 0.8)", margin: "0 0.1rem" }}>
-            24
+            {item.total_comments}
           </h5>
         </div>
         <AiOutlineShareAlt

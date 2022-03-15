@@ -21,7 +21,6 @@ export const fetchData = createApi({
     postRequest: builder.mutation({
       query: (val) => {
         const {data,url}=val;
-        console.log(url)
         return {
           url: `${url}`,
           method: "POST",

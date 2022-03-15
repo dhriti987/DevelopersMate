@@ -1,5 +1,5 @@
 import { React, useState, useEffect } from "react";
-import "../../style/home/popUp.css";
+import "../../style/home/ShowComment.css";
 import camera from "../../assets/home/camera.png";
 import LikeButton from "../LikeButton";
 import { BiCommentDots } from "react-icons/bi";
@@ -10,6 +10,7 @@ import CommentSection from "./CommentSection";
 import { Link, useParams } from "react-router-dom";
 import CoverBackground from "../CoverBackground";
 import { useGetRequestMutation,usePostRequestMutation } from "../../redux/PrivateApi";
+import PrivateNavbar from "../PrivateNavbar";
 
 function PostDetailPopUp() {
   const { postId } = useParams();
@@ -51,45 +52,35 @@ function PostDetailPopUp() {
 
   return (
     <>
-      <CoverBackground />
+      <PrivateNavbar />
       {postDetails && 
-        <main className="popUp">
-          <div className="leftContainer">
+        <main className="postDetailsView">
+          <ProfileHead item={postDetails} />
+          <div className="postDetailsImage">
             {postDetails.image ? 
             <img src={`${postDetails.image}`} alt="" />
             :
-            <>
-            <img src={camera} alt="" />
-            <h1>No Image Available</h1>
-            </>
+            <></>
             }
           </div>
-          <div className="rightContainer">
-            <Link to="/home">
-              <ImCross color="white" size={20} className="cancelBtn" />
-            </Link>
-            <ProfileHead item={postDetails} />
-            <div className="body">
+            
+            <div className="body" style={{marginTop:"1rem"}}>
               <h4 style={{ fontWeight: "500" }}>
                 {postDetails.text}
               </h4>
             </div>
             <div className="icons">
-              <LikeButton />
-              <BiCommentDots
+              <LikeButton item={postDetails}/>
+              
+              <AiOutlineShareAlt
                 size={31}
                 color="rgba(243, 243, 243, 0.8)"
                 style={{ cursor: "pointer" }}
               />
-              <AiOutlineShareAlt
-                size={31}
-                color="rgba(243, 243, 243, 0.8)"
-                style={{ cursor: "pointer", marginLeft: "1.1rem" }}
-              />
             </div>
             <form className="userComment" onSubmit={handleCommentSubmit}>
-              <input type="text" placeholder="Comment" value={submitComment} onChange={(e)=>{setSubmitComment(e.target.value)}} required/>
-              <button type="submit">Submit</button>
+              <textarea type="text" placeholder="Comment" value={submitComment} onChange={(e)=>{setSubmitComment(e.target.value)}} required/>
+              <button type="submit">Comment</button>
             </form>
             {
               commentDetails && 
@@ -102,7 +93,6 @@ function PostDetailPopUp() {
                 }
               </div>
             }
-          </div>
         </main>
       }
     </>

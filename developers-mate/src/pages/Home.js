@@ -27,7 +27,6 @@ function Home() {
   useEffect(()=>{
     dispatch(setOtherUserId(null));
   },[])
-  console.log("he")
   return (
     <>
       <PrivateNavbar />

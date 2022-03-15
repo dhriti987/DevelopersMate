@@ -6,7 +6,7 @@ function CommentSection({item}) {
   return (
     <main className='comments'>
         <ProfileHead isEdit={false} isPost={false} item={item}/>
-        <h4 style={{fontWeight:"400",color:"rgba(243, 243, 243, 0.8)"}}>{item.text}</h4>
+        <h4 style={{fontWeight:"400",color:"rgba(243, 243, 243, 0.8)",marginTop:"1rem"}}>{item.text}</h4>
     </main>
   )
 }

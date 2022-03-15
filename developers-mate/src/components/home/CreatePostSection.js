@@ -34,7 +34,7 @@ function CreatePostSection() {
   return (
     <>
       <CoverBackground />
-      <form className="createPostContainer popUp" onSubmit={onSubmit} style={!createPostDetails.image ? {height:"auto"} : {}}>
+      <form className="createPostContainer" onSubmit={onSubmit} style={!createPostDetails.image ? {height:"auto"} : {}}>
         <div className="heading">
           <Link to="/home" style={{ textDecoration: "none" }}>
             <CloseButton />
