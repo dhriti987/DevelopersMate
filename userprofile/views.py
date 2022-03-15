@@ -8,8 +8,14 @@ from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.authentication import TokenAuthentication
 from userprofile.models import Education, Experience, Link, Profile, Project, Skill
-
-from userprofile.serializers import EducationSerializer, ExperienceSerializer, LinkSerializer, ProfileSerializer, ProjectSerializer, SkillSerializer
+from userprofile.serializers import (
+    EducationSerializer,
+    ExperienceSerializer,
+    LinkSerializer,
+    ProfileSerializer,
+    ProjectSerializer,
+    SkillSerializer
+)
 
 # Create your views here.
 
