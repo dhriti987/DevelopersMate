@@ -9,7 +9,6 @@ function LikeButton({item}) {
   const [deleteLike] = useDeleteRequestMutation();
   const [isLiked,setIsLiked]= useState(item.is_liked);
   const [numberOfLikes,setNumberOfLikes] = useState(item.total_likes);
-  // console.log(item.text==="hello world" ? `${isLiked} ${numberOfLikes}` : '')
   useEffect(()=>{
     setIsLiked(item.is_liked)
     setNumberOfLikes(item.total_likes)

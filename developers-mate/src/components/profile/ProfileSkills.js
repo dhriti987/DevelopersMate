@@ -3,15 +3,17 @@ import { MdDelete } from "react-icons/md";
 import { IoMdAdd } from "react-icons/io";
 import { AiOutlineDown, AiOutlineUp } from "react-icons/ai";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector,useDispatch } from "react-redux";
 import {
   usePostRequestMutation,
   useDeleteRequestMutation,
 } from "../../redux/PrivateApi";
 import AddButton from "../AddButton";
+import { setUserDetails } from "../../redux/UserDetails";
 
 function ProfileSkills() {
   const userDetails = useSelector((state) => state.userDetails.value);
+  const dispatch = useDispatch();
   const otherUserId = useSelector((state)=>state.otherUserId.value)
   const [deleteSkill, responseInfo] = useDeleteRequestMutation();
   const [isGreaterThanThree, setIsGreaterThanThree] = useState(false);
@@ -20,7 +22,14 @@ function ProfileSkills() {
     deleteSkill(`profile/skill/${id}`)
       .unwrap()
       .then((payload) => {
-        console.log(payload);
+        const newSkillsSet = userDetails.skills.filter((item)=>item.id!=id);
+        dispatch( setUserDetails({
+
+          ...userDetails,
+          skills:newSkillsSet
+        }
+        ));
+        console.log(userDetails)
       });
   };
   return (

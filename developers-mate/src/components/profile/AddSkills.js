@@ -24,6 +24,7 @@ function AddSkills() {
   const [input,setInput]=useState('');
   const [addSkills,responseInfo] = usePostRequestMutation();
   const [showError,setShowError] = useState(false);
+  const [errorMessage,setErrorMessage] = useState("");
 
   useEffect(() => {
     const newArray = skillsArray.filter((item) =>
@@ -33,9 +34,18 @@ function AddSkills() {
   }, [searchInput]);
 
   const checkAlreadyPresent=(val)=>{
-    for(let i=0;i<userDetails.skills.length;i++){
-      if(userDetails.skills[i].skill.toLowerCase() === val.toLowerCase()) return true;
+    if(val===""){
+      setErrorMessage("Oops! You have added a empty Skill.")
+      return true
     }
+    for(let i=0;i<userDetails.skills.length;i++){
+      if(userDetails.skills[i].skill.toLowerCase() === val.toLowerCase()) {
+        setErrorMessage("Oops! You have Already added this Skill.")
+        return true;
+      }
+
+    }
+    
     return false;
   }
 
@@ -87,7 +97,7 @@ function AddSkills() {
     <>
     <CoverBackground/>
     <main className="popUp-container">
-    <ErrorPopUp error="Oops! You have Already added this Skill." display={showError ? `show` : `hide`}/>
+    <ErrorPopUp error={errorMessage} display={showError ? `show` : `hide`}/>
       {isProfile && (
         <Link to="/profile" style={{ textDecoration: "none" }}>
           <CloseButton/>
