@@ -34,7 +34,7 @@ class Profile(models.Model):
 
 class Skill(models.Model):
     skill = models.CharField(max_length=30)
-    user_profile = models.ManyToManyField(to=Profile,related_name='skills')
+    user_profile = models.ManyToManyField(to=Profile,related_name='skills',blank= True)
 
 
 class Education(models.Model):
