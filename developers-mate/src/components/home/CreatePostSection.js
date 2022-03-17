@@ -8,15 +8,16 @@ import { Link } from "react-router-dom";
 import CloseButton from "../CloseButton";
 import CoverBackground from "../CoverBackground";
 import api from "../../api/ImageApi"
+import {useSelector,useDispatch} from "react-redux";
 
 function CreatePostSection() {
+  const navigate = useNavigate();
   const [createPostDetails, setCreatePostDetails] = useState({
     text: "",
     image: null,
   });
-  const navigate = useNavigate();
-  const [loading,setLoading] = useOutletContext();
   let formData = new FormData();
+  const [fetchAgain, setFetchAgain] = useOutletContext();
   const onSubmit = async (e) => {
     e.preventDefault();
     formData.append("posted_by",localStorage.getItem("userId"))
@@ -24,7 +25,7 @@ function CreatePostSection() {
     formData.append("image",createPostDetails.image ? createPostDetails.image : '');
     try{
       const response = await api.post("post-details/posts/",formData);
-      setLoading(loading ? false : true);
+      setFetchAgain(fetchAgain ? false : true)
       navigate("/home")
     }
     catch(err){

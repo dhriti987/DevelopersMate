@@ -126,6 +126,7 @@ function AddUserDetails() {
     await postRequest({ data: data, url: "/profile/profile/" })
       .unwrap()
       .then(() => {
+        localStorage.setItem("profile","true");
         navigate("/home");
       })
       .catch((err) => {

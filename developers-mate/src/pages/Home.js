@@ -9,11 +9,13 @@ import { useGetRequestMutation } from "../redux/PrivateApi";
 import { useDispatch } from "react-redux";
 import { setOtherUserId } from "../redux/OtherUserId";
 import Spinner from "../assets/common/Spinner.gif";
+import {useSelector} from "react-redux";
 
 function Home() {
   const [getPosts, responseInfo] = useGetRequestMutation();
   const [allPosts, setAllPosts] = useState(null);
-  const [loading,setLoading] = useState(false);
+  const fetchPost = useSelector((state)=>state.fetchPost.value);
+  const [fetchAgain,setFetchAgain] = useState(false);
   const dispatch = useDispatch();
 
   useEffect(async () => {
@@ -22,15 +24,14 @@ function Home() {
       .then((payload) => {
         setAllPosts(payload);
       });
-  }, [loading]);
-
+  }, [fetchAgain]);
   useEffect(()=>{
     dispatch(setOtherUserId(null));
   },[])
   return (
     <>
       <PrivateNavbar />
-      <Outlet context={[loading,setLoading]}/>
+      <Outlet context={[fetchAgain, setFetchAgain]}/>
       <main className="home-page">
         <div className="leftContainer">
           <Banner />

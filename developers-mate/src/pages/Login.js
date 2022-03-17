@@ -36,7 +36,9 @@ function Login() {
       localStorage.setItem("access", response.data.access);
       localStorage.setItem("refresh", response.data.refresh);
       localStorage.setItem("userId",jwt_decode(response.data.access).user_id);
-      navigate("/home");
+      localStorage.setItem("profile",jwt_decode(response.data.access).have_profile);
+      if(localStorage.getItem("profile")) navigate("/home");
+      else navigate("/addUserDetails");
     } catch (err) {
       console.log(err.response);
       setError(1);

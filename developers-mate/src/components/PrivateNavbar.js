@@ -35,6 +35,7 @@ function PrivateNavbar() {
           <div className="navbarLinks">
             <h2>DevelopersMate.</h2>
           </div>
+          
           <div className="navbarSearchBar">
             <div
               className="searchIcon"
