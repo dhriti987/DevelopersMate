@@ -145,13 +145,17 @@ class SkillAPIView(generics.GenericAPIView):
 
 
 class SkillDeleteAPIView(generics.GenericAPIView):
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated]
+
     def delete(self,request,pk):
         try:
             user = Profile.objects.get(user = request.user)
             skill = Skill.objects.get(pk=pk)
-            user.skills.remove(skill)
-            user.save()
-        except:
+            skill.user_profile.remove(user)
+            skill.save()
+            
+        except: 
             return Response(status=status.HTTP_400_BAD_REQUEST)
         return Response(status=status.HTTP_200_OK)
 
