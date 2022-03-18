@@ -81,14 +81,21 @@ def auto_delete_image_on_change(sender,instance,*args,**kwargs):
         return False
 
     try:
-        old_file = Profile.objects.get(pk=instance.pk).image
+        old_image = Profile.objects.get(pk=instance.pk).image
+        old_banner = Profile.objects.get(pk=instance.pk).banner
     except Profile.DoesNotExist:
         return False
 
-    new_file = instance.image
+    new_image = instance.image
+    new_banner = instance.banner
     try:
-        if not old_file == new_file:
-            if os.path.isfile(old_file.path):
-                os.remove(old_file.path)
+        if not old_image == new_image:
+            if os.path.isfile(old_image.path):
+                os.remove(old_image.path)
+        
+        if not old_banner == new_banner:
+            if os.path.isfile(old_banner.path):
+                os.remove(old_banner.path)
+        
     except:
         return False

@@ -1,8 +1,9 @@
 from django.db import models
 import uuid
-
+from django.dispatch import receiver
 from userprofile.models import Profile
 from datetime import datetime, timedelta
+import os
 
 def create_path_image(self,filename):
     email = self.posted_by.user.email.split('@')[0]
@@ -95,3 +96,21 @@ class Comment(models.Model):
             return f"{interval_mins} mins ago" if interval_mins>1 else "1 min ago"
         
         return "{} sec ago".format(interval.seconds)
+
+@receiver(models.signals.pre_save,sender=Post)
+def auto_delete_image_on_change(sender,instance,*args,**kwargs):
+    if not instance.pk:
+        return False
+
+    try:
+        old_file = Post.objects.get(pk=instance.pk).image
+    except Post.DoesNotExist:
+        return False
+
+    new_file = instance.image
+    try:
+        if not old_file == new_file:
+            if os.path.isfile(old_file.path):
+                os.remove(old_file.path)
+    except:
+        return False
