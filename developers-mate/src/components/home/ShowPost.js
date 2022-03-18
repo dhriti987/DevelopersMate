@@ -7,21 +7,30 @@ import { AiOutlineShareAlt } from "react-icons/ai";
 import ProfileHead from "./ProfileHead";
 import { Link } from "react-router-dom";
 import { AiFillDelete } from "react-icons/ai";
-import {useSelector} from "react-redux";
+import { useSelector } from "react-redux";
 
-function ShowPost({ item, isEdit, isPost, setDisplayWarning,setSelectedPostId }) {
-  const otherUserId = useSelector((state)=>state.otherUserId.value)
+function ShowPost({
+  item,
+  isEdit,
+  isPost,
+  setDisplayWarning,
+  setSelectedPostId,
+}) {
+  const otherUserId = useSelector((state) => state.otherUserId.value);
   return (
-    <div className="showpostContainer">
+    <div
+      className="showpostContainer"
+      style={
+        (isPost || isEdit) ? { border: "1px solid rgba(16, 202, 0, 0.3)" } : {}
+      }
+    >
       <ProfileHead
         item={item}
         isEdit={isEdit}
         isPost={isPost}
         setDisplayWarning={setDisplayWarning}
       />
-      {
-        isPost && !otherUserId &&
-
+      {isPost && !otherUserId && (
         <AiFillDelete
           color="white"
           size={28}
@@ -31,27 +40,24 @@ function ShowPost({ item, isEdit, isPost, setDisplayWarning,setSelectedPostId })
             right: "0.5rem",
             top: "0.8rem",
           }}
-          onClick={()=>{
-            setDisplayWarning(true)
-            setSelectedPostId(item.post_id)
+          onClick={() => {
+            setDisplayWarning(true);
+            setSelectedPostId(item.post_id);
           }}
         />
-      }
+      )}
       <div className="body">
         <h4 style={{ color: "rgba(243, 243, 243, 0.8)", fontWeight: "400" }}>
           {item.text}
         </h4>
-        {item.image && !otherUserId &&(
-          <Link
-            Link
-            to={isEdit ? "" : `/postdetailpopup/${item.post_id}/`}
-          >
+        {item.image && !otherUserId && (
+          <Link Link to={isEdit ? "" : `/postdetailpopup/${item.post_id}/`}>
             <img src={`${item.image}`} alt="" />
           </Link>
         )}
       </div>
       <div className="icons">
-        <LikeButton item={item}/>
+        <LikeButton item={item} />
         <div className="comment">
           <Link to={`/postdetailpopup/${item.post_id}/`}>
             <BiCommentDots size={31} color="rgba(243, 243, 243, 0.8)" />

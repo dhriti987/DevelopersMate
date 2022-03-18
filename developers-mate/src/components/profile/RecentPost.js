@@ -48,7 +48,7 @@ function EditPosts() {
             {userPosts.map((item, idx) => {
               if (idx >= 2) return;
               return (
-                <ShowPost item={item} isEdit={true} key={`recentPost${idx}`} style={{border:"2px solid red"}}/>
+                <ShowPost item={item} isEdit={true} key={`recentPost${idx}`}/>
               );
             })}
           </div>

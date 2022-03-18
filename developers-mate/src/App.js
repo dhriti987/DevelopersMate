@@ -53,10 +53,10 @@ function App() {
         }
       };
       updateToken();
-    }, 360000 * 20);
+    }, 1200000);
     return () => clearInterval(interval);
   }, [authToken]);
-
+  
   return (
     <div className="App">
       <Routes>

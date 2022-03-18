@@ -23,6 +23,15 @@ function EditBanner() {
   const handleChange = (e) => {
     setImageBannerName({ ...imageBannerName, banner: e.target.files[0] });
   };
+  const handleDelete=async()=>{
+    try {
+      const response = await api.patch("profile/profile/", {banner:null});
+      dispatch(setUserDetails(response.data));
+      navigate("/profile");
+    } catch (err) {
+      console.log(err.response);
+    }
+  }
   const onSubmit = async (e) => {
     e.preventDefault();
     if(imageBannerName.banner===null) navigate("/profile")
@@ -68,7 +77,7 @@ function EditBanner() {
             <button className="nextbtn" type="submit">
               <h4 style={{ margin: "0" }}>Edit</h4>
             </button>
-            <button className="nextbtn" type="submit">
+            <button className="nextbtn" type="submit" onClick={handleDelete}>
               <h4 style={{ margin: "0" }}>Delete Banner</h4>
             </button>
           </div>
