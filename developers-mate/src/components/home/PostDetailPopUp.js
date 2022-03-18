@@ -1,14 +1,10 @@
 import { React, useState, useEffect } from "react";
 import "../../style/home/ShowComment.css";
-import camera from "../../assets/home/camera.png";
 import LikeButton from "../LikeButton";
-import { BiCommentDots } from "react-icons/bi";
 import { AiOutlineShareAlt } from "react-icons/ai";
-import { ImCross } from "react-icons/im";
 import ProfileHead from "./ProfileHead";
 import CommentSection from "./CommentSection";
-import { Link, useParams } from "react-router-dom";
-import CoverBackground from "../CoverBackground";
+import {  useParams } from "react-router-dom";
 import { useGetRequestMutation,usePostRequestMutation } from "../../redux/PrivateApi";
 import PrivateNavbar from "../PrivateNavbar";
 

@@ -11,7 +11,6 @@ import CoverBackground from "../../components/CoverBackground";
 import Spinner from "../../assets/common/Spinner.gif";
 import {useSelector} from "react-redux";
 
-
 function ShowAllPost() {
   const [getUserPost] = useGetRequestMutation();
   const [deleteUserPost] = useDeleteRequestMutation();
@@ -31,7 +30,6 @@ function ShowAllPost() {
   }, [fetchAgain]);
 
   useEffect(() => {
-      console.log("hell")
     if (isDeleted)
       deleteUserPost(`post-details/posts/${selectedPostId}`)
         .unwrap()

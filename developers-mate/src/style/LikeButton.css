@@ -1,5 +1,6 @@
 .heartBtn .content {
   padding: 0rem 1rem;
+  padding-right: 0;
   display: flex;
   position: relative;
   width: 2rem;

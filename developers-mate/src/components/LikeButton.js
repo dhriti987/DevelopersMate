@@ -1,13 +1,18 @@
-import {React,useState} from 'react'
+import {React,useEffect,useState} from 'react'
 import "../style/LikeButton.css"
 import { usePostRequestMutation,useDeleteRequestMutation } from "../redux/PrivateApi";
 
 function LikeButton({item}) {
   // post-details/
+
   const [postLike] = usePostRequestMutation();
   const [deleteLike] = useDeleteRequestMutation();
-  const [isLiked,setIsLiked] = useState(item.is_liked);
-  const [numberOfLikes,setNumberOfLikes] = useState(item.total_likes)
+  const [isLiked,setIsLiked]= useState(item.is_liked);
+  const [numberOfLikes,setNumberOfLikes] = useState(item.total_likes);
+  useEffect(()=>{
+    setIsLiked(item.is_liked)
+    setNumberOfLikes(item.total_likes)
+  },[item])
   const handleLike=()=>{
     if(!isLiked){
       postLike({data:{},url:`post-details/like/${item.post_id}`})

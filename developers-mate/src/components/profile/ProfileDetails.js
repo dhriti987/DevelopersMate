@@ -11,7 +11,7 @@ import { BiPencil } from "react-icons/bi";
 function ProfileDetails() {
   let formData = new FormData();
   const userDetails = useSelector((state) => state.userDetails.value);
-  const otherUserId = useSelector((state)=>state.otherUserId.value)
+  const otherUserId = useSelector((state) => state.otherUserId.value);
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(true);
 
@@ -29,21 +29,28 @@ function ProfileDetails() {
   return (
     <div className="profileDetails">
       <div className="banner">
-        {userDetails && userDetails.banner && !otherUserId ? (
+        {userDetails && userDetails.banner && (
           <>
-          <Link to="/profile/editbanner">
+            {!otherUserId && 
+            <Link to="/profile/editbanner">
               <BiPencil
                 color="white"
                 size={28}
-                style={{ cursor: "pointer",position:"absolute",right:"0.5rem",top:"0.5rem" }}
+                style={{
+                  cursor: "pointer",
+                  position: "absolute",
+                  right: "0.5rem",
+                  top: "0.5rem",
+                }}
                 className="icon"
               />
             </Link>
-          <img src={`http://127.0.0.1:8000${userDetails.banner}`} alt="" />
+            }
+            <img src={`http://127.0.0.1:8000${userDetails.banner}`} alt="" />
           </>
-        ) : (
-          !otherUserId && 
-          (<button className="addBannerBtn">
+        )}
+        {userDetails && !userDetails.banner && !otherUserId && (
+          <button className="addBannerBtn">
             <MdInsertPhoto size={24} className="icon" />
             <h4 style={{ color: "black", margin: "0" }}>Add Banner</h4>
             <input
@@ -55,35 +62,34 @@ function ProfileDetails() {
               }}
               style={{ opacity: "0" }}
             />
-          </button>)
+          </button>
         )}
       </div>
       <div className="profileImage">
         {userDetails && userDetails.image !== "/media/user/default.jpg" ? (
           <img src={`http://127.0.0.1:8000${userDetails.image}`} alt="" />
         ) : (
-          
           !otherUserId && (
             <button className="addProfilePicBtn">
-            <MdInsertPhoto size={24} />
-            <h4 style={{ color: "black", margin: "0" }}>Add Profile</h4>
-            <input
-              type="file"
-              name="image"
-              accept="image/png, image/gif, image/jpeg"
-              onChange={(e) => {
-                handleChange(e);
-              }}
-            />
-          </button>
+              <MdInsertPhoto size={24} />
+              <h4 style={{ color: "black", margin: "0" }}>Add Profile</h4>
+              <input
+                type="file"
+                name="image"
+                accept="image/png, image/gif, image/jpeg"
+                onChange={(e) => {
+                  handleChange(e);
+                }}
+              />
+            </button>
           )
         )}
       </div>
-      {!otherUserId && 
-      <Link to="/profile/editintro" style={{ textDecoration: "none" }}>
-        <BiEdit color="white" className="editbtn icon" size={24} />
-      </Link>
-      }
+      {!otherUserId && (
+        <Link to="/profile/editintro" style={{ textDecoration: "none" }}>
+          <BiEdit color="white" className="editbtn icon" size={24} />
+        </Link>
+      )}
       <div className="userProfileDetails">
         <h2>
           {userDetails && `${userDetails.first_name} ${userDetails.last_name}`}
