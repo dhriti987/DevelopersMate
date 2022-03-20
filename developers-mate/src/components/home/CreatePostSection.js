@@ -1,5 +1,5 @@
 import { React, useState } from "react";
-import { useNavigate,useOutletContext } from "react-router-dom";
+import { useNavigate, useOutletContext } from "react-router-dom";
 import "../../style/home/CreatePostSection.css";
 import { BsFillImageFill } from "react-icons/bs";
 import Button from "../Button";
@@ -7,8 +7,8 @@ import banner from "../../assets/profile/bannerBg.jpg";
 import { Link } from "react-router-dom";
 import CloseButton from "../CloseButton";
 import CoverBackground from "../CoverBackground";
-import api from "../../api/ImageApi"
-import {useSelector,useDispatch} from "react-redux";
+import api from "../../api/ImageApi";
+import { useSelector, useDispatch } from "react-redux";
 
 function CreatePostSection() {
   const navigate = useNavigate();
@@ -20,22 +20,28 @@ function CreatePostSection() {
   const [fetchAgain, setFetchAgain] = useOutletContext();
   const onSubmit = async (e) => {
     e.preventDefault();
-    formData.append("posted_by",localStorage.getItem("userId"))
-    formData.append("text",createPostDetails.text);
-    formData.append("image",createPostDetails.image ? createPostDetails.image : '');
-    try{
-      const response = await api.post("post-details/posts/",formData);
-      setFetchAgain(fetchAgain ? false : true)
-      navigate("/home")
+    formData.append("posted_by", localStorage.getItem("userId"));
+    formData.append("text", createPostDetails.text);
+    formData.append(
+      "image",
+      createPostDetails.image ? createPostDetails.image : ""
+    );
+    try {
+      const response = await api.post("post-details/posts/", formData);
+      setFetchAgain(fetchAgain ? false : true);
+      navigate("/home");
+    } catch (err) {
+      console.log(err.response);
     }
-    catch(err){
-      console.log(err.response)
-    } 
   };
   return (
     <>
       <CoverBackground />
-      <form className="createPostContainer" onSubmit={onSubmit} style={!createPostDetails.image ? {height:"auto"} : {}}>
+      <form
+        className="createPostContainer"
+        onSubmit={onSubmit}
+        style={!createPostDetails.image ? { height: "auto" } : {}}
+      >
         <div className="heading">
           <Link to="/home" style={{ textDecoration: "none" }}>
             <CloseButton />
@@ -55,7 +61,11 @@ function CreatePostSection() {
           }}
         />
         {createPostDetails.image && (
-          <img src={URL.createObjectURL(createPostDetails.image)} alt="" className="createPostImg" />
+          <img
+            src={URL.createObjectURL(createPostDetails.image)}
+            alt=""
+            className="createPostImg"
+          />
         )}
         <div className="createPostControl">
           <input
@@ -74,7 +84,7 @@ function CreatePostSection() {
             color="white"
             style={{ cursor: "pointer" }}
           />
-          <Button title="Post" width={"8rem"} height="2rem" />
+          <Button title="Post" styles={{ width: "8rem", height: "2rem" }} />
         </div>
       </form>
     </>

@@ -1,9 +1,9 @@
 import React from 'react'
 import "../style/Button.css";
 
-function Button({title,width,height}) {
+function Button({title,styles}) {
   return (
-    <button className='btn' style={{width:`${width}`,height:`${height}`}}>
+    <button className='btn' style={styles}>
         <h4>{title}</h4>    
     </button>
   )

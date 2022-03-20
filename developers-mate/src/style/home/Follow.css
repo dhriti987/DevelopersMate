@@ -1,0 +1,22 @@
+.followContainer{
+    border: 1px solid rgba(16, 202, 0, 0.3);
+    display: flex;
+    gap: 0.6rem;
+    padding: 0.6rem;
+    align-items: center;
+    margin: 0.8rem 0;
+    border-radius: 5px;
+    text-decoration: none;
+}
+.followContainer img{
+    width: 3.7rem;
+    height: 3.7rem;
+    border-radius: 50%;
+}
+.followContainer .text h5{
+    font-weight: 300;
+    margin: 0;
+}
+.followContainer .text h3{
+ margin: 0;
+}

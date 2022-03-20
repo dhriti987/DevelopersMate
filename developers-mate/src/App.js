@@ -22,6 +22,7 @@ import EditBanner from "./components/profile/EditBanner";
 import CreatePostSection from "./components/home/CreatePostSection";
 import ShowAllPost from "./components/profile/ShowAllPost";
 import EditPost from "./components/profile/EditPost";
+import Follow from "./components/home/Follow";
 
 function App() {
   const navigate = useNavigate();
@@ -85,6 +86,7 @@ function App() {
           <Route path="showallpost" element={<ShowAllPost />}>
             <Route exact path="editpost/:postId" element={<EditPost />} />
           </Route>
+          <Route path="follow" element={<Follow/>}/>
           <Route
             exact
             path="postdetailpopup/:postId"
