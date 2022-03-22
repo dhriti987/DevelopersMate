@@ -13,7 +13,7 @@
 .home-page .rightContainer {
   width: 30%;
 }
-.home-page .rightContainer .newsContainer{
+.home-page .rightContainer .newsContainer {
   background-color: rgba(45, 45, 45, 0.5);
   width: 100%;
   margin-top: 2rem;
@@ -21,23 +21,29 @@
   padding: 0.3rem;
   box-sizing: border-box;
 }
-.home-page .rightContainer .newsContainer .newsList{
+.home-page .rightContainer .newsContainer .newsList {
   padding: 0;
   padding-left: 1.6rem;
   overflow: hidden;
 }
 
-.home-page .rightContainer .newsContainer .news{
+.home-page .rightContainer .newsContainer .news {
   transition: 0.3s;
 }
-.home-page .rightContainer .newsContainer .news:hover{
+.home-page .rightContainer .newsContainer .news:hover {
   background-color: rgba(175, 168, 168, 0.6);
 }
-.home-page .rightContainer .newsContainer .ShowMoreIcon{
+.home-page .rightContainer .newsContainer .ShowMoreIcon {
   display: block;
   margin: auto;
   cursor: pointer;
   margin-top: -0.5rem;
   margin-bottom: 0.4rem;
+  color: white;
+  border-radius: 50%;
+  padding: 0.2rem;
+  transition: 0.6s;
 }
-
+.home-page .rightContainer .newsContainer .ShowMoreIcon:hover {
+  background-color: #757575;
+}
