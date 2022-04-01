@@ -49,7 +49,7 @@ function ProfileSkills() {
         </div>
         }
       </div>
-      {userDetails && userDetails.skills.length <= 0 && (
+      {userDetails && userDetails.skills.length <= 0 &&  !otherUserId &&(
         <AddButton to="/profile/addskills/" />
       )}
       <div

@@ -1,0 +1,46 @@
+.BoxDropDown .BoxDropDownContainer{
+    /* border: 1px solid red; */
+    background-color: rgb(58 58 58 / 50%);
+    border-radius: 0.5rem 0.5rem 0 0;
+    width: 95.7%;
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0.5rem;
+    gap: 0.3rem;
+    margin: 0;
+}
+.BoxDropDown .BoxDropDownContainer .BoxDropDownChild{
+    border: 1px solid rgba(16, 202, 0, 0.3);
+    border-radius: 0.3rem;
+    padding: 0.1rem;
+    color: aliceblue;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.4rem;
+}
+.BoxDropDown .BoxDropDownContainer .BoxDropDownChild .boxDownInput{
+    background-color: inherit;
+    border: none;
+    outline: none;
+    color: aliceblue;
+}
+.BoxDropDown .dropDown{
+    background-color: rgb(58 58 58 / 50%);
+    margin: 0;
+    list-style: none;
+    padding: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    height: 11rem;
+    border-radius: 0 0 0.5rem 0.5rem;
+}
+.BoxDropDown .dropDown .DropDownItem{
+    transition: all 0.3s;
+}
+.BoxDropDown .dropDown .DropDownItem:hover{
+    background-color: rgba(194, 187, 187, 0.5);
+    cursor: pointer;
+}

@@ -23,6 +23,7 @@ import CreatePostSection from "./components/home/CreatePostSection";
 import ShowAllPost from "./components/profile/ShowAllPost";
 import EditPost from "./components/profile/EditPost";
 import Follow from "./components/home/Follow";
+import FindDevelopers from "./pages/FindDevelopers";
 
 function App() {
   const navigate = useNavigate();
@@ -96,6 +97,8 @@ function App() {
             <Route exact path="adduserdetails" element={<AddUserDetails />} />
             <Route exact path="createpost" element={<CreatePostSection />} />
           </Route>
+          <Route path="/finddevelopers" element={<FindDevelopers />}/>
+            
         </Route>
       </Routes>
     </div>
