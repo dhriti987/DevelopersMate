@@ -1,8 +1,13 @@
+.BoxDropDown{
+    width: 100%;
+    position: relative;
+}
 .BoxDropDown .BoxDropDownContainer{
     /* border: 1px solid red; */
-    background-color: rgb(58 58 58 / 50%);
+    background-color: #2e2e2e;
     border-radius: 0.5rem 0.5rem 0 0;
-    width: 95.7%;
+    box-sizing: border-box;
+    width: 100%;
     display: flex;
     flex-wrap: wrap;
     padding: 0.5rem;
@@ -27,15 +32,18 @@
     color: aliceblue;
 }
 .BoxDropDown .dropDown{
-    background-color: rgb(58 58 58 / 50%);
+    background: #2e2e2e;
     margin: 0;
     list-style: none;
     padding: 0.5rem;
     display: flex;
     flex-direction: column;
     gap: 0.2rem;
-    height: 11rem;
+    overflow-y: auto;
     border-radius: 0 0 0.5rem 0.5rem;
+    position: absolute;
+    width: 96%;
+    z-index: 100;
 }
 .BoxDropDown .dropDown .DropDownItem{
     transition: all 0.3s;

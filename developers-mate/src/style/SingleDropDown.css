@@ -1,5 +1,5 @@
 .singleDropDown{
-    width: 30.1rem;
+    width: 31.4rem;
     margin: auto;
     background-color: #282828;
     display: flex;
@@ -12,12 +12,10 @@
     transform: translate(-50%, 0);
 }
 .displayOptions{
-    height: 10.5rem;
-    padding: 10px;
+    display: flex;
 }
 .hideOptions{
-    height: 0;
-    padding: 0px;
+    display: none;
 }
 .reduceHeight{
     height: auto;
@@ -31,4 +29,19 @@
    background-color: #6b6b6b;
    transition: 0.5s;
    cursor: pointer;
+}
+.singleDropDown ::-webkit-scrollbar,
+.skillsContainer::-webkit-scrollbar {
+  width: 10px;
+}
+
+.singleDropDown ::-webkit-scrollbar-track,
+.skillsContainer::-webkit-scrollbar-track {
+  background-color: inherit;
+}
+
+.singleDropDown ::-webkit-scrollbar-thumb,
+.singleDropDown::-webkit-scrollbar-thumb {
+  background: #4e4e4e;
+  border-radius: 25px;
 }

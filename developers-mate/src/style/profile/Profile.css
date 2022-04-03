@@ -118,6 +118,16 @@ h5,h6 {
 .profile-page .profileDetails .userProfileDetails h4 {
   color: rgba(255, 255, 255, 0.6);
 }
+.profile-page .profileDetails .userProfileDetails .followBtn {
+  width: 6rem;
+    height: 2rem;
+    border-radius: 0.3rem;
+    outline: none;
+    cursor: pointer;
+    background-color: #10ca00;
+    border: none;
+  
+}
 .profile-page .profileDetails .editbtn {
   position: absolute;
   right: 1rem;

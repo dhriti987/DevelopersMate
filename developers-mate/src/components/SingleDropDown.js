@@ -14,7 +14,7 @@ function SingleDropDown({top,arr,setInput,displayOptions,setDisplayOptions,anyfu
           ? "displayOptions"
           : "hideOptions"
       } `}
-      style={{top:top}} 
+      style={arr.length<=4 ? {top:top,height:"auto"} : {top:top,height:"10rem"}} 
     >
       {arr.map((item, idx) => {
         return (

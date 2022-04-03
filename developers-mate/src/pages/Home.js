@@ -98,7 +98,7 @@ function Home() {
           )}
         </div>
         <div className="rightContainer">
-          <Link to="/home" style={{ textDecoration: "none" }}>
+          <Link to="/finddevelopers" style={{ textDecoration: "none" }}>
             <Button
               title="Find Developer that best suits for your Project"
               styles={{ width: "100%", height: "5rem", margin: "0" }}

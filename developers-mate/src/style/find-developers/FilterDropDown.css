@@ -1,0 +1,37 @@
+.filterDropDown{
+    width: 100%;
+    position: relative;
+}
+.filterDropDown input{
+    background-color: #2e2e2e;
+    border: none;
+    outline: none;
+    color: aliceblue;
+    width: 100%;
+    height: 2.9rem;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    padding: 0 0.5rem;
+    box-sizing: border-box;
+}
+.filterDropDown .dropDownItemsContainer{
+    background: #2e2e2e;
+    margin: 0;
+    list-style: none;
+    padding: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    overflow-y: auto;
+    border-radius: 0 0 0.5rem 0.5rem;
+    position: absolute;
+    width: 96%;
+    z-index: 100;
+}
+.filterDropDown .dropDownItemsContainer .dropDownItem{
+    transition: all 0.3s;
+}
+.filterDropDown .dropDownItemsContainer .dropDownItem:hover{
+    background-color: rgba(194, 187, 187, 0.5);
+    cursor: pointer;
+}

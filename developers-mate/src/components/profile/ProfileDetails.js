@@ -31,21 +31,21 @@ function ProfileDetails() {
       <div className="banner">
         {userDetails && userDetails.banner && (
           <>
-            {!otherUserId && 
-            <Link to="/profile/editbanner">
-              <BiPencil
-                color="white"
-                size={28}
-                style={{
-                  cursor: "pointer",
-                  position: "absolute",
-                  right: "0.5rem",
-                  top: "0.5rem",
-                }}
-                className="icon"
-              />
-            </Link>
-            }
+            {!otherUserId && (
+              <Link to="/profile/editbanner">
+                <BiPencil
+                  color="white"
+                  size={28}
+                  style={{
+                    cursor: "pointer",
+                    position: "absolute",
+                    right: "0.5rem",
+                    top: "0.5rem",
+                  }}
+                  className="icon"
+                />
+              </Link>
+            )}
             <img src={`http://127.0.0.1:8000${userDetails.banner}`} alt="" />
           </>
         )}
@@ -97,6 +97,19 @@ function ProfileDetails() {
         <h4 style={{ fontWeight: "500" }}>
           {userDetails && userDetails.headline}
         </h4>
+        <div  style={{ display: "flex" }}>
+          <h6>
+            <span style={{ marginRight: "0.2rem", color: "orange" }}>19</span>
+            Followers
+          </h6>
+          <h6>
+            <span style={{ marginRight: "0.2rem", color: "orange" }}>19</span>
+            Following
+          </h6>
+        </div>
+        {!otherUserId && 
+        <button className="followBtn"><h4 style={{color:"white"}}>Following</h4></button>
+        }
       </div>
     </div>
   );
