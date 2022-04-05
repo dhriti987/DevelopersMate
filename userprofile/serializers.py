@@ -1,4 +1,5 @@
-from .models import Education, Experience, Link, Profile, Project, Skill
+from numpy import source
+from .models import Education, Experience, Link, Profile, Project, Skill, UserFollowing
 from rest_framework import serializers
 
 class SkillSerializer(serializers.ModelSerializer):
@@ -48,6 +49,9 @@ class ProfileSerializer(serializers.ModelSerializer):
     links = LinkSerializer(many=True,read_only=True)
     projects = ProjectSerializer(many=True,read_only=True)
     experiences = ExperienceSerializer(many=True,read_only=True)
+    followers = serializers.ReadOnlyField(source='total_followers')
+    following = serializers.ReadOnlyField(source='total_following')
+
     class Meta:
         model = Profile
         fields = "__all__"
@@ -55,3 +59,19 @@ class ProfileSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         profile = Profile.objects.create(**validated_data)
         return profile
+
+class UserFollowingSerializer(serializers.ModelSerializer):
+    name = serializers.ReadOnlyField(source = 'following_profile.fullname')
+    headline = serializers.ReadOnlyField(source = 'following_profile.headline')
+    image = serializers.ReadOnlyField(source = 'following_profile.image.url')
+    class Meta:
+        model = UserFollowing
+        fields = ("following_profile",'name','headline','image')
+
+class UserFollowersSerializer(serializers.ModelSerializer):
+    name = serializers.ReadOnlyField(source = 'profile.fullname')
+    headline = serializers.ReadOnlyField(source = 'profile.headline')
+    image = serializers.ReadOnlyField(source = 'profile.image.url')
+    class Meta:
+        model = UserFollowing
+        fields = ("profile",'name','headline','image')

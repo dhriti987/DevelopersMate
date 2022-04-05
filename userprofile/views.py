@@ -7,14 +7,16 @@ from rest_framework import generics,status
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.authentication import TokenAuthentication
-from userprofile.models import Education, Experience, Link, Profile, Project, Skill
+from userprofile.models import Education, Experience, Link, Profile, Project, Skill, UserFollowing
 from userprofile.serializers import (
     EducationSerializer,
     ExperienceSerializer,
     LinkSerializer,
     ProfileSerializer,
     ProjectSerializer,
-    SkillSerializer
+    SkillSerializer,
+    UserFollowersSerializer,
+    UserFollowingSerializer
 )
 
 # Create your views here.
@@ -245,6 +247,43 @@ class SearchProfile(generics.ListAPIView):
             ).filter(name__istartswith=search)
         return None
 
+class UserFollowersAPIView(generics.GenericAPIView):
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated]
+    serializer_class = UserFollowingSerializer
+
+    def get_queryset(self):
+        if self.request.GET.get('following'):
+            return Profile.objects.get(pk=self.request.user).following.all()
+        return Profile.objects.get(pk=self.request.user).followers.all()
+    
+    def get_serializer_class(self,data):
+        if self.request.GET.get('following'):
+            return UserFollowingSerializer(data,many=True)
+        return UserFollowersSerializer(data,many=True)
+
+    def post(self,request):
+        try:
+            data = {'profile':Profile.objects.get(pk= request.user), 'following_profile':Profile.objects.get(user__id=request.data.get('id'))}
+            following_obj = UserFollowing.objects.create(**data)
+            following_obj.save()
+            return Response()
+        except:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+
+    def get(self,request):
+        data = self.get_queryset()
+        serializer_obj = self.get_serializer_class(data)
+        return Response(serializer_obj.data)
+    
+    def delete(self,request):
+        try:
+            id = request.GET.get('id')
+            data = UserFollowing.objects.get(profile__user=request.user,following_profile__user__id = id)
+            data.delete()
+            return Response()
+        except:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
 
 @api_view()
 def get_favicon(request):

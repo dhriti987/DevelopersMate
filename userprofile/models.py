@@ -32,6 +32,14 @@ class Profile(models.Model):
     def fullname(self):
         return self.first_name + " " + self.last_name
 
+    @property
+    def total_followers(self):
+        return self.followers.count()
+
+    @property
+    def total_following(self):
+        return self.following.count()
+
 class Skill(models.Model):
     skill = models.CharField(max_length=30)
     user_profile = models.ManyToManyField(to=Profile,related_name='skills',blank= True)
@@ -68,10 +76,26 @@ class Experience(models.Model):
     start_date = models.CharField(max_length=20)
     end_date = models.CharField(max_length=20)
 
+class UserFollowing(models.Model):
+    profile = models.ForeignKey(Profile, related_name="following",on_delete=models.CASCADE)
+    following_profile = models.ForeignKey(Profile, related_name="followers",on_delete=models.CASCADE)
+    created = models.DateTimeField(auto_now_add=True)
+    
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(fields=['profile','following_profile'],  name="unique_followers")
+        ]
+
+        ordering = ["-created"]
+
+    def __str__(self):
+        return f"{self.profile.user.email} follows {self.following_profile.user.email}"
+
 @receiver(models.signals.post_delete,sender=Profile)
 def auto_delete_image_on_delete(sender,instance,*args,**kwargs):
     try:
         instance.image.delete(save=False)
+        instance.banner.delete(save=False)
     except:
         return
 

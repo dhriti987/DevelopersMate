@@ -13,6 +13,7 @@ from userprofile.views import (
     SearchProfile, 
     SkillAPIView, 
     SkillDeleteAPIView,
+    UserFollowersAPIView,
     get_favicon
     )
 urlpatterns = [
@@ -30,4 +31,5 @@ urlpatterns = [
     path('experience/<int:pk>',ExperienceRetriveUpdateDeleteAPIView.as_view(),name = 'Experience-details'),
     path('icon/',get_favicon,name='Icon'),
     path('search/',SearchProfile.as_view()),
+    path('following/',UserFollowersAPIView.as_view()),
 ]
