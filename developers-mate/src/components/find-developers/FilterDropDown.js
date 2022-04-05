@@ -5,18 +5,24 @@ function FilterDropDown({ dropDownItems,title }) {
   const [tmpDropDownItem, setTmpDropDownItem] = useState(dropDownItems);
   const [changedInput, setChangedInput] = useState("");
   const [displayDropDown, setDisplayDropDown] = useState(false);
+  const [display,setDisplay] = useState(true);
 
   useEffect(() => {
     const newTmpDropDownItem = dropDownItems.filter((item) =>
       item.toLowerCase().includes(changedInput.toLowerCase())
     );
     setTmpDropDownItem(newTmpDropDownItem);
+    if(changedInput.length && display) setDisplayDropDown(true);
+    else setDisplayDropDown(false);
+    setDisplayDropDown((changedInput.length && display) ? true : false);
+    setDisplay(true);
   }, [changedInput]);
 
 
   const handleItemClick = (item) => {
     setChangedInput(item);
     setDisplayDropDown(false);
+    setDisplay(false);
   };
 
   return (
@@ -35,7 +41,6 @@ function FilterDropDown({ dropDownItems,title }) {
           setChangedInput(e.target.value);
         }}
         value={changedInput}
-        onClick={() => setDisplayDropDown(displayDropDown ? false : true)}
         placeholder="e.g. India"
       />
       <ul

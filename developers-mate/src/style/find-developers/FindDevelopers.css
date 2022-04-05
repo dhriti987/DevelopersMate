@@ -11,6 +11,7 @@
   border-radius: 0.5rem;
   padding: 0.4rem;
   padding-top: 2rem;
+  height: 13.5rem;
 }
 .findMainContainer .filterContainer .head {
   display: flex;
@@ -28,4 +29,7 @@
 .findMainContainer .userContainer {
   flex-basis: 70%;
   border-radius: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 }

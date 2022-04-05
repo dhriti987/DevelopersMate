@@ -48,6 +48,9 @@ function FindDevelopers() {
             </div>
             <div className="userContainer">
               <FilteredProfile/>
+              <FilteredProfile/>
+              <FilteredProfile/>
+              <FilteredProfile/>
             </div>
       </main>
     </>

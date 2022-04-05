@@ -107,7 +107,7 @@ function ProfileDetails() {
             Following
           </h6>
         </div>
-        {!otherUserId && 
+        {otherUserId && 
         <button className="followBtn"><h4 style={{color:"white"}}>Following</h4></button>
         }
       </div>

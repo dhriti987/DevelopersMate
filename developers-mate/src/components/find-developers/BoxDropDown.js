@@ -8,12 +8,14 @@ function BoxDropDown({ dropDownItems }) {
   const [listItems, setListItems] = useState([]);
   const [changedInput, setChangedInput] = useState("");
   const [displayDropDown, setDisplayDropDown] = useState(false);
+  const [display,setDisplay] = useState(true);
 
   useEffect(() => {
     const newTmpDropDownItem = dropDownItems.filter((item) =>
       item.toLowerCase().includes(changedInput.toLowerCase())
     );
-    setTmpDropDownItem(newTmpDropDownItem);
+    setDisplayDropDown((changedInput.length && display) ? true : false);
+    setDisplay(true);
   }, [changedInput]);
 
   const handleItemClick = (item) => {
@@ -21,6 +23,7 @@ function BoxDropDown({ dropDownItems }) {
     setListItems(x);
     setChangedInput("");
     setDisplayDropDown(false);
+    setDisplay(false);
   };
 
   const handleDeleteItem = (val) => {
@@ -61,7 +64,6 @@ function BoxDropDown({ dropDownItems }) {
             }}
             value={changedInput}
             style={{ width: "5rem", height: "1.5rem" }}
-            onClick={() => setDisplayDropDown(displayDropDown ? false : true)}
             placeholder="e.g. React"
           />
           <AiOutlinePlus
