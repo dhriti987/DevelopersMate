@@ -6,7 +6,8 @@ from userprofile.views import (
     ExperienceAPIView,
     ExperienceRetriveUpdateDeleteAPIView, 
     LinkAPIView, 
-    LinkRetriveUpdateDeleteAPIView, 
+    LinkRetriveUpdateDeleteAPIView,
+    ProfileFilterApi, 
     ProfileView,
     ProjectAPIView,
     ProjectRetriveUpdateDeleteAPIView,
@@ -32,4 +33,5 @@ urlpatterns = [
     path('icon/',get_favicon,name='Icon'),
     path('search/',SearchProfile.as_view()),
     path('followers/',UserFollowersAPIView.as_view()),
+    path('filter/',ProfileFilterApi.as_view())
 ]

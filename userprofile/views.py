@@ -285,6 +285,19 @@ class UserFollowersAPIView(generics.GenericAPIView):
         except:
             return Response(status=status.HTTP_400_BAD_REQUEST)
 
+class ProfileFilterApi(generics.ListAPIView):
+    serializer_class = ProfileSerializer
+
+    def get_queryset(self):
+        skills = self.request.data.get('skills')
+        country = self.request.data.get('country')
+        data = Profile.objects.all()
+        if skills:
+            data = data.filter(skills__skill__in=skills)
+        if country:
+            data = data.filter(country__iexact = country)
+        return data
+
 @api_view()
 def get_favicon(request):
     url = request.GET.get('url')
