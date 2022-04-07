@@ -2,7 +2,10 @@ import React, { useEffect, useState } from "react";
 import { MdInsertPhoto } from "react-icons/md";
 import { BiEdit } from "react-icons/bi";
 import { Link } from "react-router-dom";
-import { useGetRequestMutation } from "../../redux/PrivateApi";
+import {
+  useGetRequestMutation,
+  usePostRequestMutation,
+} from "../../redux/PrivateApi";
 import { useSelector, useDispatch } from "react-redux";
 import { setUserDetails } from "../../redux/UserDetails";
 import api from "../../api/ImageApi";
@@ -10,6 +13,7 @@ import { BiPencil } from "react-icons/bi";
 
 function ProfileDetails() {
   let formData = new FormData();
+  const [postReq] = usePostRequestMutation();
   const userDetails = useSelector((state) => state.userDetails.value);
   const otherUserId = useSelector((state) => state.otherUserId.value);
   const dispatch = useDispatch();
@@ -26,6 +30,17 @@ function ProfileDetails() {
       console.log(err.response);
     }
   };
+
+  const handleFollow = async () => {
+    postReq({ data: { id: otherUserId }, url: "profile/followers/" })
+      .then(() => {
+        console.log("success");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   return (
     <div className="profileDetails">
       <div className="banner">
@@ -66,9 +81,8 @@ function ProfileDetails() {
         )}
       </div>
       <div className="profileImage">
-        {userDetails && userDetails.image !== "/media/user/default.jpg" ? (
-          <img src={`http://127.0.0.1:8000${userDetails.image}`} alt="" />
-        ) : (
+        {userDetails &&
+          userDetails.image === "/media/user/default.jpg" &&
           !otherUserId && (
             <button className="addProfilePicBtn">
               <MdInsertPhoto size={24} />
@@ -82,8 +96,15 @@ function ProfileDetails() {
                 }}
               />
             </button>
-          )
+          )}
+        {userDetails && userDetails.image !== "/media/user/default.jpg" && (
+          <img src={`http://127.0.0.1:8000${userDetails.image}`} alt="" />
         )}
+        {userDetails &&
+          userDetails.image === "/media/user/default.jpg" &&
+          otherUserId && (
+            <img src={`http://127.0.0.1:8000/media/user/default.jpg`} alt="" />
+          )}
       </div>
       {!otherUserId && (
         <Link to="/profile/editintro" style={{ textDecoration: "none" }}>
@@ -97,19 +118,41 @@ function ProfileDetails() {
         <h4 style={{ fontWeight: "500" }}>
           {userDetails && userDetails.headline}
         </h4>
-        <div  style={{ display: "flex" }}>
-          <h6>
-            <span style={{ marginRight: "0.2rem", color: "orange" }}>19</span>
-            Followers
-          </h6>
-          <h6>
-            <span style={{ marginRight: "0.2rem", color: "orange" }}>19</span>
-            Following
-          </h6>
-        </div>
-        {otherUserId && 
-        <button className="followBtn"><h4 style={{color:"white"}}>Following</h4></button>
-        }
+        {userDetails && (
+          <div style={{ display: "flex" }}>
+            <Link to={"/followers"} style={{ textDecoration: "none" }}>
+              <h6>
+                <span
+                  style={{
+                    marginRight: "0.2rem",
+                    color: "orange",
+                  }}
+                >
+                  {userDetails.followers}
+                </span>
+                Followers
+              </h6>
+            </Link>
+            <Link to={"/following"} style={{ textDecoration: "none" }}>
+              <h6>
+                <span
+                  style={{
+                    marginRight: "0.2rem",
+                    color: "orange",
+                  }}
+                >
+                  {userDetails.following}
+                </span>
+                Following
+              </h6>
+            </Link>
+          </div>
+        )}
+        {otherUserId && (
+          <button className="followBtn" onClick={handleFollow}>
+            <h4 style={{ color: "white" }}>Follow</h4>
+          </button>
+        )}
       </div>
     </div>
   );
