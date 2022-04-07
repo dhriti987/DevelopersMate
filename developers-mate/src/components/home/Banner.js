@@ -13,6 +13,8 @@ function Banner() {
     lastName: "",
     image: null,
     banner: null,
+    followers: null,
+    following: null,
   });
   useEffect(async () => {
     await getUserDetails("profile/profile/")
@@ -23,7 +25,9 @@ function Banner() {
           lastName: payload.last_name,
           image: payload.image,
           banner: payload.banner,
-          headline:payload.headline
+          headline: payload.headline,
+          followers: payload.followers,
+          following: payload.following,
         });
       });
   }, []);
@@ -56,16 +60,21 @@ function Banner() {
           >
             {userDetails.headline}
           </h5>
-          <div className="followers">
-            <h6>
-              <span style={{ marginRight: "0.2rem", color: "orange" }}>19</span>
-              Followers
-            </h6>
-            <h6>
-              <span style={{ marginRight: "0.2rem", color: "orange" }}>19</span>
-              Following
-            </h6>
-          </div>
+            <div className="followers">
+              <h6>
+                <span style={{ marginRight: "0.2rem", color: "orange" }}>
+                  {userDetails.followers}
+                </span>
+                Followers
+              </h6>
+              <h6>
+                <span style={{ marginRight: "0.2rem", color: "orange" }}>
+                  {userDetails.following}
+                </span>
+                Following
+              </h6>
+            </div>
+          
         </div>
       </div>
     </div>

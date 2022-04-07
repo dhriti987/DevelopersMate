@@ -87,7 +87,8 @@ function App() {
           <Route path="showallpost" element={<ShowAllPost />}>
             <Route exact path="editpost/:postId" element={<EditPost />} />
           </Route>
-          <Route path="follow" element={<Follow/>}/>
+          <Route path="followers" element={<Follow/>}/>
+          <Route path="following" element={<Follow/>}/>
           <Route
             exact
             path="postdetailpopup/:postId"
