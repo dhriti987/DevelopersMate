@@ -289,7 +289,7 @@ class ProfileFilterApi(generics.ListAPIView):
     serializer_class = ProfileSerializer
 
     def get_queryset(self):
-        skills = self.request.GET.get('skills')
+        skills = self.request.GET.getlist('skills[]')
         country = self.request.GET.get('country')
         data = Profile.objects.all()
         if skills:
