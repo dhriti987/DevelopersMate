@@ -196,7 +196,6 @@ function AddProjects() {
                 setInput={setStartDate}
               />
             </div>
-            {/* <p style={{color:"red",margin:"0",fontSize:"0.5rem",width:"98%"}}>Enter date</p> */}
             {!isCheckedEndDate && (
               <div className="DownDouble-container">
                 <div className="downDouble">

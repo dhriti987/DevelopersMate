@@ -1,0 +1,67 @@
+.ChatContainer {
+  width: 50rem;
+  margin: auto;
+  margin-top: 1rem;
+  padding: 1rem;
+  background-color: rgba(45, 45, 45, 0.5);
+  border-radius: 0.5rem;
+}
+.ChatContainer .chatHead {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  text-decoration: none;
+  margin-bottom: 2rem;
+}
+.ChatContainer .chatContent {
+  overflow-y: auto;
+}
+.ChatContainer .chatHead img {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+}
+.ChatContainer .chatHead .status {
+  display: flex;
+  align-items: center;
+}
+.ChatContainer .chatHead .status .circleColor {
+  padding: 0.2rem;
+  background-color: greenyellow;
+  border-radius: 50%;
+  margin-top: 0.1rem;
+}
+.ChatContainer .sendContainer {
+  display: flex;
+  align-items: center;
+}
+.ChatContainer .sendContainer input {
+  width: 87%;
+  height: 2.5rem;
+  background-color: rgb(92 92 92 / 50%);
+  border-radius: 5px 0 0 5px;
+  font-family: "Josefin Sans", cursive;
+  padding: 0px 11px;
+  border: none;
+  outline: none;
+  color: aliceblue;
+}
+
+.ChatContainer .sendContainer .icons {
+  background-color: rgb(92 92 92 / 50%);
+  height: 2.5rem;
+  display: flex;
+  align-items: center;
+  padding-right: 11px;
+  border-radius: 0 5px 5px 0;
+}
+.ChatContainer .sendContainer .sendButton {
+  background-color: rgb(92 92 92 / 50%);
+  display: flex;
+  padding: 0.7rem;
+  cursor: pointer;
+  align-items: center;
+  margin-left: 0.5rem;
+  border-radius: 50%;
+}
+

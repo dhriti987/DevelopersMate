@@ -14,7 +14,6 @@ function FindDevelopers() {
   const [skillArr, setSkillsArr] = useState([]);
   const [filteredUsers, setFilteredUsers] = useState(null);
   const [selectedCountry, setSelectedCountry] = useState(null);
-  const qs = require('qs')
 
   useEffect(() => {
     const fetch = async () => {
@@ -43,7 +42,7 @@ function FindDevelopers() {
         "http://127.0.0.1:8000/profile/filter/",
         {
           params: {
-            "skills": ["react","angular"],
+            "skills": ["react","angular","vue"],
             "country": "Afghanistan",
           },
           

@@ -14,6 +14,7 @@ function BoxDropDown({ dropDownItems }) {
     const newTmpDropDownItem = dropDownItems.filter((item) =>
       item.toLowerCase().includes(changedInput.toLowerCase())
     );
+    setTmpDropDownItem(newTmpDropDownItem)
     setDisplayDropDown((changedInput.length && display) ? true : false);
     setDisplay(true);
   }, [changedInput]);
