@@ -13,6 +13,7 @@ import { useSelector } from "react-redux";
 import Button from "../components/Button";
 import axios from "axios";
 import { AiOutlineDown, AiOutlineUp } from "react-icons/ai";
+import ResourceSkeleton from "../components/ResourceSkeleton";
 
 function Home() {
   const [getPosts, responseInfo] = useGetRequestMutation();
@@ -78,6 +79,7 @@ function Home() {
   return (
     <>
       <PrivateNavbar />
+
       <Outlet context={[fetchAgain, setFetchAgain]} />
       <main className="home-page">
         <div className="leftContainer">
@@ -90,11 +92,9 @@ function Home() {
               })}
             </div>
           ) : (
-            <img
-              src={Spinner}
-              alt=""
-              style={{ display: "block", margin: "auto" }}
-            />
+            Array.from({ length: 5 }).map((_, index) => (
+              <ResourceSkeleton key={index} />
+            ))
           )}
         </div>
         <div className="rightContainer">
@@ -107,15 +107,9 @@ function Home() {
           <div className="newsContainer">
             <h2>Technology News</h2>
             {!news && (
-              <img
-                src={Spinner}
-                alt=""
-                style={{
-                  display: "block",
-                  margin: "auto",
-                  background: "inherit",
-                }}
-              />
+              Array.from({ length: 5 }).map((_, index) => (
+                <ResourceSkeleton key={index} />
+              ))
             )}
             {news && (
               <ul
