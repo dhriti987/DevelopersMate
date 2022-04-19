@@ -19,15 +19,15 @@ Whenever I want to build a Project it becomes very difficult for me to get a Pro
 ```
 git clone https://github.com/dhriti987/DevelopersMate.git
 ```
-**Install backend dependencies**(while in backend folder)
+**Install backend dependencies** (while in backend folder)
 ```
 pip install -r requirements.txt
 ```
-**Run the Server**(while in backend folder)
+**Run the Server** (while in backend folder)
 ```
 python manage.py runserver
 ```
-**Install frontend dependencies**(while in frontend folder)
+**Install frontend dependencies** (while in frontend folder)
 ```
 npm install
 ```
