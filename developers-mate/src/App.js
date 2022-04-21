@@ -24,6 +24,7 @@ import ShowAllPost from "./components/profile/ShowAllPost";
 import EditPost from "./components/profile/EditPost";
 import Follow from "./components/home/Follow";
 import FindDevelopers from "./pages/FindDevelopers";
+import Chat from "./pages/Chat";
 
 function App() {
   const navigate = useNavigate();
@@ -84,6 +85,7 @@ function App() {
             <Route exact path="editintro" element={<AddInto />} />
             <Route exact path="editbanner" element={<EditBanner />} />
           </Route>
+          <Route path="chat" element={<Chat/>}/>
           <Route path="showallpost" element={<ShowAllPost />}>
             <Route exact path="editpost/:postId" element={<EditPost />} />
           </Route>

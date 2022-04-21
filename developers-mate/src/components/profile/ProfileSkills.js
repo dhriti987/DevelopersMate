@@ -59,7 +59,7 @@ function ProfileSkills() {
           userDetails.skills.map((item, idx) => {
             return (
               <div className="skill" key={`skills${idx}`}>
-                <h3>{item.skill}</h3>
+                <h3>{item.skill[0].toUpperCase()+item.skill.slice(1)}</h3>
                 {!otherUserId && 
                 <MdDelete
                   color="white"

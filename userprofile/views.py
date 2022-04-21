@@ -293,6 +293,7 @@ class ProfileFilterApi(generics.ListAPIView):
         data = Profile.objects.all()
         if skills:
             data = data.filter(skills__skill__in=skills)
+        print(data)
         if country:
             data = data.filter(country__iexact = country)
         return data

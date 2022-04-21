@@ -77,7 +77,7 @@ function AddSkills() {
 
   const handleSubmit = async (skill) => {
     const data = {
-      skill: skill,
+      skill: skill.toLowerCase(),
     };
     // console.log(data)
     await addSkills({ data: data, url: "profile/skill/" })
@@ -147,6 +147,7 @@ function AddSkills() {
         </div>
         <div className="skillsContainer">
           {selectedSkillsArr.map((item, idx) => {
+            console.log(item)
             return (
               <div className="skills" key={`addedSkills${idx}`}>
                 <h4>{item}</h4>

@@ -11,13 +11,6 @@ function PrivateNavbar() {
   const dispatch = useDispatch();
   const [searchTheResult] = useGetRequestMutation();
   const [searchedUserResults, setSearchedUserResults] = useState([]);
-  // useEffect(() => {
-  //   searchTheResult(`profile/search/?query=${searchResult}`)
-  //     .unwrap()
-  //     .then((payload) => {
-  //       setSearchedUserResults(payload);
-  //     });
-  // }, [searchResult]);
 
   const handleSearchChange=async(e)=>{
       searchTheResult(`profile/search/?query=${e.target.value}`)
