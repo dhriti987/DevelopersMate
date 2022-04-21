@@ -12,6 +12,12 @@ def create_path_banner_image(self,filename):
     return f'user/banner/{email}/{filename}'
 
 # Create your models here.
+class Skill(models.Model):
+    skill = models.CharField(max_length=30)
+
+    def __str__(self) -> str:
+        return self.skill
+    
 class Profile(models.Model):
     user = models.OneToOneField(to=User,on_delete=models.CASCADE,primary_key=True)
     first_name = models.CharField(max_length=30)
@@ -24,6 +30,7 @@ class Profile(models.Model):
     state = models.CharField(max_length=50)
     city = models.CharField(max_length=50)
     bio = models.TextField(null=True,blank=True)
+    skills = models.ManyToManyField(Skill)
 
     def __str__(self):
         return str(self.user)
@@ -39,11 +46,6 @@ class Profile(models.Model):
     @property
     def total_following(self):
         return self.following.count()
-
-class Skill(models.Model):
-    skill = models.CharField(max_length=30)
-    user_profile = models.ManyToManyField(to=Profile,related_name='skills',blank= True)
-
 
 class Education(models.Model):
     user_profile = models.ForeignKey(to=Profile,on_delete=models.CASCADE,related_name='education')

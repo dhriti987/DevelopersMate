@@ -7,9 +7,6 @@ class SkillSerializer(serializers.ModelSerializer):
     class Meta:
         model = Skill
         fields ="__all__"
-        extra_kwargs = {
-            'user_profile': {'write_only': True},
-        }
 
 class EducationSerializer(serializers.ModelSerializer):
     class Meta:

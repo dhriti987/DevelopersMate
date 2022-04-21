@@ -126,7 +126,7 @@ class SkillAPIView(generics.GenericAPIView):
     serializer_class = SkillSerializer
 
     def get_queryset(self):
-        return Skill.objects.filter(user_profile = Profile.objects.get(user = self.request.user))
+        return Profile.objects.get(user = self.request.user).skills
     
     def get(self,request):
         query = self.get_queryset()
@@ -136,7 +136,6 @@ class SkillAPIView(generics.GenericAPIView):
     def post(self,request):
         try:
             user = Profile.objects.get(user = request.user)
-            print(request.data.get('skill'))
             skill , _ = Skill.objects.get_or_create(skill=request.data.get('skill'))
             skill.save()
             user.skills.add(skill)
@@ -154,10 +153,10 @@ class SkillDeleteAPIView(generics.GenericAPIView):
         try:
             user = Profile.objects.get(user = request.user)
             skill = Skill.objects.get(pk=pk)
-            skill.user_profile.remove(user)
-            skill.save()
+            user.skills.remove(skill)
+            user.save()
             
-        except: 
+        except:
             return Response(status=status.HTTP_400_BAD_REQUEST)
         return Response(status=status.HTTP_200_OK)
 
