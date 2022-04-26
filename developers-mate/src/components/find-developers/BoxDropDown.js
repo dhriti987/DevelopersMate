@@ -3,9 +3,8 @@ import "../../style/find-developers/BoxDropDown.css";
 import { IoIosClose } from "react-icons/io";
 import { AiOutlinePlus } from "react-icons/ai";
 
-function BoxDropDown({ dropDownItems }) {
+function BoxDropDown({ dropDownItems,listItems,setListItems }) {
   const [tmpDropDownItem, setTmpDropDownItem] = useState(dropDownItems);
-  const [listItems, setListItems] = useState([]);
   const [changedInput, setChangedInput] = useState("");
   const [displayDropDown, setDisplayDropDown] = useState(false);
   const [display,setDisplay] = useState(true);
