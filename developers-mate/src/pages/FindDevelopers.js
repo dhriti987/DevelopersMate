@@ -83,6 +83,7 @@ function FindDevelopers() {
                 <FilteredProfile
                   name={`${item.first_name} ${item.last_name}`}
                   headline={item.headline}
+                  userId = {item.user}
                   key={`filteredUser${idx}`}
                 />
               );
