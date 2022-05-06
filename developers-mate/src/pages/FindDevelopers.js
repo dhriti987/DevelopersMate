@@ -8,6 +8,7 @@ import axios from "axios";
 import { skillsArray } from "../data/SkillsData.js";
 import FilteredProfile from "../components/find-developers/FilteredProfile";
 import api from "../api/ImageApi";
+import { MdOutlineCancel } from 'react-icons/md';
 
 function FindDevelopers() {
   const [countries, setCountries] = useState(null);
@@ -74,6 +75,7 @@ function FindDevelopers() {
               setSelectedItem={setSelectedCountry}
               title="Country"
             />
+            <MdOutlineCancel size={23} color="white" className="clearCountryBtn"/>
           </div>
         </div>
         <div className="userContainer">
@@ -83,7 +85,7 @@ function FindDevelopers() {
                 <FilteredProfile
                   name={`${item.first_name} ${item.last_name}`}
                   headline={item.headline}
-                  userId = {item.user}
+                  userId={item.user}
                   key={`filteredUser${idx}`}
                 />
               );
