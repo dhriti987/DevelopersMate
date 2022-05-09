@@ -18,7 +18,6 @@ function FilterDropDown({ dropDownItems,title,setSelectedItem }) {
     setDisplay(true);
   }, [changedInput]);
 
-
   const handleItemClick = (item) => {
     setChangedInput(item);
     setSelectedItem(item)

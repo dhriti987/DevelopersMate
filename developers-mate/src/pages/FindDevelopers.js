@@ -75,7 +75,9 @@ function FindDevelopers() {
               setSelectedItem={setSelectedCountry}
               title="Country"
             />
-            <MdOutlineCancel size={23} color="white" className="clearCountryBtn"/>
+            <MdOutlineCancel size={23} color="white" className="clearCountryBtn" onClick={()=>{
+              setSelectedCountry("");
+            }}/>
           </div>
         </div>
         <div className="userContainer">
