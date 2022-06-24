@@ -19,7 +19,7 @@ class Skill(models.Model):
         return self.skill
     
 class Profile(models.Model):
-    user = models.OneToOneField(to=User,on_delete=models.CASCADE,primary_key=True)
+    user = models.OneToOneField(to=User,on_delete=models.CASCADE,primary_key=True, related_name='profile')
     first_name = models.CharField(max_length=30)
     last_name = models.CharField(max_length=30)
     headline = models.CharField(max_length=200,null=True)

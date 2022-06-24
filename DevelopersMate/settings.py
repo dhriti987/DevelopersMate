@@ -46,6 +46,8 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt',
     'userprofile',
     'posts',
+    'chat',
+    'channels',
 
 ]
 
@@ -78,7 +80,8 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'DevelopersMate.wsgi.application'
+# WSGI_APPLICATION = 'DevelopersMate.wsgi.application'
+ASGI_APPLICATION = 'DevelopersMate.asgi.application'
 
 
 # Database
