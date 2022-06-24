@@ -24,7 +24,14 @@
   justify-content: center;
   align-items: center;
   padding: 1rem 0;
+  position: relative;
   gap: 1rem;
+}
+.findMainContainer .filterContainer .clearCountryBtn {
+  position: absolute;
+  top: 8.4rem;
+  right: 0.5rem;
+  cursor: pointer;
 }
 .findMainContainer .userContainer {
   flex-basis: 70%;

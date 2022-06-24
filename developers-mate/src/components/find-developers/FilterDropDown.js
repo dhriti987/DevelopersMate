@@ -1,7 +1,7 @@
 import React, { useState,useEffect } from "react";
 import "../../style/find-developers/FilterDropDown.css";
 
-function FilterDropDown({ dropDownItems,title }) {
+function FilterDropDown({ dropDownItems,title,setSelectedItem }) {
   const [tmpDropDownItem, setTmpDropDownItem] = useState(dropDownItems);
   const [changedInput, setChangedInput] = useState("");
   const [displayDropDown, setDisplayDropDown] = useState(false);
@@ -18,9 +18,9 @@ function FilterDropDown({ dropDownItems,title }) {
     setDisplay(true);
   }, [changedInput]);
 
-
   const handleItemClick = (item) => {
     setChangedInput(item);
+    setSelectedItem(item)
     setDisplayDropDown(false);
     setDisplay(false);
   };

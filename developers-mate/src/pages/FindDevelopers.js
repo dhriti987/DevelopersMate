@@ -8,6 +8,7 @@ import axios from "axios";
 import { skillsArray } from "../data/SkillsData.js";
 import FilteredProfile from "../components/find-developers/FilteredProfile";
 import api from "../api/ImageApi";
+import { MdOutlineCancel } from 'react-icons/md';
 
 function FindDevelopers() {
   const [countries, setCountries] = useState(null);
@@ -38,21 +39,21 @@ function FindDevelopers() {
 
   useEffect(async () => {
     try {
+      const newSkillsArr = skillArr.map((item) => item.toLowerCase());
       const response = await axios.get(
         "http://127.0.0.1:8000/profile/filter/",
         {
           params: {
-            "skills": ["react","angular","vue"],
-            "country": "Afghanistan",
+            skills: newSkillsArr,
+            country: selectedCountry,
           },
-          
         }
       );
-      console.log(response);
+      setFilteredUsers(response.data);
     } catch (err) {
       console.log(err.response);
     }
-  }, []);
+  }, [skillArr, selectedCountry]);
 
   return (
     <>
@@ -64,18 +65,38 @@ function FindDevelopers() {
             <h1>Filter</h1>
           </div>
           <div className="filterInputContainer">
-            <BoxDropDown dropDownItems={skillsArray} />
+            <BoxDropDown
+              dropDownItems={skillsArray}
+              setListItems={setSkillsArr}
+              listItems={skillArr}
+            />
             <FilterDropDown
               dropDownItems={countries ? countries : []}
+              setSelectedItem={setSelectedCountry}
               title="Country"
             />
+            <MdOutlineCancel size={23} color="white" className="clearCountryBtn" onClick={()=>{
+              setSelectedCountry("");
+            }}/>
           </div>
         </div>
         <div className="userContainer">
-          <FilteredProfile />
-          <FilteredProfile />
-          <FilteredProfile />
-          <FilteredProfile />
+          {filteredUsers &&
+            filteredUsers.map((item, idx) => {
+              return (
+                <FilteredProfile
+                  name={`${item.first_name} ${item.last_name}`}
+                  headline={item.headline}
+                  userId={item.user}
+                  key={`filteredUser${idx}`}
+                />
+              );
+            })}
+          {filteredUsers && !filteredUsers.length && (
+            <h1 style={{ textAlign: "center", marginTop: "2rem" }}>
+              No Developers found!
+            </h1>
+          )}
         </div>
       </main>
     </>

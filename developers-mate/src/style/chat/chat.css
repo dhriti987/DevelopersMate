@@ -1,10 +1,15 @@
-.ChatContainer {
-  width: 50rem;
+.chatRoomContainer {
+  width: 90%;
   margin: auto;
   margin-top: 1rem;
+  display: flex;
+  gap: 0.7rem;
+}
+.ChatContainer {
   padding: 1rem;
   background-color: rgba(45, 45, 45, 0.5);
   border-radius: 0.5rem;
+  flex-basis: 80%;
 }
 .ChatContainer .chatHead {
   display: flex;
@@ -65,3 +70,25 @@
   border-radius: 50%;
 }
 
+.chatRoomContainer .chatMembersContainer{
+  flex-basis: 40%;
+  background-color: rgba(45, 45, 45, 0.5);
+  border-radius: 0.5rem;
+}
+.chatRoomContainer .chatMembersContainer .chatMemberHead{
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+  justify-content: space-between;
+  background-color: rgb(92 92 92 / 50%);
+  border-radius: 0.5rem 0.5rem 0 0 ;
+}
+.chatRoomContainer .chatMembersContainer .chatMemberHead .chatMemberHeadImg{
+  width: 3rem;
+  height: 3rem;
+}
+.chatRoomContainer .chatMembersContainer .chatMemberHead .chatMemberHeadImg img{
+  width: 100%;
+  border-radius: 50%;
+  height: 100%;
+}
