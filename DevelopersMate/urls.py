@@ -28,6 +28,7 @@ urlpatterns = [
     path('auth/',include('authentication.urls')),
     path('profile/',include('userprofile.urls')),
     path('post-details/',include('posts.urls')),
+    path('chat/',include('chat.urls')),
     path('api/token/', CustomTokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
 ]
