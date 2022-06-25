@@ -8,9 +8,9 @@ from rest_framework.response import Response
 class GetThreadAPIView(GenericAPIView):
     authentication_classes = [JWTAuthentication]
 
-    def get(self,request,name):
+    def get(self,request,id):
         first_user = request.user
-        second_user = User.objects.get(username = name)
+        second_user = User.objects.get(id = id)
         if first_user.id > second_user.id:
             first_user, second_user = second_user, first_user
         thread, _ = MessageThread.objects.get_or_create(first_user=first_user, second_user=second_user)
