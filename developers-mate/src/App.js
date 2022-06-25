@@ -16,6 +16,7 @@ import PostDetailPopUp from "./components/home/PostDetailPopUp";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import { setAuthToken } from "./redux/authTokens";
+import { setChatThread } from "./redux/ChatThreads";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import EditBanner from "./components/profile/EditBanner";
@@ -25,6 +26,11 @@ import EditPost from "./components/profile/EditPost";
 import Follow from "./components/home/Follow";
 import FindDevelopers from "./pages/FindDevelopers";
 import Chat from "./pages/Chat";
+
+import { w3cwebsocket as W3CWebSocket } from "websocket";
+
+
+  const client = new W3CWebSocket(`ws://127.0.0.1:8000/chat/?token=${localStorage.getItem(("access"))}`);
 
 function App() {
   const navigate = useNavigate();
@@ -59,6 +65,11 @@ function App() {
     }, 1200000);
     return () => clearInterval(interval);
   }, [authToken]);
+
+  client.onmessage = ((val)=>{
+    const data = JSON.parse(val.data);
+    dispatch(setChatThread(data))
+  })
   
   return (
     <div className="App">

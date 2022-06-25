@@ -8,7 +8,7 @@ import {setOtherUserId} from "../../redux/OtherUserId";
 
 function FilteredProfile({name,headline,userId}) {
   const dispatch = useDispatch();
-  console.log(userId);
+  console.log(headline);
   return (
     <div className="filterProfileContainer">
       <Link className="leftImageContainer" to="/profile" style={{textDecoration:"none"}} onClick={()=>{
@@ -20,9 +20,12 @@ function FilteredProfile({name,headline,userId}) {
         dispatch(setOtherUserId(userId))
       }}>
         <h3>{name}</h3>
+        {
+          headline && 
         <h5 style={{ color: "rgba(243, 243, 243, 0.8)", fontWeight: "normal" }}>
           {headline.length<=132 ? `${headline}` : `${headline.substr(0,132)}.....`}
         </h5>
+        }
       </Link>
       <button className="filterProfileBtn">
           <BsChatRightDots size={17} color="white"/>
