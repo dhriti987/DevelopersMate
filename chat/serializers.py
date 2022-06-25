@@ -15,6 +15,8 @@ class MessageThreadSerializer(serializers.ModelSerializer):
     second_user_id = serializers.ReadOnlyField(source = 'second_user.id')
     first_user = serializers.ReadOnlyField(source = 'first_user.profile.fullname')
     second_user = serializers.ReadOnlyField(source = 'second_user.profile.fullname')
+    second_user_image = serializers.ReadOnlyField(source = 'second_user.profile.image.url')
+
     class Meta:
         model = MessageThread
         fields = ['id','first_user_id','second_user_id','first_user','second_user','messages']
