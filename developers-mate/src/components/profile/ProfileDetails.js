@@ -40,7 +40,7 @@ function ProfileDetails() {
         console.log(err);
       });
   };
-
+  console.log(userDetails)
   return (
     <div className="profileDetails">
       <div className="banner">
@@ -61,7 +61,7 @@ function ProfileDetails() {
                 />
               </Link>
             )}
-            <img src={`http://127.0.0.1:8000${userDetails.banner}`} alt="" />
+            <img src={`${userDetails.banner}`} alt="" />
           </>
         )}
         {userDetails && !userDetails.banner && !otherUserId && (
@@ -98,7 +98,7 @@ function ProfileDetails() {
             </button>
           )}
         {userDetails && userDetails.image !== "/media/user/default.jpg" && (
-          <img src={`http://127.0.0.1:8000${userDetails.image}`} alt="" />
+          <img src={`${userDetails.image}`} alt="" />
         )}
         {userDetails &&
           userDetails.image === "/media/user/default.jpg" &&
@@ -150,7 +150,7 @@ function ProfileDetails() {
         )}
         {otherUserId && (
           <button className="followBtn" onClick={handleFollow}>
-            <h4 style={{ color: "white" }}>Follow</h4>
+            <h4 style={{ color: "white" }}>{userDetails.is_followed ? "Following" : "Follow"}</h4>
           </button>
         )}
       </div>

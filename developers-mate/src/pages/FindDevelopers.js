@@ -9,12 +9,19 @@ import { skillsArray } from "../data/SkillsData.js";
 import FilteredProfile from "../components/find-developers/FilteredProfile";
 import api from "../api/ImageApi";
 import { MdOutlineCancel } from 'react-icons/md';
+import { useDispatch } from "react-redux";
+import {setOtherUserId} from "../redux/OtherUserId";
 
 function FindDevelopers() {
   const [countries, setCountries] = useState(null);
   const [skillArr, setSkillsArr] = useState([]);
   const [filteredUsers, setFilteredUsers] = useState(null);
   const [selectedCountry, setSelectedCountry] = useState(null);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(setOtherUserId(null));
+  }, []);
 
   useEffect(() => {
     const fetch = async () => {

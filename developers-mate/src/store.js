@@ -6,6 +6,7 @@ import UserDetailsReducer from "./redux/UserDetails";
 import OtherUserIdReducer from "./redux/OtherUserId";
 import FetchPostReducer from "./redux/FetchPost";
 import ChatThreadReducer from "./redux/ChatThreads";
+import ChatUserReducer from "./redux/ChatUser";
 
 export const store = configureStore({
   reducer: {
@@ -14,7 +15,8 @@ export const store = configureStore({
     userDetails: UserDetailsReducer,
     otherUserId:OtherUserIdReducer,
     fetchPost:FetchPostReducer,
-    chatThread : ChatThreadReducer
+    chatThread : ChatThreadReducer,
+    chatUser:ChatUserReducer
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(fetchData.middleware),
