@@ -1,5 +1,6 @@
 from django.db.models import Value
 from django.db.models.functions import Concat
+from matplotlib.style import context
 from rest_framework.decorators import api_view
 from .utils import get_favicon_url
 from rest_framework.response import Response
@@ -45,7 +46,7 @@ class ProfileView(generics.GenericAPIView):
         else:
             query = self.get_queryset()
         if query:
-            serialized_data = self.serializer_class(query)
+            serialized_data = self.serializer_class(query, context={'request':request})
             return Response(serialized_data.data,status=status.HTTP_200_OK)
         return Response({'status':'failed'},status=status.HTTP_404_NOT_FOUND)
 

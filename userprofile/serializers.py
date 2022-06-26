@@ -48,6 +48,7 @@ class ProfileSerializer(serializers.ModelSerializer):
     experiences = ExperienceSerializer(many=True,read_only=True)
     followers = serializers.ReadOnlyField(source='total_followers')
     following = serializers.ReadOnlyField(source='total_following')
+    is_followed = serializers.SerializerMethodField()
 
     class Meta:
         model = Profile
@@ -56,6 +57,10 @@ class ProfileSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         profile = Profile.objects.create(**validated_data)
         return profile
+
+    def get_is_followed(self,obj):
+        user_profile = self.context['request'].user.profile
+        return obj.followers.filter(profile = user_profile).exists()
 
 class UserFollowingSerializer(serializers.ModelSerializer):
     name = serializers.ReadOnlyField(source = 'following_profile.fullname')
