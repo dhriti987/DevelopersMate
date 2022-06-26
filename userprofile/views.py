@@ -1,6 +1,5 @@
 from django.db.models import Value
 from django.db.models.functions import Concat
-from matplotlib.style import context
 from rest_framework.decorators import api_view
 from .utils import get_favicon_url
 from rest_framework.response import Response
