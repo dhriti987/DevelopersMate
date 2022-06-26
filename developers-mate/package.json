@@ -20,6 +20,7 @@
     "react-scripts": "5.0.0",
     "redux": "^4.1.2",
     "web-vitals": "^2.1.4",
+    "websocket": "^1.0.34",
     "yup": "^0.32.11"
   },
   "scripts": {

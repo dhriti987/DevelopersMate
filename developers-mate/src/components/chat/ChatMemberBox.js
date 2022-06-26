@@ -2,13 +2,13 @@ import React from 'react'
 import "../../style/chat/chatMemberBox.css";
 import img from "../../assets/profile/bannerBg.jpg"
 
-function ChatMemberBox() {
+function ChatMemberBox({itemObj,onclickFnc}) {
   return (
-    <div className='member'>
+    <div className='member' onClick={()=>onclickFnc(itemObj)}>
         <div className="memberImg">
-            <img src={img} alt="" />
+            <img src={`http://127.0.0.1:8000${itemObj.second_user_image}`} alt="" />
         </div>
-        <h4>Hello World</h4>
+        <h4>{itemObj.first_user_id == localStorage.getItem("userId") ? itemObj.second_user : itemObj.first_user}</h4>
     </div>
   )
 }

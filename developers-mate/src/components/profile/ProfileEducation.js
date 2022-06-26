@@ -13,7 +13,7 @@ import AddButton from "../AddButton";
 
 function ProfileEducation() {
   const userDetails = useSelector((state) => state.userDetails.value);
-  const otherUserId = useSelector((state)=>state.otherUserId.value)
+  const otherUserId = useSelector((state) => state.otherUserId.value);
   const dispatch = useDispatch();
   const [deleteEducation] = useDeleteRequestMutation();
   const [displayWarning, setDisplayWarning] = useState(false);
@@ -33,13 +33,12 @@ function ProfileEducation() {
       );
     });
   };
-  useEffect(()=>{
-
+  useEffect(() => {
     if (isEducationDeleted) {
       handleDelete();
       setIsEducationDeleted(false);
     }
-  },[isEducationDeleted])
+  }, [isEducationDeleted]);
 
   return (
     <>
@@ -53,25 +52,22 @@ function ProfileEducation() {
       <div className="educationContainer experienceContainer commonBox">
         <div className="head">
           <h1>Education</h1>
-          {
-            !otherUserId && 
-          <div className="editAddContainer">
-            <Link to="/profile/addeducation">
-              <IoMdAdd
-                color="white"
-                size={28}
-                style={{ cursor: "pointer" }}
-                className="icon"
+          {!otherUserId && (
+            <div className="editAddContainer">
+              <Link to="/profile/addeducation">
+                <IoMdAdd
+                  color="white"
+                  size={28}
+                  style={{ cursor: "pointer" }}
+                  className="icon"
                 />
-            </Link>
-          </div>
-          }
+              </Link>
+            </div>
+          )}
         </div>
-                {
-                  userDetails && userDetails.education.length<=0 &&  !otherUserId && (
-                    <AddButton to="/profile/addeducation/"/>
-                  )
-                }
+        {userDetails && userDetails.education.length <= 0 && !otherUserId && (
+          <AddButton to="/profile/addeducation/" />
+        )}
         <div className="educationSection experienceSection">
           {userDetails &&
             userDetails.education.map((item, idx) => {
@@ -97,27 +93,27 @@ function ProfileEducation() {
                         {`${item.start_year} - ${item.passing_year}`}
                       </h3>
                     </div>
-                    {!otherUserId && 
-                    <div className="projectIcons">
-                      <Link to={`/profile/editeducation/${item.id}`}>
-                        <BiEdit
-                          color="white"
+                    {!otherUserId && (
+                      <div className="projectIcons">
+                        <Link to={`/profile/editeducation/${item.id}`}>
+                          <BiEdit
+                            color="white"
+                            size={28}
+                            style={{ cursor: "pointer" }}
+                            className="icon"
+                          />
+                        </Link>
+                        <MdDelete
                           size={28}
-                          style={{ cursor: "pointer" }}
+                          color="white"
                           className="icon"
+                          onClick={() => {
+                            setDisplayWarning(true);
+                            setSelectedId(item.id);
+                          }}
                         />
-                      </Link>
-                      <MdDelete
-                        size={28}
-                        color="white"
-                        className="icon"
-                        onClick={() => {
-                          setDisplayWarning(true);
-                          setSelectedId(item.id);
-                        }}
-                      />
-                    </div>
-                    }
+                      </div>
+                    )}
                   </div>
                 </div>
               );

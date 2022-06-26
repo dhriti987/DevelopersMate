@@ -28,6 +28,9 @@ function PrivateNavbar() {
           <div className="navbarLinks">
             <h2>DevelopersMate.</h2>
           </div>
+          <Link to={"/chat"} className="navbarLinks">
+            <h2>chat.</h2>
+          </Link>
           
           <div className="navbarSearchBar">
             <div
