@@ -296,7 +296,7 @@ class ProfileFilterApi(generics.ListAPIView):
         print(data)
         if country:
             data = data.filter(country__iexact = country)
-        return data
+        return data.distinct()
 
 @api_view()
 def get_favicon(request):
