@@ -60,7 +60,7 @@ class ProfileSerializer(serializers.ModelSerializer):
 
     def get_is_followed(self,obj):
         request = self.context.get('request')
-        if request and hasattr(request,'user'):
+        if request and hasattr(request,'user') and request.user.is_authenticated:
             user = request.user
             user_profile = user.profile
             return obj.followers.filter(profile = user_profile).exists()

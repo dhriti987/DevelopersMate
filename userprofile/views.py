@@ -50,7 +50,7 @@ class ProfileView(generics.GenericAPIView):
         return Response({'status':'failed'},status=status.HTTP_404_NOT_FOUND)
 
     def post(self,request):
-        serialized_data = self.serializer_class(data=request.data)
+        serialized_data = self.serializer_class(data=request.data, context={'request':request})
         serialized_data.is_valid(raise_exception=True)
         serialized_data.save()
         return Response(serialized_data.data,status=status.HTTP_201_CREATED)
@@ -61,7 +61,7 @@ class ProfileView(generics.GenericAPIView):
     
     def patch(self,request):
         instance = self.get_queryset()
-        serializer_obj = self.serializer_class(instance=instance, data=request.data,partial=True)
+        serializer_obj = self.serializer_class(instance=instance, data=request.data,partial=True, context={'request':request})
         serializer_obj.is_valid(raise_exception=True)
         serializer_obj.save()
         return Response(serializer_obj.data,status=status.HTTP_201_CREATED)
@@ -76,11 +76,11 @@ class EducationView(generics.GenericAPIView):
 
     def get(self,request):
         query = self.get_queryset()
-        serialized_data = self.serializer_class(query,many=True)
+        serialized_data = self.serializer_class(query,many=True, context={'request':request})
         return Response(serialized_data.data,status=status.HTTP_200_OK)
     
     def post(self,request):
-        serialized_data = self.serializer_class(data=request.data)
+        serialized_data = self.serializer_class(data=request.data, context={'request':request})
         serialized_data.is_valid(raise_exception=True)
         serialized_data.save()
         return Response(serialized_data.data,status=status.HTTP_201_CREATED)
@@ -101,14 +101,14 @@ class EducationRetriveUpdateDeleteAPIView(generics.GenericAPIView):
         query = self.get_queryset(pk)
         if not query:
             return Response({'status':'failed'},status=status.HTTP_404_NOT_FOUND)
-        serialized_data = self.serializer_class(query)
+        serialized_data = self.serializer_class(query, context={'request':request})
         return Response(serialized_data.data,status=status.HTTP_200_OK)
     
     def patch(self,request,pk):
         query = self.get_queryset(pk)
         if not query:
             return Response({'status':'failed'},status=status.HTTP_404_NOT_FOUND)
-        serializer_obj = self.serializer_class(instance=query,data=request.data,partial=True)
+        serializer_obj = self.serializer_class(instance=query,data=request.data,partial=True, context={'request':request})
         serializer_obj.is_valid(raise_exception=True)
         serializer_obj.save()
         return Response(serializer_obj.data,status = status.HTTP_200_OK)
@@ -170,11 +170,11 @@ class LinkAPIView(generics.GenericAPIView):
 
     def get(self,request):
         query = self.get_queryset()
-        serialized_data = self.serializer_class(query,many=True)
+        serialized_data = self.serializer_class(query,many=True, context={'request':request})
         return Response(serialized_data.data,status=status.HTTP_200_OK)
     
     def post(self,request):
-        serialized_data = self.serializer_class(data=request.data)
+        serialized_data = self.serializer_class(data=request.data, context={'request':request})
         serialized_data.is_valid(raise_exception=True)
         serialized_data.save()
         return Response(serialized_data.data,status=status.HTTP_201_CREATED)
@@ -195,11 +195,11 @@ class ProjectAPIView(generics.GenericAPIView):
 
     def get(self,request):
         query = self.get_queryset()
-        serialized_data = self.serializer_class(query,many=True)
+        serialized_data = self.serializer_class(query,many=True, context={'request':request})
         return Response(serialized_data.data,status=status.HTTP_200_OK)
     
     def post(self,request):
-        serialized_data = self.serializer_class(data=request.data)
+        serialized_data = self.serializer_class(data=request.data, context={'request':request})
         serialized_data.is_valid(raise_exception=True)
         serialized_data.save()
         return Response(serialized_data.data,status=status.HTTP_201_CREATED)
@@ -220,11 +220,11 @@ class ExperienceAPIView(generics.GenericAPIView):
 
     def get(self,request):
         query = self.get_queryset()
-        serialized_data = self.serializer_class(query,many=True)
+        serialized_data = self.serializer_class(query,many=True, context={'request':request})
         return Response(serialized_data.data,status=status.HTTP_200_OK)
     
     def post(self,request):
-        serialized_data = self.serializer_class(data=request.data)
+        serialized_data = self.serializer_class(data=request.data, context={'request':request})
         serialized_data.is_valid(raise_exception=True)
         serialized_data.save()
         return Response(serialized_data.data,status=status.HTTP_201_CREATED)
@@ -258,8 +258,8 @@ class UserFollowersAPIView(generics.GenericAPIView):
     
     def get_serializer_class(self,data):
         if self.request.GET.get('following'):
-            return UserFollowingSerializer(data,many=True)
-        return UserFollowersSerializer(data,many=True)
+            return UserFollowingSerializer(data,many=True, context={'request':self.request})
+        return UserFollowersSerializer(data,many=True, context={'request':self.request})
 
     def post(self,request):
         try:
@@ -272,7 +272,7 @@ class UserFollowersAPIView(generics.GenericAPIView):
 
     def get(self,request):
         data = self.get_queryset()
-        serializer_obj = self.get_serializer_class(data)
+        serializer_obj = self.get_serializer_class(data, context={'request':request})
         return Response(serializer_obj.data)
     
     def delete(self,request):
