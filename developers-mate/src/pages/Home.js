@@ -106,11 +106,10 @@ function Home() {
           </Link>
           <div className="newsContainer">
             <h2>Technology News</h2>
-            {!news && (
+            {!news &&
               Array.from({ length: 5 }).map((_, index) => (
-                <ResourceSkeleton key={index} /> 
-              ))
-            )}
+                <ResourceSkeleton key={index} />
+              ))}
             {news && (
               <ul
                 className="newsList"

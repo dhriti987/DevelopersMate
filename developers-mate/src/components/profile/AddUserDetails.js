@@ -96,10 +96,9 @@ function AddUserDetails() {
       .unwrap()
       .then(() => {
         localStorage.setItem("profile", "true");
-        navigate("/home");
+        navigate("/");
       })
       .catch((err) => {
-        console.log(err);
         setError(err.data.user[0]);
         setTimeout(() => {
           setError(null);

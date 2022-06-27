@@ -10,7 +10,7 @@ import { setChatThread } from "../../redux/ChatThreads";
 import { useNavigate } from "react-router-dom";
 import {useGetRequestMutation} from "../../redux/PrivateApi";
 
-function FilteredProfile({name,headline,userId}) {
+function FilteredProfile({name,headline,userId,userImg}) {
   const dispatch = useDispatch();
   const [getChatThread,response] = useGetRequestMutation();
   const chatThreads = useSelector((state)=>state.chatThread.value);
@@ -38,7 +38,7 @@ function FilteredProfile({name,headline,userId}) {
       <Link className="leftImageContainer" to="/profile" style={{textDecoration:"none"}} onClick={()=>{
         dispatch(setOtherUserId(userId))
       }}>
-        <img src={Image} alt="" />
+        <img src={userImg} alt="" />
       </Link>
       <Link className="rightContainer" to="/profile" style={{textDecoration:"none"}} onClick={()=>{
         dispatch(setOtherUserId(userId))

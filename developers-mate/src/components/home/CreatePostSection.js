@@ -29,7 +29,7 @@ function CreatePostSection() {
     try {
       const response = await api.post("post-details/posts/", formData);
       setFetchAgain(fetchAgain ? false : true);
-      navigate("/home");
+      navigate("/");
     } catch (err) {
       console.log(err.response);
     }

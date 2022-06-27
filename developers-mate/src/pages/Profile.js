@@ -13,7 +13,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { setUserDetails } from "../redux/UserDetails";
 import { setOtherUserId } from "../redux/OtherUserId";
 import Spinner from "../assets/common/Spinner.gif";
-import ProfileLinks from "../components/profile/ProfileLinks";
 import RecentPost from "../components/profile/RecentPost";
 
 function Profile() {
@@ -61,7 +60,6 @@ function Profile() {
           <ProfileExperience />
           <ProfileEducation />
           <RecentPost/>
-          <ProfileLinks/>
         </main>
       )}
     </>

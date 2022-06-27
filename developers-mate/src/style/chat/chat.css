@@ -51,6 +51,7 @@
   border: none;
   outline: none;
   color: aliceblue;
+  transition: 0.3s;
 }
 
 .ChatContainer .sendContainer .icons {
@@ -69,6 +70,7 @@
   align-items: center;
   margin-left: 0.5rem;
   border-radius: 50%;
+  transition: opacity 0.3s ;
 }
 
 .chatRoomContainer .chatMembersContainer{

@@ -142,3 +142,19 @@
  .errorMessage h4{
     color: #282828;
 }
+.nothingToSee {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 0.4rem;
+}
+.nothingToSee .nothingToSeeImg{
+    width: 12rem;
+    height: 12rem;
+}
+.nothingToSee .nothingToSeeImg img{
+    width: 100%;
+    height: 100%;
+    border-radius: 22px;
+}

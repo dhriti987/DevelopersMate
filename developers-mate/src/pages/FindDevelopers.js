@@ -90,11 +90,13 @@ function FindDevelopers() {
         <div className="userContainer">
           {filteredUsers &&
             filteredUsers.map((item, idx) => {
+              
               return (
                 <FilteredProfile
                   name={`${item.first_name} ${item.last_name}`}
                   headline={item.headline}
                   userId={item.user}
+                  userImg={item.image}
                   key={`filteredUser${idx}`}
                 />
               );

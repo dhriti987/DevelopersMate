@@ -6,7 +6,7 @@ function PrivateRoute(){
     const isProfileExist = local ? (local==="true" ? true : false) : false
     
     if(!isLoggedIn){
-        return <Navigate to="/"/>
+        return <Navigate to="/login"/>
     }
     else if(!isProfileExist) {
         return <Navigate to="/addUserDetails"/>
