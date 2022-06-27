@@ -59,8 +59,13 @@ class ProfileSerializer(serializers.ModelSerializer):
         return profile
 
     def get_is_followed(self,obj):
-        user_profile = self.context['request'].user.profile
-        return obj.followers.filter(profile = user_profile).exists()
+        request = self.context.get('request')
+        if request and hasattr(request,'user'):
+            user = request.user
+            user_profile = user.profile
+            return obj.followers.filter(profile = user_profile).exists()
+        else:
+            return False
 
 class UserFollowingSerializer(serializers.ModelSerializer):
     name = serializers.ReadOnlyField(source = 'following_profile.fullname')
