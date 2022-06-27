@@ -6,6 +6,20 @@
     justify-content: space-between;
     align-items: center;
 }
+
+.navbarContainer .navbarContent .navbarLinks{
+    display: flex;
+    text-decoration: none;
+    gap: 1.3rem;
+    padding: 0.6rem 1.4rem;
+}
+.navbarContainer .navbarContent .navbarLinks a{
+    border-radius: 10px;
+    transition: 0.4s;
+}
+.navbarContainer .navbarContent .navbarLinks a:hover{
+    background-color: #2b2b2b;
+}
 .navbarContainer .navbarContent .navbarSearchBar {
     display: flex;
     align-items: center;

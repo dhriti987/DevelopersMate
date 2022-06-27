@@ -3,14 +3,38 @@ import "../../style/find-developers/FilteredProfile.css";
 import Image from "../../assets/home/banner.jpg";
 import { BsChatRightDots } from 'react-icons/bs';
 import {Link} from "react-router-dom";
-import {useDispatch} from "react-redux";
+import {useDispatch,useSelector} from "react-redux";
 import {setOtherUserId} from "../../redux/OtherUserId";
+import ChatUser, {setChatUser} from "../../redux/ChatUser";
+import { setChatThread } from "../../redux/ChatThreads";
+import { useNavigate } from "react-router-dom";
+import {useGetRequestMutation} from "../../redux/PrivateApi";
 
 function FilteredProfile({name,headline,userId}) {
   const dispatch = useDispatch();
-  console.log(headline);
+  const [getChatThread,response] = useGetRequestMutation();
+  const chatThreads = useSelector((state)=>state.chatThread.value);
+  const navigate = useNavigate();
+  const changeChatUser = ()=>{
+    const filteredThread = chatThreads.filter((item)=>item.first_user_id==userId || item.second_user_id==userId);
+    if(filteredThread.length){
+      dispatch(setChatUser(filteredThread[0]));
+    }
+    else{
+      getChatThread(`chat/get-thread/${userId}`)
+        .unwrap()
+        .then((payload) => {
+          dispatch(
+
+            setChatThread([...chatThreads,payload])
+          )
+          dispatch(setChatUser(payload))
+        });
+    }
+    navigate("/chat")
+  }
   return (
-    <div className="filterProfileContainer">
+    <div className="filterProfileContainer" >
       <Link className="leftImageContainer" to="/profile" style={{textDecoration:"none"}} onClick={()=>{
         dispatch(setOtherUserId(userId))
       }}>
@@ -27,7 +51,7 @@ function FilteredProfile({name,headline,userId}) {
         </h5>
         }
       </Link>
-      <button className="filterProfileBtn">
+      <button className="filterProfileBtn" onClick={changeChatUser}>
           <BsChatRightDots size={17} color="white"/>
           <h5>Chat</h5>
       </button>

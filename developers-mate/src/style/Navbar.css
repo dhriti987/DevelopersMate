@@ -6,10 +6,11 @@
     width: 91%;
     margin: auto;
     align-items: center;
+    justify-content: space-between;
     height: 4rem;
 }
 .navbarContent h2{
-    flex-basis: 90%;
+    /* flex-basis: 90%; */
 }
 .navbar-btn {
     flex: 1 1 auto;

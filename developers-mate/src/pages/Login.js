@@ -9,11 +9,14 @@ import api from "../api/UnProtectedApi";
 import close from "../assets/profile/close.png";
 import { useNavigate } from "react-router-dom";
 import jwt_decode from "jwt-decode";
+import { w3cwebsocket as W3CWebSocket } from "websocket";
+import { useSelector, useDispatch } from "react-redux";
+import { setChatThread } from "../redux/ChatThreads";
 
 function Login() {
   const [error, setError] = useState(null);
   const navigate = useNavigate();
-
+  const dispatch = useDispatch();
   const validate = yup.object({
     email: yup
       .string()
@@ -38,6 +41,15 @@ function Login() {
       localStorage.setItem("refresh", response.data.refresh);
       localStorage.setItem("userId",jwt_decode(response.data.access).user_id);
       localStorage.setItem("profile",jwt_decode(response.data.access).have_profile);
+      const client = new W3CWebSocket(
+        `ws://127.0.0.1:8000/chat/?token=${
+          localStorage.getItem("access") ? localStorage.getItem("access") : ""
+        }`
+      );
+      client.onmessage = (val) => {
+        const data = JSON.parse(val.data);
+        dispatch(setChatThread(data));
+      };
       if(localStorage.getItem("profile")) navigate("/home");
       else navigate("/addUserDetails");
     } catch (err) {

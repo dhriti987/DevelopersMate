@@ -31,13 +31,14 @@ function Banner() {
         });
       });
   }, []);
+  console.log(userDetails)
   return (
     <div className="banner">
       <div className="background-Cover"></div>
       <img
         src={
           userDetails.banner
-            ? `http://127.0.0.1:8000${userDetails.banner}`
+            ? `${userDetails.banner}`
             : blackBanner
         }
         alt=""
@@ -45,7 +46,7 @@ function Banner() {
       <div className="profileDetails">
         <div className="profileImg">
           {userDetails.image && (
-            <img src={`http://127.0.0.1:8000${userDetails.image}`} alt="" />
+            <img src={`${userDetails.image}`} alt="" />
           )}
         </div>
         <div className="profileText">

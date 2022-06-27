@@ -29,12 +29,16 @@ import Chat from "./pages/Chat";
 
 import { w3cwebsocket as W3CWebSocket } from "websocket";
 
-
-  const client = new W3CWebSocket(`ws://127.0.0.1:8000/chat/?token=${localStorage.getItem(("access"))}`);
-
+const client = new W3CWebSocket(
+  `ws://127.0.0.1:8000/chat/?token=${
+    localStorage.getItem("access") ? localStorage.getItem("access") : ""
+  }`
+);
 function App() {
+
   const navigate = useNavigate();
   const authToken = useSelector((state) => state.authToken.value);
+  const chatThreads = useSelector((state)=>state.chatThread.value);
   const dispatch = useDispatch();
   dispatch(
     setAuthToken(
@@ -66,11 +70,27 @@ function App() {
     return () => clearInterval(interval);
   }, [authToken]);
 
-  client.onmessage = ((val)=>{
+  client.onmessage = (val) => {
     const data = JSON.parse(val.data);
-    dispatch(setChatThread(data))
-  })
-  
+    if(Array.isArray(data)){
+
+      dispatch(setChatThread(data));
+    }
+    else{
+      
+      const newChatThread = chatThreads.map((item)=>{
+        if(item.id==data.thread){
+          return {...item,messages:[...item.messages,data]}
+        }
+        else{
+          return item;
+        }
+      })
+      console.log(newChatThread);
+      dispatch(setChatThread(newChatThread));
+    }
+  };
+
   return (
     <div className="App">
       <Routes>
@@ -96,12 +116,12 @@ function App() {
             <Route exact path="editintro" element={<AddInto />} />
             <Route exact path="editbanner" element={<EditBanner />} />
           </Route>
-          <Route path="chat" element={<Chat/>}/>
+          <Route path="chat" element={<Chat client={client}/>} />
           <Route path="showallpost" element={<ShowAllPost />}>
             <Route exact path="editpost/:postId" element={<EditPost />} />
           </Route>
-          <Route path="followers" element={<Follow/>}/>
-          <Route path="following" element={<Follow/>}/>
+          <Route path="followers" element={<Follow />} />
+          <Route path="following" element={<Follow />} />
           <Route
             exact
             path="postdetailpopup/:postId"
@@ -111,8 +131,7 @@ function App() {
             <Route exact path="adduserdetails" element={<AddUserDetails />} />
             <Route exact path="createpost" element={<CreatePostSection />} />
           </Route>
-          <Route path="/finddevelopers" element={<FindDevelopers />}/>
-            
+          <Route path="/finddevelopers" element={<FindDevelopers />} />
         </Route>
       </Routes>
     </div>

@@ -1,6 +1,7 @@
 import React, { useState, useEffect, Profiler } from "react";
 import "../style/PrivateNavbar.css";
-import { BsSearch } from "react-icons/bs";
+import { BsSearch,BsFillChatDotsFill,BsPersonCircle } from "react-icons/bs";
+import { ImHome } from "react-icons/im";
 import { useGetRequestMutation } from "../redux/PrivateApi";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
@@ -25,12 +26,19 @@ function PrivateNavbar() {
       {searchedUserResults.length > 0 && <CoverBackground />}
       <nav className="navbarContainer">
         <div className="navbarContent">
+
+            <h2 style={{flexbasis:"45%"}}>DevelopersMate.</h2>
           <div className="navbarLinks">
-            <h2>DevelopersMate.</h2>
-          </div>
-          <Link to={"/chat"} className="navbarLinks">
-            <h2>chat.</h2>
+          <Link to={"/home"} className="navbarLinks" style={window.location.pathname==="/home" ? {background:"#2b2b2b"} : {}}>
+            <ImHome size={30} color="#cdcdcd" />
           </Link>
+          <Link to={"/chat"} className="navbarLinks" style={window.location.pathname==="/chat" ? {background:"#2b2b2b"} : {}}>
+            <BsFillChatDotsFill size={30} color="#cdcdcd"/>
+          </Link>
+          <Link to={"/profile"} className="navbarLinks" style={window.location.pathname==="/profile" ? {background:"#2b2b2b"} : {}}>
+            <BsPersonCircle size={30} color="#cdcdcd"/>
+          </Link>
+          </div>
           
           <div className="navbarSearchBar">
             <div
