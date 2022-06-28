@@ -16,3 +16,18 @@ class GetThreadAPIView(GenericAPIView):
         thread, _ = MessageThread.objects.get_or_create(first_user=first_user, second_user=second_user)
         
         return Response(MessageThreadSerializer(thread).data)
+
+class SetThreadMessageSeenAPI(GenericAPIView):
+    authentication_classes = [JWTAuthentication]
+    def get_queryset(self,id):
+        return MessageThread.objects.get(pk=id)
+
+    def put(self,request,id):
+        thread = self.get_queryset(id)
+        if thread.first_user == request.user:
+            thread.first_user_seen = True
+        else:
+            thread.second_user_seen = True
+        thread.save()
+        
+        return Response()

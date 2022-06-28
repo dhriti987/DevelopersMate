@@ -17,6 +17,8 @@ class MessageThread(models.Model):
     second_user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='thread_second_user')
 
     created_at = models.DateTimeField(auto_now_add=True)
+    first_user_seen = models.BooleanField(default=True)
+    second_user_seen = models.BooleanField(default=True)
 
     objects = MessageThreadManager()
     class Meta:

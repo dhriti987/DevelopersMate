@@ -19,4 +19,8 @@ class MessageThreadSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = MessageThread
-        fields = ['id','first_user_id','second_user_id','first_user','second_user','second_user_image','messages']
+        fields = [
+            'id','first_user_id','second_user_id','first_user',
+            'second_user','second_user_image','messages',
+            'first_user_seen','second_user_seen',
+        ]

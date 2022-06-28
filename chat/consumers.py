@@ -82,6 +82,11 @@ class ChatConsumer(AsyncWebsocketConsumer):
     @database_sync_to_async
     def save_message(self, message, thread):
         user = self.scope['user']
+        if thread.first_user == user:
+            thread.second_user_seen = False
+        else:
+            thread.first_user_seen = False
+        thread.save()
         msg_obj =  Message.objects.create(thread = thread, sent_by= user, message = message)
         return MessageSerializer(msg_obj).data
     
