@@ -236,6 +236,8 @@ class ExperienceRetriveUpdateDeleteAPIView(generics.RetrieveUpdateDestroyAPIView
     queryset = Experience.objects.all()
 
 class SearchProfile(generics.ListAPIView):
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated]
     serializer_class = ProfileSerializer
 
     def get_queryset(self):
@@ -243,7 +245,7 @@ class SearchProfile(generics.ListAPIView):
         if search:
             return Profile.objects.annotate(
                 name = Concat('first_name',Value(' '),'last_name'),
-            ).filter(name__istartswith=search)
+            ).filter(name__istartswith=search).exclude(user = self.request.user)
         return None
 
 class UserFollowersAPIView(generics.GenericAPIView):
@@ -272,7 +274,7 @@ class UserFollowersAPIView(generics.GenericAPIView):
 
     def get(self,request):
         data = self.get_queryset()
-        serializer_obj = self.get_serializer_class(data, context={'request':request})
+        serializer_obj = self.get_serializer_class(data)
         return Response(serializer_obj.data)
     
     def delete(self,request):
@@ -285,12 +287,14 @@ class UserFollowersAPIView(generics.GenericAPIView):
             return Response(status=status.HTTP_400_BAD_REQUEST)
 
 class ProfileFilterApi(generics.ListAPIView):
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated]
     serializer_class = ProfileSerializer
 
     def get_queryset(self):
         skills = self.request.GET.getlist('skills[]')
         country = self.request.GET.get('country')
-        data = Profile.objects.all()
+        data = Profile.objects.exclude(user = self.request.user)
         if skills:
             data = data.filter(skills__skill__in=skills)
         print(data)
