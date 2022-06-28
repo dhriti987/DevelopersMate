@@ -17,7 +17,7 @@ h6 {
   cursor: pointer;
 }
 .commonBox {
-  background-color: rgba(45, 45, 45, 0.5);
+  background-color: rgba(61, 61, 61, 0.5);
   border-radius: 0.5rem;
   padding: 1rem;
 }
@@ -43,7 +43,7 @@ h6 {
   gap: 1rem;
 }
 .profile-page .profileDetails {
-  background-color: rgba(45, 45, 45, 0.5);
+  background-color: rgba(61, 61, 61, 0.5);
   border-radius: 0.5rem;
 }
 

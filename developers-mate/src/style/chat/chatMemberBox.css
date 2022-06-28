@@ -22,12 +22,13 @@
 }
 .member .unreadBox{
     padding: 0.3rem;
-    background: #848484;
+    background: #ff5050;
     border-radius: 7px;
     position: absolute;
     right: 10px;
 }
 .member .unreadBox p{
     margin: 0;
+    font-weight: 500;
     color: #050505;
 }

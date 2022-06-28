@@ -47,6 +47,18 @@ export const fetchData = createApi({
         }
       }
     }),
+    putRequest:builder.mutation({
+      query:(url)=>{
+        return {
+          url:`${url}`,
+          method:"PUT",
+          headers:{
+            "Authorization": `Bearer ${localStorage.getItem("access")}`,
+            "Content-type": "application/json; charset=UTF-8",
+          }
+        }
+      }
+    }),
     
     deleteRequest:builder.mutation({
       query:(url)=>{
@@ -64,4 +76,4 @@ export const fetchData = createApi({
 
   }),
 });
-export const { useGetRequestMutation,usePostRequestMutation,usePatchRequestMutation,useDeleteRequestMutation } = fetchData;
+export const { useGetRequestMutation,usePostRequestMutation,usePatchRequestMutation,usePutRequestMutation,useDeleteRequestMutation } = fetchData;

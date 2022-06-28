@@ -66,12 +66,15 @@ function BoxDropDown({ dropDownItems,listItems,setListItems }) {
             style={{ width: "5rem", height: "1.5rem" }}
             placeholder="e.g. React"
           />
+          {
+            changedInput.length>0 && 
           <AiOutlinePlus
             size={18}
             color="white"
             style={{ cursor: "pointer" }}
             onClick={() => handleItemClick(changedInput)}
           />
+          }
         </li>
       </ul>
       <ul

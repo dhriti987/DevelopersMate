@@ -29,7 +29,6 @@ function AddUserDetails() {
   const [displayGender, setDisplayGender] = useState(false);
   const [gender, setGender] = useState("");
   const [error, setError] = useState(null);
-  // console.log(responseInfo)
 
   useEffect(() => {
     const fetch = async () => {

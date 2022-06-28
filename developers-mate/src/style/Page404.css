@@ -1,0 +1,28 @@
+.container404{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    gap: 1rem;
+}
+.container404 .errorImg{
+    width: 30rem;
+    height: 30rem;
+}
+.container404 .errorImg img{
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+}
+.container404 .text h1{
+   font-size: 2.5rem;
+   width: 29rem;
+   line-height: 3rem;
+}
+.container404 .text button{
+    padding: 5px 39px;
+    background: #474747;
+    border-radius: 10px;
+    cursor: pointer;
+    border: none;
+}

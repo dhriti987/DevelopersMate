@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { BiPencil } from "react-icons/bi";
 import { AiOutlineDown } from "react-icons/ai";
 import { useSelector } from "react-redux";
-import nothingIllustration from "../../assets/profile/nothingIllustration.jpg";
+import noPost from "../../assets/profile/noPost.jpeg";
 
 function EditPosts() {
   const [getUserPost] = useGetRequestMutation();
@@ -26,7 +26,7 @@ function EditPosts() {
     return () => {
       cancel = true;
     };
-  }, []);
+  }, [otherUserId]);
 
   return (
     <main className="editPostsContainer commonBox" style={{marginBottom:"2rem"}}>
@@ -41,7 +41,7 @@ function EditPosts() {
               className="icon"
             />
           </Link>
-        )}
+        ) }
       </div>
       {!otherUserId || (userPosts && userPosts.length > 0) ? (
         <div className="postsContainer">
@@ -56,7 +56,7 @@ function EditPosts() {
       ) : (
         <div className="nothingToSee">
           <div className="nothingToSeeImg">
-            <img src={nothingIllustration} alt="" />
+            <img src={noPost} alt="" />
           </div>
           <h2>Nothing to see for now</h2>
         </div>

@@ -147,7 +147,6 @@ function AddSkills() {
         </div>
         <div className="skillsContainer">
           {selectedSkillsArr.map((item, idx) => {
-            console.log(item)
             return (
               <div className="skills" key={`addedSkills${idx}`}>
                 <h4>{item}</h4>

@@ -11,7 +11,7 @@ import api from "../api/ImageApi";
 import { MdOutlineCancel } from 'react-icons/md';
 import { useDispatch } from "react-redux";
 import {setOtherUserId} from "../redux/OtherUserId";
-import nothingIllustration from "../assets/profile/nothingIllustration.jpg"
+import nothingIllustration from "../assets/profile/nothingIllustration.jpeg"
 
 function FindDevelopers() {
   const [countries, setCountries] = useState(null);
@@ -55,6 +55,10 @@ function FindDevelopers() {
             skills: newSkillsArr,
             country: selectedCountry,
           },
+          headers: {
+            "Authorization": `Bearer ${localStorage.getItem("access")}`
+            }   
+        
         }
       );
       setFilteredUsers(response.data);

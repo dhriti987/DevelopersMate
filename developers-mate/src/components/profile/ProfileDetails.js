@@ -34,7 +34,6 @@ function ProfileDetails() {
   };
 
   const handleFollow = async () => {
-    console.log(userDetails);
     if (!userDetails.is_followed) {
       postReq({ data: { id: otherUserId }, url: "profile/followers/" })
         .unwrap()
@@ -128,7 +127,7 @@ function ProfileDetails() {
         </h4>
         {userDetails && (
           <div style={{ display: "flex" }}>
-            <Link to={"/followers"} style={{ textDecoration: "none" }}>
+            <Link to={`${otherUserId ? "/profile" : "/followers"}`} style={{ textDecoration: "none" }}>
               <h6>
                 <span
                   style={{
@@ -141,7 +140,7 @@ function ProfileDetails() {
                 Followers
               </h6>
             </Link>
-            <Link to={"/following"} style={{ textDecoration: "none" }}>
+            <Link to={`${otherUserId ? "/profile" : "/following"}`} style={{ textDecoration: "none" }}>
               <h6>
                 <span
                   style={{

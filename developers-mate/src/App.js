@@ -13,6 +13,7 @@ import AddBio from "./components/profile/AddBio";
 import AddInto from "./components/profile/AddInto";
 import PrivateRoute from "./utils/PrivateRoute";
 import PostDetailPopUp from "./components/home/PostDetailPopUp";
+import Page404 from "./pages/Page404";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import { setAuthToken } from "./redux/authTokens";
@@ -137,8 +138,9 @@ function App() {
             <Route exact path="adduserdetails" element={<AddUserDetails />} />
             <Route exact path="createpost" element={<CreatePostSection />} />
           </Route>
-          <Route path="/finddevelopers" element={<FindDevelopers />} />
+          <Route exact path="/finddevelopers" element={<FindDevelopers />} />
         </Route>
+        <Route path="*" element={<Page404 />} />
       </Routes>
     </div>
   );

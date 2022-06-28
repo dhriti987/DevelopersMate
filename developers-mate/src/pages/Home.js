@@ -25,16 +25,20 @@ function Home() {
   const dispatch = useDispatch();
 
   useEffect(async () => {
+    let cancel = false;
     getPosts("post-details/posts/")
       .unwrap()
       .then((payload) => {
         setAllPosts(payload);
       });
+      return () => { 
+        cancel = true;
+      }
   }, [fetchAgain]);
   useEffect(() => {
     dispatch(setOtherUserId(null));
   }, []);
-
+  
   useEffect(async () => {
     try {
       const res = await axios.get(
@@ -54,7 +58,6 @@ function Home() {
       (now.getFullYear() - then.getFullYear()) * 12 +
       (now.getMonth() - then.getMonth());
     let interval = now - then;
-    // console.log(interval);
     if (totalMonths > 12)
       return totalMonths < 24
         ? "1 year ago"

@@ -25,13 +25,13 @@ function LikeButton({item}) {
       })
     }
     else{
-      deleteLike(`post-details/like/${item.post_id}`)
+      deleteLike(`post-details/lie/${item.post_id}`)
       .then(()=>{
         setIsLiked(false);
         setNumberOfLikes(numberOfLikes-1)
       })
       .catch(err=>{
-        console.log(err.response);
+        console.log(err.message);
       })
     }
   }

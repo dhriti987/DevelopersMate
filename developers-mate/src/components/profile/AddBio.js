@@ -27,7 +27,6 @@ function AddBio() {
     await addBio({ data: data, url: "profile/profile/" })
       .unwrap()
       .then((payload) => {
-        console.log(payload)
         dispatch(setUserDetails(payload));
         navigate("/profile");
       });

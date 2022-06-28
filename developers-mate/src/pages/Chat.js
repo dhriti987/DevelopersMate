@@ -10,9 +10,10 @@ import { MdSend } from "react-icons/md";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import ChatMemberBox from "../components/chat/ChatMemberBox";
 import { setOtherUserId } from "../redux/OtherUserId";
-import {useGetRequestMutation} from "../redux/PrivateApi";
+import {useGetRequestMutation,usePutRequestMutation} from "../redux/PrivateApi";
 import { setUserDetails } from "../redux/UserDetails";
-import noChat from "../assets/chat/noChat.jpg";
+import {setChatThread} from "../redux/ChatThreads";
+import noChat from "../assets/chat/noChat.jpeg";
 
 function Chat({ client }) {
   const chatThreads = useSelector((state) => state.chatThread.value);
@@ -22,6 +23,7 @@ function Chat({ client }) {
   const [messagesArr, setMessagesArr] = useState([]);
   const [chattingUser, setChattingUser] = useState(null);
   const [message, setMessage] = useState("");
+  const [putReq] = usePutRequestMutation();
   const dispatch = useDispatch();
   const sendMessage = () => {
     if(message.length){
@@ -41,6 +43,7 @@ function Chat({ client }) {
     .then((payload)=>{
       dispatch(setUserDetails(payload));
     })
+    console.log(chatThreads)
   }, []);
   useEffect(() => {
     if (chattingUser) {
@@ -70,7 +73,27 @@ function Chat({ client }) {
           ? item.second_user_id
           : item.first_user_id,
     });
+    const idx = chatThreads.findIndex((arrItem)=>arrItem.id == item.id)
+    if(item.first_user_id == localStorage.getItem("userId")){
+      const newArrChatThread = [...chatThreads];
+      newArrChatThread[idx] = {
+        ...chatThreads[idx],
+        first_user_seen:true
+      }
+      dispatch(setChatThread(newArrChatThread))
+    }
+    else{
+      const newArrChatThread = [...chatThreads];
+      newArrChatThread[idx] = {
+        ...chatThreads[idx],
+        second_user_seen:true
+      }
+      dispatch(setChatThread(newArrChatThread))
+      
+    }
+    putReq(`chat/set-thread-seen/${item.id}`)
   };
+
   return (
     <>
       <PrivateNavbar />
@@ -100,7 +123,7 @@ function Chat({ client }) {
             <div className="emptyChatImg">
               <img src={noChat} alt="" />
             </div>
-            <h2>Developer's mate Chat Room</h2>
+            <h2>Developer's mate</h2>
           </div>
           }
           {chattingUser && (

@@ -32,7 +32,6 @@ function ProfileExperience() {
         })
       );
     });
-    console.log("hello");
   };
   useEffect(() => {
     if (isExperienceDeleted) {
