@@ -95,3 +95,23 @@
   border-radius: 50%;
   height: 100%;
 }
+.ChatContainer .emptyChat{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+.ChatContainer .emptyChat .emptyChatImg img{
+  width: 20rem;
+  height: 20rem;
+}
+.ChatContainer .emptyChat img{
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+}
+.ChatContainer .emptyChat h2{
+  width: 64%;
+  text-align: center;
+  line-height: 27px;
+}

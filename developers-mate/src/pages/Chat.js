@@ -10,11 +10,15 @@ import { MdSend } from "react-icons/md";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import ChatMemberBox from "../components/chat/ChatMemberBox";
 import { setOtherUserId } from "../redux/OtherUserId";
+import {useGetRequestMutation} from "../redux/PrivateApi";
+import { setUserDetails } from "../redux/UserDetails";
+import noChat from "../assets/chat/noChat.jpg";
 
 function Chat({ client }) {
   const chatThreads = useSelector((state) => state.chatThread.value);
   const chatUser = useSelector((state) => state.chatUser.value);
   const userDetails = useSelector((state) => state.userDetails.value);
+  const [getReq] = useGetRequestMutation();
   const [messagesArr, setMessagesArr] = useState([]);
   const [chattingUser, setChattingUser] = useState(null);
   const [message, setMessage] = useState("");
@@ -32,6 +36,11 @@ function Chat({ client }) {
   };
   useEffect(() => {
     dispatch(setOtherUserId(null));
+    getReq("profile/profile")
+    .unwrap()
+    .then((payload)=>{
+      dispatch(setUserDetails(payload));
+    })
   }, []);
   useEffect(() => {
     if (chattingUser) {
@@ -69,7 +78,6 @@ function Chat({ client }) {
         <div className="chatMembersContainer">
           <div className="chatMemberHead">
             <div className="chatMemberHeadImg">
-              {console.log(userDetails)}
               <img src={userDetails && userDetails.image} alt="" />
             </div>
             <BsThreeDotsVertical size={23} color="white" />
@@ -86,7 +94,15 @@ function Chat({ client }) {
             })}
           </div>
         </div>
-        <main className="ChatContainer">
+        <main className="ChatContainer" style={!chattingUser ? {display:"flex",alignItems:"center",justifyContent:"center"} : {}}>
+          {!chattingUser && 
+          <div className="emptyChat">
+            <div className="emptyChatImg">
+              <img src={noChat} alt="" />
+            </div>
+            <h2>Developer's mate Chat Room</h2>
+          </div>
+          }
           {chattingUser && (
             <Link
               className="chatHead"
@@ -100,10 +116,6 @@ function Chat({ client }) {
                 alt=""
               />
               <h3>{chattingUser.chattingUserName}</h3>
-              <div className="status">
-                <div className="circleColor"></div>
-                <h6>Online</h6>
-              </div>
             </Link>
           )}
           {chattingUser && (
