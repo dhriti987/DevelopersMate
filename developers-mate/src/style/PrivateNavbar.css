@@ -16,9 +16,24 @@
 .navbarContainer .navbarContent .navbarLinks a{
     border-radius: 10px;
     transition: 0.4s;
+    position: relative;
 }
 .navbarContainer .navbarContent .navbarLinks a:hover{
     background-color: #2b2b2b;
+}
+.navbarContainer .navbarContent .navbarLinks a p{
+    position: absolute;
+    top: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #848484;
+    padding: 4px;
+    font-size: 11px;
+    text-align: center;
+    border-radius: 7px;
+    color: #050505;
+    font-weight: 500;
+    transition: 0.3s;
 }
 .navbarContainer .navbarContent .navbarSearchBar {
     display: flex;
@@ -53,12 +68,16 @@
 .navbarContainer .navbarContent .navbarSearchBar .searchedResults{
     width: 18.6rem;
     transition: 0.3s;
-    /* height: 1.5rem; */
     position: absolute;
     top: 3rem;
     background-color: #282828;
     border-radius: 0 0 0.3rem 0.3rem;
     z-index: 200;
+    height: auto;
+}
+.navbarContainer .navbarContent .navbarSearchBar .searchedResultsWithMoreSearch{
+    height: 15.5rem;
+    overflow: auto;
 }
 .navbarContainer .navbarContent .navbarSearchBar .searchedResults .searchedUserDetails{
     display: flex;

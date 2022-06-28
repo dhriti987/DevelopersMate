@@ -11,6 +11,7 @@ import api from "../api/ImageApi";
 import { MdOutlineCancel } from 'react-icons/md';
 import { useDispatch } from "react-redux";
 import {setOtherUserId} from "../redux/OtherUserId";
+import nothingIllustration from "../assets/profile/nothingIllustration.jpg"
 
 function FindDevelopers() {
   const [countries, setCountries] = useState(null);
@@ -82,27 +83,31 @@ function FindDevelopers() {
               setSelectedItem={setSelectedCountry}
               title="Country"
             />
-            <MdOutlineCancel size={23} color="white" className="clearCountryBtn" onClick={()=>{
-              setSelectedCountry("");
-            }}/>
+            
           </div>
         </div>
         <div className="userContainer">
           {filteredUsers &&
             filteredUsers.map((item, idx) => {
+              
               return (
                 <FilteredProfile
                   name={`${item.first_name} ${item.last_name}`}
                   headline={item.headline}
                   userId={item.user}
+                  userImg={item.image}
                   key={`filteredUser${idx}`}
                 />
               );
             })}
           {filteredUsers && !filteredUsers.length && (
-            <h1 style={{ textAlign: "center", marginTop: "2rem" }}>
-              No Developers found!
-            </h1>
+             <div className="nothingToSee">
+              <div className="nothingToSeeImg">
+
+              <img src={nothingIllustration} alt="" />
+              </div>
+               <h2 style={{ textAlign: "center", marginTop: "2rem" }}>No Developers found!</h2>
+            </div>
           )}
         </div>
       </main>

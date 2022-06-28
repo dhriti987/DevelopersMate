@@ -27,12 +27,7 @@
   position: relative;
   gap: 1rem;
 }
-.findMainContainer .filterContainer .clearCountryBtn {
-  position: absolute;
-  top: 8.4rem;
-  right: 0.5rem;
-  cursor: pointer;
-}
+
 .findMainContainer .userContainer {
   flex-basis: 70%;
   border-radius: 0.5rem;

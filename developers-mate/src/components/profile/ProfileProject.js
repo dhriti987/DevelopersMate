@@ -47,7 +47,8 @@ function ProfileProject() {
         setDisplayWarning={setDisplayWarning}
         setIsDeleted={setIsProjectDeleted}
         heading={"Education"}
-      />
+        />
+        {!otherUserId || (userDetails && userDetails.projects.length > 0) ? 
       <div className="projectContainer commonBox">
         <div className="head">
           <h1>Projects</h1>
@@ -124,7 +125,9 @@ function ProfileProject() {
               );
             })}
         </div>
-      </div>
+      </div>:
+      <></>
+        }
     </>
   );
 }

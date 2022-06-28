@@ -31,7 +31,6 @@ function Banner() {
         });
       });
   }, []);
-  console.log(userDetails)
   return (
     <div className="banner">
       <div className="background-Cover"></div>

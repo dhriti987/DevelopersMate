@@ -49,78 +49,83 @@ function ProfileEducation() {
         setIsDeleted={setIsEducationDeleted}
         heading={"Education"}
       />
-      <div className="educationContainer experienceContainer commonBox">
-        <div className="head">
-          <h1>Education</h1>
-          {!otherUserId && (
-            <div className="editAddContainer">
-              <Link to="/profile/addeducation">
-                <IoMdAdd
-                  color="white"
-                  size={28}
-                  style={{ cursor: "pointer" }}
-                  className="icon"
-                />
-              </Link>
-            </div>
-          )}
-        </div>
-        {userDetails && userDetails.education.length <= 0 && !otherUserId && (
-          <AddButton to="/profile/addeducation/" />
-        )}
-        <div className="educationSection experienceSection">
-          {userDetails &&
-            userDetails.education.map((item, idx) => {
-              return (
-                <div className="education experience" key={`edu${idx}`}>
-                  <div
-                    className="logoCollege logoCompany"
+      {!otherUserId || (userDetails && userDetails.education.length > 0) ? (
+        <div className="educationContainer experienceContainer commonBox">
+          <div className="head">
+            <h1>Education</h1>
+            {!otherUserId && (
+              <div className="editAddContainer">
+                <Link to="/profile/addeducation">
+                  <IoMdAdd
+                    color="white"
+                    size={28}
                     style={{ cursor: "pointer" }}
-                  >
-                    <MdPhotoCamera size={24} color="white" className="icon" />
-                    {/* <img src={profilePic} alt={} /> */}
-                  </div>
-                  <div className="collegeDetails companyDetails">
-                    <div className="details">
-                      <h2>{item.college_name}</h2>
-                      <h3 style={{ fontWeight: "400" }}>{item.degree}</h3>
-                      <h3
-                        style={{
-                          fontWeight: "200",
-                          color: "rgba(255, 255, 255, 0.6)",
-                        }}
+                    className="icon"
+                  />
+                </Link>
+              </div>
+            )}
+          </div>
+          {userDetails && userDetails.education.length <= 0 && !otherUserId && (
+            <AddButton to="/profile/addeducation/" />
+          )}
+            <div className="educationSection experienceSection">
+              {userDetails &&
+                userDetails.education.map((item, idx) => {
+                  return (
+                    <div className="education experience" key={`edu${idx}`}>
+                      <div
+                        className="logoCollege logoCompany"
+                        style={{ cursor: "pointer" }}
                       >
-                        {`${item.start_year} - ${item.passing_year}`}
-                      </h3>
-                    </div>
-                    {!otherUserId && (
-                      <div className="projectIcons">
-                        <Link to={`/profile/editeducation/${item.id}`}>
-                          <BiEdit
-                            color="white"
-                            size={28}
-                            style={{ cursor: "pointer" }}
-                            className="icon"
-                          />
-                        </Link>
-                        <MdDelete
-                          size={28}
+                        <MdPhotoCamera
+                          size={24}
                           color="white"
                           className="icon"
-                          onClick={() => {
-                            setDisplayWarning(true);
-                            setSelectedId(item.id);
-                          }}
                         />
+                        {/* <img src={profilePic} alt={} /> */}
                       </div>
-                    )}
-                  </div>
-                </div>
-              );
-            })}
+                      <div className="collegeDetails companyDetails">
+                        <div className="details">
+                          <h2>{item.college_name}</h2>
+                          <h3 style={{ fontWeight: "400" }}>{item.degree}</h3>
+                          <h3
+                            style={{
+                              fontWeight: "200",
+                              color: "rgba(255, 255, 255, 0.6)",
+                            }}
+                          >
+                            {`${item.start_year} - ${item.passing_year}`}
+                          </h3>
+                        </div>
+                        {!otherUserId && (
+                          <div className="projectIcons">
+                            <Link to={`/profile/editeducation/${item.id}`}>
+                              <BiEdit
+                                color="white"
+                                size={28}
+                                style={{ cursor: "pointer" }}
+                                className="icon"
+                              />
+                            </Link>
+                            <MdDelete
+                              size={28}
+                              color="white"
+                              className="icon"
+                              onClick={() => {
+                                setDisplayWarning(true);
+                                setSelectedId(item.id);
+                              }}
+                            />
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  );
+                })}
+            </div>
         </div>
-      </div>
-      ;
+      ) : <></>}
     </>
   );
 }

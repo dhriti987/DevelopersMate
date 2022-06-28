@@ -29,7 +29,7 @@ function CreatePostSection() {
     try {
       const response = await api.post("post-details/posts/", formData);
       setFetchAgain(fetchAgain ? false : true);
-      navigate("/home");
+      navigate("/");
     } catch (err) {
       console.log(err.response);
     }
@@ -43,7 +43,7 @@ function CreatePostSection() {
         style={!createPostDetails.image ? { height: "auto" } : {}}
       >
         <div className="heading">
-          <Link to="/home" style={{ textDecoration: "none" }}>
+          <Link to="/" style={{ textDecoration: "none" }}>
             <CloseButton />
           </Link>
           <h1>Create Post</h1>

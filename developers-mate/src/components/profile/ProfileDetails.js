@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import {
   useGetRequestMutation,
   usePostRequestMutation,
+  useDeleteRequestMutation,
 } from "../../redux/PrivateApi";
 import { useSelector, useDispatch } from "react-redux";
 import { setUserDetails } from "../../redux/UserDetails";
@@ -14,6 +15,7 @@ import { BiPencil } from "react-icons/bi";
 function ProfileDetails() {
   let formData = new FormData();
   const [postReq] = usePostRequestMutation();
+  const [deleteReq] = useDeleteRequestMutation();
   const userDetails = useSelector((state) => state.userDetails.value);
   const otherUserId = useSelector((state) => state.otherUserId.value);
   const dispatch = useDispatch();
@@ -32,15 +34,21 @@ function ProfileDetails() {
   };
 
   const handleFollow = async () => {
-    postReq({ data: { id: otherUserId }, url: "profile/followers/" })
-      .then(() => {
-        console.log("success");
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    console.log(userDetails);
+    if (!userDetails.is_followed) {
+      postReq({ data: { id: otherUserId }, url: "profile/followers/" })
+        .unwrap()
+        .then((payload) => {
+          dispatch(setUserDetails({ ...userDetails, is_followed: true,followers:userDetails.followers+1 }));
+        });
+    } else {
+      deleteReq(`profile/followers/?id=${otherUserId}`)
+        .unwrap()
+        .then((payload) => {
+          dispatch(setUserDetails({ ...userDetails, is_followed: false,followers:userDetails.followers-1 }));
+        });
+    }
   };
-  console.log(userDetails)
   return (
     <div className="profileDetails">
       <div className="banner">
@@ -82,7 +90,7 @@ function ProfileDetails() {
       </div>
       <div className="profileImage">
         {userDetails &&
-          userDetails.image === "/media/user/default.jpg" &&
+          userDetails.image.endsWith("media/user/default.jpg") &&
           !otherUserId && (
             <button className="addProfilePicBtn">
               <MdInsertPhoto size={24} />
@@ -97,11 +105,11 @@ function ProfileDetails() {
               />
             </button>
           )}
-        {userDetails && userDetails.image !== "/media/user/default.jpg" && (
+        {userDetails && !userDetails.image.endsWith("media/user/default.jpg") && (
           <img src={`${userDetails.image}`} alt="" />
         )}
         {userDetails &&
-          userDetails.image === "/media/user/default.jpg" &&
+          userDetails.image.endsWith("media/user/default.jpg") &&
           otherUserId && (
             <img src={`http://127.0.0.1:8000/media/user/default.jpg`} alt="" />
           )}
@@ -148,9 +156,11 @@ function ProfileDetails() {
             </Link>
           </div>
         )}
-        {otherUserId && (
+        {otherUserId && userDetails && (
           <button className="followBtn" onClick={handleFollow}>
-            <h4 style={{ color: "white" }}>{userDetails.is_followed ? "Following" : "Follow"}</h4>
+            <h4 style={{ color: "white" }}>
+              {userDetails.is_followed ? "Following" : "Follow"}
+            </h4>
           </button>
         )}
       </div>

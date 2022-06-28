@@ -76,10 +76,10 @@ function AddSkills() {
   };
 
   const handleSubmit = async (skill) => {
+    const loweredSkill = skill.toLowerCase();
     const data = {
-      skill: skill.toLowerCase(),
+      skill: loweredSkill,
     };
-    // console.log(data)
     await addSkills({ data: data, url: "profile/skill/" })
       .unwrap()
       .then((payload) => {
