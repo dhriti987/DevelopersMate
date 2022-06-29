@@ -28,20 +28,25 @@ import EditPost from "./components/profile/EditPost";
 import Follow from "./components/home/Follow";
 import FindDevelopers from "./pages/FindDevelopers";
 import Chat from "./pages/Chat";
-import { useGetRequestMutation } from "./redux/PrivateApi";
+import {
+  useGetRequestMutation,
+  usePutRequestMutation,
+} from "./redux/PrivateApi";
 
 import { w3cwebsocket as W3CWebSocket } from "websocket";
-
 const client = new W3CWebSocket(
   `ws://127.0.0.1:8000/chat/?token=${
     localStorage.getItem("access") ? localStorage.getItem("access") : ""
   }`
 );
+
 function App() {
   const navigate = useNavigate();
   const [getReq] = useGetRequestMutation();
+  const [putReq] = usePutRequestMutation();
   const authToken = useSelector((state) => state.authToken.value);
   const chatThreads = useSelector((state) => state.chatThread.value);
+  const currentThread = useSelector((state) => state.currentThread.value);
   const dispatch = useDispatch();
   dispatch(
     setAuthToken(
@@ -79,14 +84,16 @@ function App() {
     if (Array.isArray(data)) {
       dispatch(setChatThread(data));
     } else {
+      let check = false;
       const newChatThread = chatThreads.map((item) => {
         if (item.id == data.thread) {
+          check = true;
           return { ...item, messages: [...item.messages, data] };
         } else {
           return item;
         }
       });
-      if (newChatThread.length) {
+      if (check) {
         dispatch(setChatThread(newChatThread));
       } else {
         getReq(`chat/get-thread/${data.sent_by_id}`)
@@ -94,6 +101,29 @@ function App() {
           .then((payload) => {
             dispatch(setChatThread([...chatThreads, payload]));
           });
+      }
+      const idx = chatThreads.findIndex((arrItem) => arrItem.id == data.thread);
+      if (
+        idx >= 0 &&
+        (!currentThread || chatThreads[idx].id != currentThread.id)
+      ) {
+        if (chatThreads[idx].first_user_id == localStorage.getItem("userId")) {
+          const newArrChatThread = [...newChatThread];
+          newArrChatThread[idx] = {
+            ...newChatThread[idx],
+            first_user_seen: false,
+          };
+          dispatch(setChatThread(newArrChatThread));
+        } else {
+          const newArrChatThread = [...newChatThread];
+          newArrChatThread[idx] = {
+            ...newChatThread[idx],
+            second_user_seen: false,
+          };
+          dispatch(setChatThread(newArrChatThread));
+        }
+      } else if (idx >= 0) {
+        putReq(`chat/set-thread-seen/${currentThread.id}`);
       }
     }
   };
@@ -123,7 +153,7 @@ function App() {
             <Route exact path="editintro" element={<AddInto />} />
             <Route exact path="editbanner" element={<EditBanner />} />
           </Route>
-          <Route path="chat" element={<Chat client={client} />} />
+          <Route path="chat" element={<Chat client={client}/>} />
           <Route path="showallpost" element={<ShowAllPost />}>
             <Route exact path="editpost/:postId" element={<EditPost />} />
           </Route>

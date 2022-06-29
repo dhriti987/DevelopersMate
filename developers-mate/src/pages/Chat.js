@@ -10,9 +10,13 @@ import { MdSend } from "react-icons/md";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import ChatMemberBox from "../components/chat/ChatMemberBox";
 import { setOtherUserId } from "../redux/OtherUserId";
-import {useGetRequestMutation,usePutRequestMutation} from "../redux/PrivateApi";
+import {
+  useGetRequestMutation,
+  usePutRequestMutation,
+} from "../redux/PrivateApi";
 import { setUserDetails } from "../redux/UserDetails";
-import {setChatThread} from "../redux/ChatThreads";
+import { setChatThread } from "../redux/ChatThreads";
+import { setCurrentThread } from "../redux/CurrentThread";
 import noChat from "../assets/chat/noChat.jpeg";
 
 function Chat({ client }) {
@@ -26,24 +30,24 @@ function Chat({ client }) {
   const [putReq] = usePutRequestMutation();
   const dispatch = useDispatch();
   const sendMessage = () => {
-    if(message.length){
-
+    if (message.length) {
       client.send(
         JSON.stringify({
           message: message,
           thread_id: chattingUser.threadId,
         })
-      );
+      );      
     }
   };
+
   useEffect(() => {
     dispatch(setOtherUserId(null));
     getReq("profile/profile")
-    .unwrap()
-    .then((payload)=>{
-      dispatch(setUserDetails(payload));
-    })
-    console.log(chatThreads)
+      .unwrap()
+      .then((payload) => {
+        dispatch(setUserDetails(payload));
+      });
+    dispatch(setCurrentThread(null));
   }, []);
   useEffect(() => {
     if (chattingUser) {
@@ -61,6 +65,7 @@ function Chat({ client }) {
 
   const showChats = (item) => {
     setMessagesArr(item.messages);
+    dispatch(setCurrentThread(item));
     setChattingUser({
       chattingUserName:
         item.first_user_id == localStorage.getItem("userId")
@@ -73,27 +78,24 @@ function Chat({ client }) {
           ? item.second_user_id
           : item.first_user_id,
     });
-    const idx = chatThreads.findIndex((arrItem)=>arrItem.id == item.id)
-    if(item.first_user_id == localStorage.getItem("userId")){
+    const idx = chatThreads.findIndex((arrItem) => arrItem.id == item.id);
+    if (item.first_user_id == localStorage.getItem("userId")) {
       const newArrChatThread = [...chatThreads];
       newArrChatThread[idx] = {
         ...chatThreads[idx],
-        first_user_seen:true
-      }
-      dispatch(setChatThread(newArrChatThread))
-    }
-    else{
+        first_user_seen: true,
+      };
+      dispatch(setChatThread(newArrChatThread));
+    } else {
       const newArrChatThread = [...chatThreads];
       newArrChatThread[idx] = {
         ...chatThreads[idx],
-        second_user_seen:true
-      }
-      dispatch(setChatThread(newArrChatThread))
-      
+        second_user_seen: true,
+      };
+      dispatch(setChatThread(newArrChatThread));
     }
-    putReq(`chat/set-thread-seen/${item.id}`)
+    putReq(`chat/set-thread-seen/${item.id}`);
   };
-
   return (
     <>
       <PrivateNavbar />
@@ -117,15 +119,26 @@ function Chat({ client }) {
             })}
           </div>
         </div>
-        <main className="ChatContainer" style={!chattingUser ? {display:"flex",alignItems:"center",justifyContent:"center"} : {}}>
-          {!chattingUser && 
-          <div className="emptyChat">
-            <div className="emptyChatImg">
-              <img src={noChat} alt="" />
-            </div>
-            <h2>Developer's mate</h2>
-          </div>
+        <main
+          className="ChatContainer"
+          style={
+            !chattingUser
+              ? {
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }
+              : {}
           }
+        >
+          {!chattingUser && (
+            <div className="emptyChat">
+              <div className="emptyChatImg">
+                <img src={noChat} alt="" />
+              </div>
+              <h2>Developer's mate</h2>
+            </div>
+          )}
           {chattingUser && (
             <Link
               className="chatHead"
@@ -162,13 +175,23 @@ function Chat({ client }) {
                 placeholder="Write the Message.."
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
-                style={!message.length ? {width:"100%",borderRadius:"5px"} : {}}
+                style={
+                  !message.length ? { width: "100%", borderRadius: "5px" } : {}
+                }
               />
               {/* <div className="icons">
               <BsCardImage size={23} color="white" />
             </div> */}
-            
-              <div className="sendButton" onClick={sendMessage} style={message.length<=0 ? {opacity:"0",cursor:"auto"} : {opacity:"1"}} disable>
+
+              <div
+                className="sendButton"
+                onClick={sendMessage}
+                style={
+                  message.length <= 0
+                    ? { opacity: "0", cursor: "auto" }
+                    : { opacity: "1" }
+                }
+              >
                 <MdSend size={23} color="white" />
               </div>
             </div>

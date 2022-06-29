@@ -12,13 +12,19 @@ import jwt_decode from "jwt-decode";
 import { w3cwebsocket as W3CWebSocket } from "websocket";
 import { useSelector, useDispatch } from "react-redux";
 import { setChatThread } from "../redux/ChatThreads";
-import { useGetRequestMutation } from "../redux/PrivateApi";
+import { setCurrentThread } from "../redux/CurrentThread";
+import {
+  useGetRequestMutation,
+  usePutRequestMutation,
+} from "../redux/PrivateApi";
 
 function Login() {
   const [error, setError] = useState(null);
   const navigate = useNavigate();
   const [getReq] = useGetRequestMutation();
+  const [putReq] = usePutRequestMutation();
   const chatThreads = useSelector((state) => state.chatThread.value);
+  const currentThread = useSelector((state) => state.currentThread.value);
   const dispatch = useDispatch();
   const validate = yup.object({
     email: yup
@@ -46,37 +52,14 @@ function Login() {
         "profile",
         jwt_decode(response.data.access).have_profile
       );
-      const client = new W3CWebSocket(
-        `ws://127.0.0.1:8000/chat/?token=${
-          localStorage.getItem("access") ? localStorage.getItem("access") : ""
-        }`
-      );
-      client.onmessage = (val) => {
-        const data = JSON.parse(val.data);
-        if (Array.isArray(data)) {
-          console.log(data);
-          dispatch(setChatThread(data));
-        } else {
-          const newChatThread = chatThreads.map((item) => {
-            if (item.id == data.thread) {
-              return { ...item, messages: [...item.messages, data] };
-            } else {
-              return item;
-            }
-          });
-          if (newChatThread.length) {
-            dispatch(setChatThread(newChatThread));
-          } else {
-            getReq(`chat/get-thread/${data.sent_by_id}`)
-              .unwrap()
-              .then((payload) => {
-                dispatch(setChatThread([...chatThreads, payload]));
-              });
-          }
-        }
-      };
-      if (localStorage.getItem("profile")) navigate("/");
-      else navigate("/addUserDetails");
+      if (localStorage.getItem("profile")) {
+        navigate("/");
+        window.location.reload();
+      }
+      else {
+        navigate("/addUserDetails");
+        window.location.reload();
+      }
     } catch (err) {
       console.log(err.response);
       setError(1);
