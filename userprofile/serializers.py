@@ -1,4 +1,3 @@
-from numpy import source
 from .models import Education, Experience, Link, Profile, Project, Skill, UserFollowing
 from rest_framework import serializers
 
