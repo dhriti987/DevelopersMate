@@ -68,7 +68,7 @@ ROOT_URLCONF = 'DevelopersMate.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -191,7 +191,7 @@ CHANNEL_LAYERS = {
         },
     },
 }
-
+APP_HOST_URL = config('APP_HOST_URL',default= 'http://127.0.0.1:8000')
 EMAIL_HOST = config('EMAIL_HOST')
 EMAIL_PORT = config('EMAIL_PORT',cast=int)
 EMAIL_HOST_USER = config('EMAIL_HOST_USER')

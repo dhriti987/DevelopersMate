@@ -35,8 +35,8 @@ class UserSerializer(serializers.ModelSerializer):
 class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
     @classmethod
     def get_token(cls, user):
-        # if not user.is_verified:
-        #     raise EmailNotVerifiedError()
+        if not user.is_verified:
+            raise EmailNotVerifiedError()
         token = super().get_token(user)
 
         # Add custom claims

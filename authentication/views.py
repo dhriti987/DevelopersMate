@@ -6,6 +6,7 @@ from rest_framework.response import Response
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.authtoken.models import Token
 from rest_framework_simplejwt.views import TokenObtainPairView
+from .utils import send_account_verification_email
 # Create your views here.
 
 class RegisterView(generics.GenericAPIView):
@@ -19,7 +20,8 @@ class RegisterView(generics.GenericAPIView):
         user_data = serializer_obj.data
 
         user  = User.objects.get(email = user_data['email'])
-        Token.objects.create(user = user)
+        token = Token.objects.create(user = user)
+        send_account_verification_email(user_data['email'], token.key)
          
         return Response(user_data,status=status.HTTP_201_CREATED)
 
@@ -36,3 +38,14 @@ class CustomObtainAuthToken(ObtainAuthToken):
 
 class CustomTokenObtainPairView(TokenObtainPairView):
     serializer_class = CustomTokenObtainPairSerializer
+
+class EmailVerifyAPIView(generics.GenericAPIView):
+
+    def get(self,request,token):
+        try:
+            user = Token.objects.get(key = token).user
+            user.is_verified = True 
+            user.save()
+            return Response()
+        except:
+            return Response(status=status.HTTP_404_NOT_FOUND)

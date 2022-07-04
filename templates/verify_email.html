@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Finlandica:ital@1&display=swap"
+      rel="stylesheet"
+    />
+
+    <title>Document</title>
+  </head>
+  <style>
+    body {
+      font-family: "Finlandica", sans-serif;
+    }
+    h1{
+      margin-top: 0;
+    }
+    h3 {
+      font-weight: 500;
+    }
+    button h3 {
+      margin: 0;
+      color: aliceblue;
+      font-weight: 700;
+    }
+    button {
+      padding: 1rem;
+      outline: none;
+      background-color: #007bff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .emailVerification img{
+      width: 6rem;
+      height: 6rem;
+    }
+    
+  </style>
+  <body>
+    <div class="emailVerification">
+      <img src="https://ouch-cdn2.icons8.com/b6qnVt9l56xkoC19Eqdy7ffRPIaI6gEwcfSTYBG51Ao/rs:fit:456:456/czM6Ly9pY29uczgu/b3VjaC1wcm9kLmFz/c2V0cy9wbmcvMTYz/Lzk0ZmI4NDMwLWVm/MWMtNGY1YS04YzMy/LTY5Y2MzNWJjN2Fi/Zi5wbmc.png" alt="">
+      <h1>Verify Your Email Address</h1>
+      <h3>
+        To complete signIn, please confirm your email address. This ensures we
+        have the right email in case we need to contact you.
+      </h3>
+      <h3>Verify your account by clicking the button below:</h3>
+      <a href={{ url }}>
+        <button><h3>Verify Your Email Address</h3></button>
+      </a>
+    </div>
+  </body>
+</html>
