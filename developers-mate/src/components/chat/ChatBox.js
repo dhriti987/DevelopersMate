@@ -6,7 +6,7 @@ function ChatBox({user,msg,userImage}) {
   return (
     <div className='chatBoxContainer' style={user ? {justifyContent:"flex-end"} : {justifyCotent:"flex-start"}}>
         {!user && 
-        <img src={`http://127.0.0.1:8000${userImage}`} alt="" />
+        <img src={`${process.env.REACT_APP_SERVER_URL}${userImage}`} alt="" />
         }
         <div className="chatText" style={user ? {borderRadius:"0.6rem 0.6rem 0 0.6rem"} : {borderRadius:"0.6rem 0.6rem 0.6rem 0"}}>
             <h5>{msg}</h5> 

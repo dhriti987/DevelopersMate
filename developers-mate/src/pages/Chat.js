@@ -148,7 +148,7 @@ function Chat({ client }) {
               }}
             >
               <img
-                src={`http://127.0.0.1:8000${chattingUser.chattingUserimg}`}
+                src={`${process.env.REACT_APP_SERVER_URL}${chattingUser.chattingUserimg}`}
                 alt=""
               />
               <h3>{chattingUser.chattingUserName}</h3>

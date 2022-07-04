@@ -45,7 +45,7 @@ function Follow() {
                   key={`follow${idx}`}
                   onClick = {()=>{dispatch(setOtherUserId(isFollowers ? item.profile : item.following_profile))}}
                 >
-                  <img src={`http://127.0.0.1:8000${item.image}`} alt="" />
+                  <img src={`${process.env.REACT_APP_SERVER_URL}${item.image}`} alt="" />
                   <div className="text">
                     <h3>{item.name}</h3>
                     <h5>{item.headline}</h5>

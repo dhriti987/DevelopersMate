@@ -6,15 +6,15 @@ import { Link } from "react-router-dom";
 import { Formik } from "formik";
 import * as yup from "yup";
 import api from "../api/UnProtectedApi";
-import close from "../assets/profile/close.png"
-import check from "../assets/profile/check.png"
-import {useNavigate} from "react-router-dom";
+import close from "../assets/profile/close.png";
+import check from "../assets/profile/check.png";
+import { useNavigate } from "react-router-dom";
+import EmailVerificationPopUp from "../components/EmailVerificationPopUp";
 
 function SignUp() {
-
-  const [error,setError]=useState(null);
-  const [success,setSuccess]=useState(null);
-  const navigate=useNavigate();
+  const [error, setError] = useState(null);
+  const [success, setSuccess] = useState(null);
+  const navigate = useNavigate();
 
   const validate = yup.object({
     email: yup
@@ -37,26 +37,25 @@ function SignUp() {
 
   const onSubmit = async (values) => {
     const data = {
-      "email": values.email,
-      "password": values.password,
+      email: values.email,
+      password: values.password,
     };
-    try{
-      const response = await api.post("auth/register/",data);
+    try {
+      const response = await api.post("auth/register/", data);
       console.log(response);
       setSuccess(1);
-      setError(null)
-      setTimeout(()=>{
-        navigate("/login")
-      },3000)
-    }
-    catch(err){
-      console.log(err.message)
+      setError(null);
+      setTimeout(() => {
+        navigate("/login");
+      }, 3000);
+    } catch (err) {
+      console.log(err.message);
       console.log(err.response);
       setError(1);
       setSuccess(null);
-      setTimeout(()=>{
+      setTimeout(() => {
         setError(0);
-      },5000)
+      }, 5000);
     }
   };
 
@@ -71,13 +70,11 @@ function SignUp() {
     <>
       <Navbar title={"Login"} />
       <main className="loginsignupPage">
-        <div className={`errorMessage ${(error || success) ? "displayError" : "hideError"}`}>
-          {error && (<img src={close} alt="" />) }
-          {success && <img src={check} alt="" /> }
+        <div className={`errorMessage ${error ? "displayError" : "hideError"}`}>
+          {error && <img src={close} alt="" />}
           {error && <h4>This Email Already Exist!</h4>}
-          {success && <h4>"Congratulations! You have Successfully Signed up</h4>}
-          
         </div>
+          <EmailVerificationPopUp success={success} setSuccess={setSuccess} />
         <div className="loginSignupPageContainer">
           <h1>SignUp</h1>
           <h3>
@@ -152,7 +149,11 @@ function SignUp() {
                       <p>{formik.errors.confirmPassword}</p>
                     )}
                 </div>
-                <button className="loginSignupBtn" type="submit" disabled={!formik.isValid}>
+                <button
+                  className="loginSignupBtn"
+                  type="submit"
+                  disabled={!formik.isValid}
+                >
                   <h4 style={{ margin: "0", fontWeight: "500" }}>SignUp</h4>
                   <AiOutlineArrowRight size={23} />
                 </button>

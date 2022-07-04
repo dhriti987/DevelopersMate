@@ -1,0 +1,48 @@
+.EmailVerificationPopUpContainer {
+  position: absolute;
+  top: 10rem;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 1rem;
+  background-color: aliceblue;
+  display: flex;
+  flex-direction: column;
+  border-radius: 0.4rem;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  transition: opacity 0.5s;
+  width: 35%;
+}
+.EmailVerificationPopUpContainer h1 {
+  color: black;
+  font-weight: 700;
+}
+.EmailVerificationPopUpContainer h4 {
+  color: black;
+  text-align: center;
+  font-weight: 500;
+}
+.EmailVerificationPopUpContainer .cancelBtn {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  cursor: pointer;
+}
+.EmailVerificationPopUpContainer .EmailVerificationPopUpImg {
+  width: 11rem;
+  height: 11rem;
+}
+.EmailVerificationPopUpContainer .EmailVerificationPopUpImg img {
+  width: 100%;
+  height: 100%;
+}
+.displaySuccess{
+    opacity: 1;
+    transition: opacity 0.4s;
+  }
+  .hideSuccess{
+    opacity: 0;
+    transition: opacity 0.4s;
+    z-index: -100;
+}

@@ -1,0 +1,33 @@
+.emailVerificationContainer{
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 2rem;
+}
+.emailVerificationContainer h1{
+    font-size: 3rem;
+}
+.emailVerificationContainer h2{
+    text-align: center;
+    font-weight: 400;
+}
+.emailVerificationContainer .emailVerificationImg{
+    width: 10rem;
+    height: 10rem;
+}
+.emailVerificationContainer .emailVerificationImg img{
+    width: 100%;
+    height: 100%;
+}
+.emailVerificationContainer button{
+    background-color: #10ca00;
+    padding: 0.8rem 1rem;
+    border-radius: 10px;
+    cursor: pointer;
+    outline: none;
+}
+.emailVerificationContainer button h2{
+    margin: 0;
+}

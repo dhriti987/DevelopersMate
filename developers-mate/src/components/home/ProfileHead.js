@@ -12,7 +12,7 @@ function ProfileHead({ item, isEdit,isPost }) {
     <>
       {item && (
         <div className="head" style={isEdit ? { justifyContent: "unset" } : {}}>
-          <img src={`http://127.0.0.1:8000${item.user_image}`} alt="" />
+          <img src={`${process.env.REACT_APP_SERVER_URL}${item.user_image}`} alt="" />
           <div className="headDetails">
             <h4 style={{ fontWeight: "500", margin: "0 0.3rem" }}>
               {item.user}

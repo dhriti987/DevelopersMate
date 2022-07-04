@@ -49,7 +49,7 @@ function FindDevelopers() {
     try {
       const newSkillsArr = skillArr.map((item) => item.toLowerCase());
       const response = await axios.get(
-        "http://127.0.0.1:8000/profile/filter/",
+        `${process.env.REACT_APP_SERVER_URL}/profile/filter/`,
         {
           params: {
             skills: newSkillsArr,
