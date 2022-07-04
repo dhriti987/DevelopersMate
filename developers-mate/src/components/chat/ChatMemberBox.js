@@ -8,7 +8,7 @@ function ChatMemberBox({itemObj,onclickFnc}) {
   return (
     <div className='member' onClick={()=>onclickFnc(itemObj)}>
         <div className="memberImg">
-            <img src={`http://127.0.0.1:8000${second_user_image}`} alt="" />
+            <img src={`${process.env.REACT_APP_SERVER_URL}${second_user_image}`} alt="" />
         </div>
         <h4>{itemObj.first_user_id == localStorage.getItem("userId") ? second_user : first_user}</h4>
         {

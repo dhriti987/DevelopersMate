@@ -110,7 +110,7 @@ function ProfileDetails() {
         {userDetails &&
           userDetails.image.endsWith("media/user/default.jpg") &&
           otherUserId && (
-            <img src={`http://127.0.0.1:8000/media/user/default.jpg`} alt="" />
+            <img src={`${process.env.REACT_APP_SERVER_URL}/media/user/default.jpg`} alt="" />
           )}
       </div>
       {!otherUserId && (

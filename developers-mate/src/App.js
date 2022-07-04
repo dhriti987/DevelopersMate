@@ -34,8 +34,9 @@ import {
 } from "./redux/PrivateApi";
 
 import { w3cwebsocket as W3CWebSocket } from "websocket";
+import EmailVerification from "./pages/EmailVerification";
 const client = new W3CWebSocket(
-  `ws://127.0.0.1:8000/chat/?token=${
+  `${process.env.REACT_APP_WEBSOCKET_URL}/chat/?token=${
     localStorage.getItem("access") ? localStorage.getItem("access") : ""
   }`
 );
@@ -53,14 +54,13 @@ function App() {
       localStorage.getItem("access") ? localStorage.getItem("access") : null
     )
   );
-
   useEffect(() => {
     const interval = setInterval(() => {
       const updateToken = async () => {
         if (authToken) {
           try {
             const response = await axios.post(
-              "http://127.0.0.1:8000/api/token/refresh/",
+              `${process.env.REACT_APP_SERVER_URL}/api/token/refresh/`,
               {
                 refresh: localStorage.getItem("refresh"),
               }
@@ -153,7 +153,7 @@ function App() {
             <Route exact path="editintro" element={<AddInto />} />
             <Route exact path="editbanner" element={<EditBanner />} />
           </Route>
-          <Route path="chat" element={<Chat client={client}/>} />
+          <Route path="chat" element={<Chat client={client} />} />
           <Route path="showallpost" element={<ShowAllPost />}>
             <Route exact path="editpost/:postId" element={<EditPost />} />
           </Route>
@@ -170,6 +170,7 @@ function App() {
           </Route>
           <Route exact path="/finddevelopers" element={<FindDevelopers />} />
         </Route>
+        <Route exact path="emailverification/:userToken" element={<EmailVerification/>}/>
         <Route path="*" element={<Page404 />} />
       </Routes>
     </div>

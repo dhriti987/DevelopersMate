@@ -7,7 +7,7 @@ function Navbar({ title }) {
   return (
     <nav className="navbar-container">
       <div className="navbarContent">
-        <h2>DevelopersMate.</h2>
+        <h2 style={{fontSize:"2rem"}}>DevelopersMate.</h2>
         <Link to={title == "Sign Up" ? "/signup" : "/login"}>
           <button className="navbar-btn">
             <h4 style={{ margin: "0", fontWeight: "500" }}>{title}</h4>
