@@ -1,13 +1,22 @@
-import React from 'react'
+import React from "react";
 import "../style/EmailVerificationPopUp.css";
 import img from "../assets/common/emailVerificationMsg.jpeg";
-import { ImCross } from 'react-icons/im';
+import { ImCross } from "react-icons/im";
+import {useNavigate} from "react-router-dom";
 
-function EmailVerificationPopUp({success,setSuccess}) {
+function EmailVerificationPopUp({ success, setSuccess }) {
+  const navigate = useNavigate();
   return (
     <div className={`${success ? "displaySuccess" : "hideSuccess"}`}>
       <div className={`EmailVerificationPopUpContainer`}>
-        <ImCross size={23} className="cancelBtn" onClick={()=>{setSuccess(false)}} />
+        <ImCross
+          size={23}
+          className="cancelBtn"
+          onClick={() => {
+            setSuccess(false);
+            navigate("/login");
+          }}
+        />
         <div className="EmailVerificationPopUpImg">
           <img src={img} alt="" />
         </div>
@@ -23,4 +32,4 @@ function EmailVerificationPopUp({success,setSuccess}) {
   );
 }
 
-export default EmailVerificationPopUp
+export default EmailVerificationPopUp;

@@ -14,7 +14,7 @@ import EmailVerificationPopUp from "../components/EmailVerificationPopUp";
 function SignUp() {
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
-  const navigate = useNavigate();
+  const [showBtn,setShowBtn] = useState(true);
 
   const validate = yup.object({
     email: yup
@@ -41,16 +41,15 @@ function SignUp() {
       password: values.password,
     };
     try {
+      setShowBtn(false)
       const response = await api.post("auth/register/", data);
+      setShowBtn(true)
       console.log(response);
       setSuccess(1);
       setError(null);
-      setTimeout(() => {
-        navigate("/login");
-      }, 3000);
     } catch (err) {
+      setShowBtn(true)
       console.log(err.message);
-      console.log(err.response);
       setError(1);
       setSuccess(null);
       setTimeout(() => {
@@ -152,10 +151,16 @@ function SignUp() {
                 <button
                   className="loginSignupBtn"
                   type="submit"
-                  disabled={!formik.isValid}
+                  disabled={!formik.isValid || !showBtn}
                 >
-                  <h4 style={{ margin: "0", fontWeight: "500" }}>SignUp</h4>
-                  <AiOutlineArrowRight size={23} />
+                  <h4 style={{ margin: "0", fontWeight: "500" }}>signUp</h4>
+                  {
+                    showBtn ? 
+                    <AiOutlineArrowRight size={23} />
+                    :
+
+                  <img style={{width:"23px"}} src={"https://c.tenor.com/wpSo-8CrXqUAAAAi/loading-loading-forever.gif"} alt="" />
+                  }
                 </button>
                 <Link to={"/login"} style={{ textDecoration: "none" }}>
                   <h6>Already have an Account?</h6>

@@ -1,10 +1,23 @@
-import React from "react";
-import { useParams, Link } from "react-router-dom";
+import React, { useEffect } from "react";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import "../style/EmailVerification.css";
 import emailVerified from "../assets/common/emailVerified.jpeg";
+import api from "../api/UnProtectedApi";
 
 function EmailVerification() {
   const { userToken } = useParams();
+  const navigate = useNavigate();
+
+  useEffect(async()=>{
+    try{
+      const response = await api.get(`/auth/email-verify/${userToken}`)
+      console.log(response);
+    }
+    catch(err){
+      navigate("/login");
+    }
+  },[])
+
   return (
     <div className="emailVerificationContainer">
       <div className="emailVerificationImg">
