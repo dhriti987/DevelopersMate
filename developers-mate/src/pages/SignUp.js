@@ -44,7 +44,6 @@ function SignUp() {
       setShowBtn(false)
       const response = await api.post("auth/register/", data);
       setShowBtn(true)
-      console.log(response);
       setSuccess(1);
       setError(null);
     } catch (err) {

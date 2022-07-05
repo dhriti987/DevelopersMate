@@ -31,7 +31,7 @@ function CreatePostSection() {
       setFetchAgain(fetchAgain ? false : true);
       navigate("/");
     } catch (err) {
-      console.log(err.response);
+      console.log(err.message);
     }
   };
   return (

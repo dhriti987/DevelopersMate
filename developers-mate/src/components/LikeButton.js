@@ -21,7 +21,7 @@ function LikeButton({item}) {
         setNumberOfLikes(numberOfLikes+1)
       })
       .catch(err=>{
-        console.log(err.response);
+        console.log(err.message);
       })
     }
     else{

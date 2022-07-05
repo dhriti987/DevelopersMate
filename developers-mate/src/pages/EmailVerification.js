@@ -11,7 +11,6 @@ function EmailVerification() {
   useEffect(async()=>{
     try{
       const response = await api.get(`/auth/email-verify/${userToken}`)
-      console.log(response);
     }
     catch(err){
       navigate("/login");

@@ -29,7 +29,6 @@ function ProfileSkills() {
             skills: newSkillsSet,
           })
         );
-        console.log(userDetails);
       });
   };
   return (
