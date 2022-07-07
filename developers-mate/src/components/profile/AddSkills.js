@@ -12,6 +12,7 @@ import { setUserDetails } from "../../redux/UserDetails";
 import ErrorPopUp from "../ErrorPopUp";
 import CoverBackground from "../CoverBackground";
 import CloseButton from "../CloseButton";
+import ApiLoading from "../ApiLoading";
 
 function AddSkills() {
   const userDetails = useSelector((state) => state.userDetails.value);
@@ -22,7 +23,7 @@ function AddSkills() {
   const [selectedSkillsArr, setSelectedSkillsArr] = useState([]);
   const isProfile = window.location.href.includes("profile");
   const [input, setInput] = useState("");
-  const [addSkills, responseInfo] = usePostRequestMutation();
+  const [addSkills, {isLoading}] = usePostRequestMutation();
   const [showError, setShowError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
@@ -95,6 +96,8 @@ function AddSkills() {
   return (
     <>
       <CoverBackground />
+      {isLoading && 
+      <ApiLoading/>}
       <main className="popUp-container">
         <ErrorPopUp
           error={errorMessage}

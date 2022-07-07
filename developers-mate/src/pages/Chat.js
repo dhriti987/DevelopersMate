@@ -18,6 +18,7 @@ import { setUserDetails } from "../redux/UserDetails";
 import { setChatThread } from "../redux/ChatThreads";
 import { setCurrentThread } from "../redux/CurrentThread";
 import noChat from "../assets/chat/noChat.jpeg";
+import defaultImg from "../assets/profile/default.jpg";
 
 function Chat({ client }) {
   const chatThreads = useSelector((state) => state.chatThread.value);
@@ -30,15 +31,26 @@ function Chat({ client }) {
   const [putReq] = usePutRequestMutation();
   const dispatch = useDispatch();
   const sendMessage = () => {
+    
     if (message.length) {
       client.send(
         JSON.stringify({
           message: message,
           thread_id: chattingUser.threadId,
         })
-      );      
+      );
     }
   };
+
+  useEffect(()=>{
+    const scroll_to_bottom =  document.getElementById("chatContentContainer")
+    if (scroll_to_bottom) {
+      scroll_to_bottom.scroll({
+        top: scroll_to_bottom.scrollHeight,
+        behavior: "smooth",
+      });
+    }
+  },[messagesArr])
 
   useEffect(() => {
     dispatch(setOtherUserId(null));
@@ -103,7 +115,14 @@ function Chat({ client }) {
         <div className="chatMembersContainer">
           <div className="chatMemberHead">
             <div className="chatMemberHeadImg">
-              <img src={userDetails && userDetails.image} alt="" />
+              <img
+                src={userDetails && userDetails.image}
+                alt=""
+                onError={({ currentTarget }) => {
+                  currentTarget.onerror = null; // prevents looping
+                  currentTarget.src = defaultImg;
+                }}
+              />
             </div>
             <BsThreeDotsVertical size={23} color="white" />
           </div>
@@ -148,14 +167,22 @@ function Chat({ client }) {
               }}
             >
               <img
-                src={`${process.env.REACT_APP_SERVER_URL}${chattingUser.chattingUserimg}`}
+                src={`${chattingUser.chattingUserimg}`}
                 alt=""
+                onError={({ currentTarget }) => {
+                  currentTarget.onerror = null; // prevents looping
+                  currentTarget.src = defaultImg;
+                }}
               />
               <h3>{chattingUser.chattingUserName}</h3>
             </Link>
           )}
           {chattingUser && (
-            <div className="chatContent" style={{ height: "25rem" }}>
+            <div
+              className="chatContent"
+              id="chatContentContainer"
+              style={{ height: "25rem" }}
+            >
               {messagesArr.map((item) => {
                 return (
                   <ChatBox
@@ -163,6 +190,7 @@ function Chat({ client }) {
                     msg={item.message}
                     key={item.id}
                     userImage={chattingUser.chattingUserimg}
+                    profileImg={userDetails.image}
                   />
                 );
               })}

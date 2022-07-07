@@ -3,6 +3,7 @@ import "../style/PrivateNavbar.css";
 import { BsSearch, BsFillChatDotsFill, BsPersonCircle } from "react-icons/bs";
 import { ImHome } from "react-icons/im";
 import { MdPersonSearch } from "react-icons/md";
+import { FiLogOut } from "react-icons/fi";
 import { useGetRequestMutation } from "../redux/PrivateApi";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
@@ -17,10 +18,11 @@ function PrivateNavbar() {
   const [displayNavbarText, setDisplayNavbarText] = useState({
     home: false,
     chat: false,
-    finddevelopers:false,
+    finddevelopers: false,
     profile: false,
+    logout:false
   });
-  const [searchInput,setSearchInput] = useState("");
+  const [searchInput, setSearchInput] = useState("");
   const handleSearchChange = async (e) => {
     setSearchInput(e.target.value);
     getReq(`profile/search/?query=${e.target.value}`)
@@ -37,7 +39,7 @@ function PrivateNavbar() {
       .unwrap()
       .then((payload) => {
         dispatch(setUserDetails(payload));
-        setSearchedUserResults([])
+        setSearchedUserResults([]);
       });
   };
 
@@ -52,7 +54,7 @@ function PrivateNavbar() {
               to={"/"}
               className="navbarLinks"
               style={
-                window.location.pathname === "/home"
+                window.location.pathname === "/"
                   ? { background: "#2b2b2b" }
                   : {}
               }
@@ -132,7 +134,9 @@ function PrivateNavbar() {
               <MdPersonSearch size={30} color="#cdcdcd" />
               <p
                 style={
-                  displayNavbarText.finddevelopers ? { opacity: "1"} : { opacity: "0" }
+                  displayNavbarText.finddevelopers
+                    ? { opacity: "1" }
+                    : { opacity: "0" }
                 }
               >
                 Find Developers
@@ -170,6 +174,36 @@ function PrivateNavbar() {
                 Profile
               </p>
             </Link>
+            <Link
+              to={"/login"}
+              className="navbarLinks"
+              onClick={()=>{
+                localStorage.clear();
+              }}
+              onMouseOver={() => {
+                setDisplayNavbarText({
+                  ...displayNavbarText,
+                  logout: true,
+                });
+              }}
+              onMouseOut={() => {
+                setDisplayNavbarText({
+                  ...displayNavbarText,
+                  logout: false,
+                });
+              }}
+            >
+              <FiLogOut size={30} color="#cdcdcd" />
+              <p
+                style={
+                  displayNavbarText.logout
+                    ? { opacity: "1" }
+                    : { opacity: "0" }
+                }
+              >
+                Logout
+              </p>
+            </Link>
           </div>
 
           <div className="navbarSearchBar">
@@ -197,7 +231,11 @@ function PrivateNavbar() {
               }
             />
             <div
-              className={`searchedResults ${searchedUserResults.length>5 ? "searchedResultsWithMoreSearch" : ""}`}
+              className={`searchedResults ${
+                searchedUserResults.length > 5
+                  ? "searchedResultsWithMoreSearch"
+                  : ""
+              }`}
               style={
                 searchedUserResults.length
                   ? { width: "20.6rem", borderBottomRightRadius: "0" }
@@ -206,21 +244,21 @@ function PrivateNavbar() {
             >
               {searchedUserResults.map((item, idx) => {
                 return (
-                <>
-                  <Link
-                    to="/profile"
-                    className={`searchedUserDetails`}
-                    key={`search${idx}`}
-                    onClick={() => handleSearchUser(item.user)}
-                  >
-                    <img src={item.image} alt="" />
-                    <h5>
-                      {item.first_name} {item.last_name}
-                    </h5>
-                  </Link>
-                </>
+                  <>
+                    <Link
+                      to="/profile"
+                      className={`searchedUserDetails`}
+                      key={`search${idx}`}
+                      onClick={() => handleSearchUser(item.user)}
+                    >
+                      <img src={item.image} alt="" />
+                      <h5>
+                        {item.first_name} {item.last_name}
+                      </h5>
+                    </Link>
+                  </>
                 );
-              })} 
+              })}
             </div>
           </div>
         </div>

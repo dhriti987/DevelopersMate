@@ -1,18 +1,24 @@
 import React from "react";
 import "../../style/home/ProfileHead.css";
-import bannerBg from "../../assets/home/banner.jpg";
 import { BiPencil } from "react-icons/bi";
-import { AiFillDelete } from "react-icons/ai";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import defaultImg from "../../assets/profile/default.jpg";
 
-function ProfileHead({ item, isEdit,isPost }) {
-  const otherUserId = useSelector((state)=>state.otherUserId.value)
+function ProfileHead({ item, isEdit, isPost }) {
+  const otherUserId = useSelector((state) => state.otherUserId.value);
   return (
     <>
       {item && (
         <div className="head" style={isEdit ? { justifyContent: "unset" } : {}}>
-          <img src={`${process.env.REACT_APP_SERVER_URL}${item.user_image}`} alt="" />
+          <img
+            src={`${item.user_image}`}
+            alt=""
+            onError={({ currentTarget }) => {
+              currentTarget.onerror = null; // prevents looping
+              currentTarget.src = defaultImg;
+            }}
+          />
           <div className="headDetails">
             <h4 style={{ fontWeight: "500", margin: "0 0.3rem" }}>
               {item.user}
@@ -27,24 +33,23 @@ function ProfileHead({ item, isEdit,isPost }) {
             >
               {isEdit ? item.post_date : item.time_interval}
             </h5>
-            {isPost && !otherUserId &&
-            <div className="alterPosts">
-              <Link to={`/showallpost/editpost/${item.post_id}/`}>
-                <BiPencil
-                  color="white"
-                  size={28}
-                  style={{
-                    cursor: "pointer",
-                    position: "absolute",
-                    right: "3rem",
-                    top: "0.5rem",
-                  }}
-                  className="icon"
-                />
-              </Link>
-                
-            </div>
-            }
+            {isPost && !otherUserId && (
+              <div className="alterPosts">
+                <Link to={`/showallpost/editpost/${item.post_id}/`}>
+                  <BiPencil
+                    color="white"
+                    size={28}
+                    style={{
+                      cursor: "pointer",
+                      position: "absolute",
+                      right: "3rem",
+                      top: "0.5rem",
+                    }}
+                    className="icon"
+                  />
+                </Link>
+              </div>
+            )}
           </div>
         </div>
       )}

@@ -1,4 +1,4 @@
-import { useState, React,useEffect } from "react";
+import { useState, React, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import "../../style/profile/CommonAdd.css";
 import { BsChevronDown, BsChevronUp } from "react-icons/bs";
@@ -13,13 +13,14 @@ import { useSelector, useDispatch } from "react-redux";
 import { setUserDetails } from "../../redux/UserDetails";
 import CoverBackground from "../CoverBackground";
 import CloseButton from "../CloseButton";
+import ApiLoading from "../ApiLoading";
 
 function AddEducation() {
   const navigate = useNavigate();
   const { id } = useParams();
   const isAdd = window.location.href.includes("add");
-  const [addEducation] = usePostRequestMutation();
-  const [editEducation] = usePatchRequestMutation();
+  const [addEducation,postResponse] = usePostRequestMutation();
+  const [editEducation,patchResponse] = usePatchRequestMutation();
   const userDetails = useSelector((state) => state.userDetails.value);
   useEffect(() => {
     if (userDetails === null || userDetails === undefined) {
@@ -56,7 +57,7 @@ function AddEducation() {
       passing_year: year[1],
     };
     if (isAdd) {
-      addEducation({ data: data, url: "profile/education/" })
+      await addEducation({ data: data, url: "profile/education/" })
         .unwrap()
         .then((payload) => {
           const newArray = Array.from(userDetails.education);
@@ -68,7 +69,7 @@ function AddEducation() {
           );
         });
     } else {
-      editEducation({ data: data, url: `profile/education/${id}` })
+      await editEducation({ data: data, url: `profile/education/${id}` })
         .unwrap()
         .then((payload) => {
           const idx = userDetails.education.indexOf(eduDetail);
@@ -87,11 +88,14 @@ function AddEducation() {
 
   return (
     <>
-    <CoverBackground/>
+      <CoverBackground />
+      {(patchResponse.isLoading || postResponse.isLoading) && 
+        <ApiLoading/>
+      }
       {userDetails && (
         <main className="popUp-container" style={{ justifyContent: "inherit" }}>
           <Link to="/profile" style={{ textDecoration: "none" }}>
-            <CloseButton/>
+            <CloseButton />
           </Link>
           <h1 style={{ textAlign: "center" }}>
             {isAdd ? "Add" : "Edit"} Education

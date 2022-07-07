@@ -7,14 +7,15 @@ import { setUserDetails } from "../../redux/UserDetails";
 import api from "../../api/ImageApi";
 import CoverBackground from "../../components/CoverBackground";
 import CloseButton from "../CloseButton";
+import ApiLoading from "../ApiLoading";
 
 function AddInto() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   let formData = new FormData();
-  const [updateUserDetails] = usePatchRequestMutation();
   const userDetails = useSelector((state) => state.userDetails.value);
   const otherUserId = useSelector((state)=>state.otherUserId.value)
+  const [loading,setLoading] = useState(null);
   useEffect(() => {
     if (userDetails == null || userDetails == undefined) navigate("/profile");
   }, []);
@@ -37,16 +38,23 @@ function AddInto() {
     formData.append("last_name", introObj.lastName);
     if (imageObj.imageUrl) formData.append("image", imageObj.imageUrl);
     try {
+      setLoading(true);
       const response = await api.patch("profile/profile/", formData);
+      setLoading(false);
       dispatch(setUserDetails(response.data));
       navigate("/profile");
     } catch (err) {
       console.log(err.message);
+      setLoading(false);
     }
   };
   return (
     <>
       <CoverBackground />
+      {
+        loading && 
+        <ApiLoading/>
+      }
       {userDetails && (
         <main
           className="popUp-container"
@@ -95,7 +103,7 @@ function AddInto() {
             {!otherUserId && 
             <button className="editImgBtn">
               <MdInsertPhoto size={24} className="icon" />
-              <h4 style={{ color: "aliceblue", marginTop: "0.5rem" }}>
+              <h4 style={{ color: "aliceblue" }}>
                 {imageObj.image}
               </h4>
               <input

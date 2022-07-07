@@ -6,8 +6,9 @@ import { useSelector, useDispatch } from "react-redux";
 import { setUserDetails } from "../../redux/UserDetails";
 import CoverBackground from "../CoverBackground";
 import CloseButton from "../CloseButton";
+import ApiLoading from "../ApiLoading";
 function AddBio() {
-  const [addBio, responseInfo] = usePatchRequestMutation();
+  const [addBio, {isLoading}] = usePatchRequestMutation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const userDetails = useSelector((state) => state.userDetails.value);
@@ -35,6 +36,10 @@ function AddBio() {
   return (
     <>
       <CoverBackground />
+      {
+        isLoading && 
+        <ApiLoading/>
+      }
       <form className="popUp-container" onSubmit={handleSubmit}>
         <Link to="/profile" style={{ textDecoration: "none" }}>
           <CloseButton />

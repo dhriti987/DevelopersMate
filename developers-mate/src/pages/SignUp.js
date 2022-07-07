@@ -14,7 +14,8 @@ import EmailVerificationPopUp from "../components/EmailVerificationPopUp";
 function SignUp() {
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
-  const [showBtn,setShowBtn] = useState(true);
+  const [showBtn, setShowBtn] = useState(true);
+  const [registerEmail, setRegisterEmail] = useState("");
 
   const validate = yup.object({
     email: yup
@@ -40,14 +41,15 @@ function SignUp() {
       email: values.email,
       password: values.password,
     };
+    setRegisterEmail(values.email);
     try {
-      setShowBtn(false)
+      setShowBtn(false);
       const response = await api.post("auth/register/", data);
-      setShowBtn(true)
+      setShowBtn(true);
       setSuccess(1);
       setError(null);
     } catch (err) {
-      setShowBtn(true)
+      setShowBtn(true);
       console.log(err.message);
       setError(1);
       setSuccess(null);
@@ -72,7 +74,11 @@ function SignUp() {
           {error && <img src={close} alt="" />}
           {error && <h4>This Email Already Exist!</h4>}
         </div>
-          <EmailVerificationPopUp success={success} setSuccess={setSuccess} />
+        <EmailVerificationPopUp
+          success={success}
+          setSuccess={setSuccess}
+          email={registerEmail}
+        />
         <div className="loginSignupPageContainer">
           <h1>SignUp</h1>
           <h3>
@@ -153,13 +159,17 @@ function SignUp() {
                   disabled={!formik.isValid || !showBtn}
                 >
                   <h4 style={{ margin: "0", fontWeight: "500" }}>signUp</h4>
-                  {
-                    showBtn ? 
+                  {showBtn ? (
                     <AiOutlineArrowRight size={23} />
-                    :
-
-                  <img style={{width:"23px"}} src={"https://c.tenor.com/wpSo-8CrXqUAAAAi/loading-loading-forever.gif"} alt="" />
-                  }
+                  ) : (
+                    <img
+                      style={{ width: "23px" }}
+                      src={
+                        "https://c.tenor.com/wpSo-8CrXqUAAAAi/loading-loading-forever.gif"
+                      }
+                      alt=""
+                    />
+                  )}
                 </button>
                 <Link to={"/login"} style={{ textDecoration: "none" }}>
                   <h6>Already have an Account?</h6>

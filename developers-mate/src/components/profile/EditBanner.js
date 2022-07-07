@@ -6,12 +6,14 @@ import api from "../../api/ImageApi";
 import { setUserDetails } from "../../redux/UserDetails";
 import CoverBackground from "../CoverBackground";
 import CloseButton from "../CloseButton";
+import ApiLoading from "../ApiLoading";
 
 function EditBanner() {
   let formData = new FormData();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const userDetails = useSelector((state) => state.userDetails.value);
+  const [loading,setLoading] = useState(null);
   const [imageBannerName, setImageBannerName] = useState({
     banner: null,
   });
@@ -25,11 +27,14 @@ function EditBanner() {
   };
   const handleDelete=async()=>{
     try {
+      setLoading(true);
       const response = await api.patch("profile/profile/", {banner:null});
+      setLoading(false);
       dispatch(setUserDetails(response.data));
       navigate("/profile");
     } catch (err) {
       console.log(err.response);
+      setLoading(false);
     }
   }
   const onSubmit = async (e) => {
@@ -37,16 +42,23 @@ function EditBanner() {
     if(imageBannerName.banner===null) navigate("/profile")
     formData.append("banner", imageBannerName.banner);
     try {
+      setLoading(true);
       const response = await api.patch("profile/profile/", formData);
+      setLoading(false);
       dispatch(setUserDetails(response.data));
       navigate("/profile");
     } catch (err) {
       console.log(err.response);
+      setLoading(false);
     }
   };
   return (
     <>
-      <CoverBackground />
+    <CoverBackground/>
+    {
+      loading && 
+      <ApiLoading/>
+    }
       <main
         className="popUp-container"
         style={{ height: "14rem", overflow: "hidden" }}
@@ -58,7 +70,7 @@ function EditBanner() {
         <form className="add-container" onSubmit={onSubmit}>
           <button className="editImgBtn">
             <MdInsertPhoto size={24} className="icon" />
-            <h4 style={{ color: "aliceblue", marginTop: "0.5rem" }}>
+            <h4 style={{ color: "aliceblue"}}>
               {imageBannerName.banner
                 ? imageBannerName.banner.name
                 : "Edit Banner Image"}

@@ -9,6 +9,7 @@ import ChatUser, { setChatUser } from "../../redux/ChatUser";
 import { setChatThread } from "../../redux/ChatThreads";
 import { useNavigate } from "react-router-dom";
 import { useGetRequestMutation } from "../../redux/PrivateApi";
+import defaultImg from "../../assets/profile/default.jpg";
 
 function FilteredProfile({ name, headline, userId, userImg }) {
   const dispatch = useDispatch();
@@ -41,7 +42,14 @@ function FilteredProfile({ name, headline, userId, userImg }) {
           dispatch(setOtherUserId(userId));
         }}
       >
-        <img src={userImg} alt="" />
+        <img
+          src={userImg}
+          alt=""
+          onError={({ currentTarget }) => {
+            currentTarget.onerror = null; // prevents looping
+            currentTarget.src = defaultImg;
+          }}
+        />
       </Link>
       <Link
         className="rightContainer"

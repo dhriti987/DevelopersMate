@@ -10,7 +10,7 @@ import api from "../../api/ImageApi";
 import WarningPopUp from "../WarningPopUp";
 import CoverBackground from "../CoverBackground";
 import { useSelector } from "react-redux";
-
+import ApiLoading from "../ApiLoading";
 
 function EditPost() {
   let formData = new FormData();
@@ -21,6 +21,7 @@ function EditPost() {
   const navigate = useNavigate();
   const [imageName, setImageName] = useState("");
   const [isImageChanged, setImageChanged] = useState(false);
+  const [loading,setLoading] = useState(null);
 
   const [getPost] = useGetRequestMutation();
   useEffect(() => {
@@ -45,18 +46,25 @@ function EditPost() {
     formData.append("text", postContent.text);
     if (isImageChanged) formData.append("image", postContent.image);
     try {
+      setLoading(true);
       const response = await api.patch(
         `/post-details/posts/${postId}`,
         formData
-      );
-      setFetchAgain(fetchAgain ? false : true);
-      navigate("/showallpost");
-    } catch (err) {
+        );
+        setLoading(false);
+        setFetchAgain(fetchAgain ? false : true);
+        navigate("/showallpost");
+      } catch (err) {
+      setLoading(false);
       console.log(err.response);
     }
   };
   return (
     <>
+    {
+      loading && 
+      <ApiLoading/>
+    }
     <CoverBackground/>
       <main className="popUp-container">
       <Link to="/showallpost" style={{ textDecoration: "none" }}>
@@ -79,7 +87,7 @@ function EditPost() {
             />
             <button className="editImgBtn">
               <MdInsertPhoto size={24} className="icon" />
-              <h4 style={{ color: "aliceblue", marginTop: "0.5rem" }}>
+              <h4 style={{ color: "aliceblue"}}>
                 {imageName}
               </h4>
               <input

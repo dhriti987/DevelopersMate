@@ -10,12 +10,13 @@ import {
 } from "../../redux/PrivateApi";
 import AddButton from "../AddButton";
 import { setUserDetails } from "../../redux/UserDetails";
+import ApiLoading from "../ApiLoading";
 
 function ProfileSkills() {
   const userDetails = useSelector((state) => state.userDetails.value);
   const dispatch = useDispatch();
   const otherUserId = useSelector((state) => state.otherUserId.value);
-  const [deleteSkill, responseInfo] = useDeleteRequestMutation();
+  const [deleteSkill, {isLoading}] = useDeleteRequestMutation();
   const [isGreaterThanThree, setIsGreaterThanThree] = useState(false);
 
   const handleDelete = async (id) => {
@@ -33,6 +34,10 @@ function ProfileSkills() {
   };
   return (
     <>
+    {
+      isLoading && 
+      <ApiLoading/>
+    }
       {!otherUserId || (userDetails && userDetails.skills.length > 0) ?  (
         <div className="skillsContainer commonBox">
           <div className="head">

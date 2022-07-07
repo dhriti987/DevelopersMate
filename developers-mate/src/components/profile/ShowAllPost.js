@@ -61,6 +61,7 @@ function ShowAllPost() {
         <div className="showPostsContainer">
           {userPost &&
             userPost.map((item, idx) => {
+              
               return (
                 <ShowPost
                   item={item}

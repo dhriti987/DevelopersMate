@@ -14,11 +14,15 @@ import { setUserDetails } from "../redux/UserDetails";
 import { setOtherUserId } from "../redux/OtherUserId";
 import Spinner from "../assets/common/Spinner.gif";
 import RecentPost from "../components/profile/RecentPost";
+import {setCurrentThread} from "../redux/CurrentThread";
 
 function Profile() {
   const dispatch = useDispatch();
   const otherUserId = useSelector((state)=>state.otherUserId.value);
   const [getProfile, response] = useGetRequestMutation();
+  useEffect(()=>{
+    setCurrentThread(null)
+  },[])
   useEffect(() => {
     if(otherUserId){
       

@@ -14,13 +14,14 @@ import {
 } from "../../redux/PrivateApi";
 import CoverBackground from "../CoverBackground";
 import CloseButton from "../CloseButton";
+import ApiLoading from "../ApiLoading";
 
 function AddProjects() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { id } = useParams();
-  const [addProject, responseAddInfo] = usePostRequestMutation();
-  const [editProject, responseEditInfo] = usePatchRequestMutation();
+  const [addProject, postResponse] = usePostRequestMutation();
+  const [editProject, patchResponse] = usePatchRequestMutation();
   const isAdd = window.location.href.includes("add");
   const userDetails = useSelector((state) => state.userDetails.value);
   useEffect(() => {
@@ -56,7 +57,12 @@ function AddProjects() {
     isAdd ? ["", ""] : projectDetail && [editStartData[0], editStartData[1]]
   );
   const [endDate, setEndDate] = useState(
-    isAdd ? ["", ""] : projectDetail && (editEndData[0]=="Present" ? ["",""] : [editEndData[0], editEndData[1]])
+    isAdd
+      ? ["", ""]
+      : projectDetail &&
+          (editEndData[0] == "Present"
+            ? ["", ""]
+            : [editEndData[0], editEndData[1]])
   );
   const [isCheckedEndDate, setIsCheckedEndDate] = useState(
     editEndData && (editEndData[0] == "Present" ? true : false)
@@ -79,7 +85,7 @@ function AddProjects() {
       end_date: !isCheckedEndDate ? `${endDate[0]} ${endDate[1]}` : "Present",
     };
     if (isAdd) {
-      addProject({ data: data, url: "profile/project/" })
+      await addProject({ data: data, url: "profile/project/" })
         .unwrap()
         .then((payload) => {
           const newArray = Array.from(userDetails.projects);
@@ -91,7 +97,7 @@ function AddProjects() {
           );
         });
     } else {
-      editProject({ data: data, url: `profile/project/${id}` })
+      await editProject({ data: data, url: `profile/project/${id}` })
         .unwrap()
         .then((payload) => {
           const idx = userDetails.projects.indexOf(projectDetail);
@@ -110,14 +116,12 @@ function AddProjects() {
 
   return (
     <>
-    <CoverBackground/>
+      {(patchResponse.isLoading || postResponse.isLoading) && <ApiLoading />}
+      <CoverBackground />
       {userDetails && (
-        <main
-          className="popUp-container"
-          style={{ height: "40rem" }}
-        >
+        <main className="popUp-container" style={{ height: "40rem" }}>
           <Link to="/profile" style={{ textDecoration: "none" }}>
-            <CloseButton/>
+            <CloseButton />
           </Link>
           <h1 style={{ textAlign: "center" }}>
             {isAdd ? "Add" : "Edit"} Project

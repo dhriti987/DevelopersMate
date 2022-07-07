@@ -7,21 +7,23 @@ import FilterDropDown from "../components/find-developers/FilterDropDown";
 import axios from "axios";
 import { skillsArray } from "../data/SkillsData.js";
 import FilteredProfile from "../components/find-developers/FilteredProfile";
-import api from "../api/ImageApi";
-import { MdOutlineCancel } from 'react-icons/md';
 import { useDispatch } from "react-redux";
-import {setOtherUserId} from "../redux/OtherUserId";
-import nothingIllustration from "../assets/profile/nothingIllustration.jpeg"
+import { setOtherUserId } from "../redux/OtherUserId";
+import nothingIllustration from "../assets/profile/nothingIllustration.jpeg";
+import ApiLoading from "../components/ApiLoading";
 
+import { setCurrentThread } from "../redux/CurrentThread";
 function FindDevelopers() {
   const [countries, setCountries] = useState(null);
   const [skillArr, setSkillsArr] = useState([]);
   const [filteredUsers, setFilteredUsers] = useState(null);
   const [selectedCountry, setSelectedCountry] = useState(null);
+  const [loading, setLoading] = useState(null);
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(setOtherUserId(null));
+    dispatch(setCurrentThread(null));
   }, []);
 
   useEffect(() => {
@@ -48,6 +50,7 @@ function FindDevelopers() {
   useEffect(async () => {
     try {
       const newSkillsArr = skillArr.map((item) => item.toLowerCase());
+      setLoading(true);
       const response = await axios.get(
         `${process.env.REACT_APP_SERVER_URL}/profile/filter/`,
         {
@@ -56,19 +59,21 @@ function FindDevelopers() {
             country: selectedCountry,
           },
           headers: {
-            "Authorization": `Bearer ${localStorage.getItem("access")}`
-            }   
-        
+            Authorization: `Bearer ${localStorage.getItem("access")}`,
+          },
         }
       );
+      setLoading(false);
       setFilteredUsers(response.data);
     } catch (err) {
+      setLoading(false);
       console.log(err.response);
     }
   }, [skillArr, selectedCountry]);
 
   return (
     <>
+      {loading && <ApiLoading />}
       <PrivateNavbar />
       <main className="findMainContainer">
         <div className="filterContainer">
@@ -87,13 +92,11 @@ function FindDevelopers() {
               setSelectedItem={setSelectedCountry}
               title="Country"
             />
-            
           </div>
         </div>
         <div className="userContainer">
           {filteredUsers &&
             filteredUsers.map((item, idx) => {
-              
               return (
                 <FilteredProfile
                   name={`${item.first_name} ${item.last_name}`}
@@ -105,12 +108,13 @@ function FindDevelopers() {
               );
             })}
           {filteredUsers && !filteredUsers.length && (
-             <div className="nothingToSee">
+            <div className="nothingToSee">
               <div className="nothingToSeeImg">
-
-              <img src={nothingIllustration} alt="" />
+                <img src={nothingIllustration} alt="" />
               </div>
-               <h2 style={{ textAlign: "center", marginTop: "2rem" }}>No Developers found!</h2>
+              <h2 style={{ textAlign: "center", marginTop: "2rem" }}>
+                No Developers found!
+              </h2>
             </div>
           )}
         </div>

@@ -103,21 +103,24 @@
     display: flex;
     width: 31.3rem;
     height: 2.5rem;
-    /* justify-content: center; */
+    position: relative;
     align-items: center;
     cursor: pointer;
     background-color: #282828;
     color:aliceblue;
     border: none;
     outline: none;
+    overflow: hidden;
 }
 .editImgBtn input{
     position: absolute;
 }
 .editImgBtn h4{
     color: aliceblue;
-    margin-top: 0.5rem;
     font-weight: 400;
+    position: absolute;
+    left: 34px;
+    bottom: 1px;
 }
 .errorMessage{
     position: absolute;

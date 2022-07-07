@@ -7,6 +7,7 @@ import CommentSection from "./CommentSection";
 import {  useParams } from "react-router-dom";
 import { useGetRequestMutation,usePostRequestMutation } from "../../redux/PrivateApi";
 import PrivateNavbar from "../PrivateNavbar";
+import ApiLoading from "../ApiLoading";
 
 function PostDetailPopUp() {
   const { postId } = useParams();
@@ -14,7 +15,7 @@ function PostDetailPopUp() {
   const [submitComment,setSubmitComment] = useState("");
   const [getPostDetails] = useGetRequestMutation();
   const [fetchAgain,setFetchAgain] = useState(true)
-  const [postApi] = usePostRequestMutation();
+  const [postApi,postReponse] = usePostRequestMutation();
   const [commentDetails,setCommentDetails] = useState(null);
   useEffect(async () => {
     getPostDetails(`post-details/posts/${postId}`)
@@ -38,7 +39,7 @@ function PostDetailPopUp() {
       text:submitComment,
       user_profile:localStorage.getItem("userId")
     }
-    postApi({data:data,url:`post-details/comments/`})
+    await postApi({data:data,url:`post-details/comments/`})
     .unwrap()
     .then((payload)=>{
       setFetchAgain(fetchAgain ? false :true);
@@ -48,6 +49,9 @@ function PostDetailPopUp() {
 
   return (
     <>
+    {postReponse.isLoading && 
+      <ApiLoading/>
+    }
       <PrivateNavbar />
       {postDetails && 
         <main className="postDetailsView">

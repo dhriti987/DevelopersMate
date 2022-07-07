@@ -17,15 +17,16 @@ import {
 import { setUserDetails } from "../../redux/UserDetails";
 import CoverBackground from "../CoverBackground";
 import CloseButton from "../CloseButton";
+import ApiLoading from "../ApiLoading";
 
 function AddExperience() {
   const [displayEmploymenyOptions, setDisplayEmploymenyOptions] =
     useState(false);
-  const [editExperience, responseInfo] = usePatchRequestMutation();
+  const [editExperience, patchResponse] = usePatchRequestMutation();
   const { id } = useParams();
   const navigate = useNavigate();
   const isAdd = window.location.href.includes("add");
-  const [addExperience, setAddExperience] = usePostRequestMutation();
+  const [addExperience, postResponse] = usePostRequestMutation();
   const userDetails = useSelector((state) => state.userDetails.value);
   const dispatch = useDispatch();
   const experienceDetail =
@@ -60,7 +61,12 @@ function AddExperience() {
     isAdd ? ["", ""] : experienceDetail && [editStartData[0], editStartData[1]]
   );
   const [endDate, setEndDate] = useState(
-    isAdd ? ["", ""] : experienceDetail &&(editEndData[0]=="Present" ? ["", ""] : [editEndData[0], editEndData[1]])
+    isAdd
+      ? ["", ""]
+      : experienceDetail &&
+          (editEndData[0] == "Present"
+            ? ["", ""]
+            : [editEndData[0], editEndData[1]])
   );
   const [display1, setDisplay1] = useState([false, false]);
   const [display2, setDisplay2] = useState([false, false]);
@@ -83,7 +89,7 @@ function AddExperience() {
       end_date: isChecked ? "Present" : `${endDate[0]} ${endDate[1]}`,
     };
     if (isAdd) {
-      addExperience({ data: data, url: "profile/experience/" })
+      await addExperience({ data: data, url: "profile/experience/" })
         .unwrap()
         .then((payload) => {
           const newArray = Array.from(userDetails.experiences);
@@ -95,7 +101,7 @@ function AddExperience() {
           );
         });
     } else {
-      editExperience({ data: data, url: `/profile/experience/${id}` }).then(
+      await editExperience({ data: data, url: `/profile/experience/${id}` }).then(
         (payload) => {
           const idx = userDetails.experiences.indexOf(experienceDetail);
           const newArray = Array.from(userDetails.experiences);
@@ -113,11 +119,14 @@ function AddExperience() {
   };
   return (
     <>
-    <CoverBackground/>
+      <CoverBackground />
+      {(patchResponse.isLoading || postResponse.isLoading) && 
+      <ApiLoading/>
+      }
       {userDetails && (
         <main className="popUp-container">
           <Link to="/profile" style={{ textDecoration: "none" }}>
-            <CloseButton/>
+            <CloseButton />
           </Link>
           <h1 style={{ textAlign: "center" }}>
             {isAdd ? "Add" : "Edit"} Experience

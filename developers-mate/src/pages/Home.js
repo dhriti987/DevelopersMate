@@ -14,6 +14,7 @@ import Button from "../components/Button";
 import axios from "axios";
 import { AiOutlineDown, AiOutlineUp } from "react-icons/ai";
 import ResourceSkeleton from "../components/ResourceSkeleton";
+import { setCurrentThread } from "../redux/CurrentThread";
 
 function Home() {
   const [getPosts, responseInfo] = useGetRequestMutation();
@@ -37,6 +38,7 @@ function Home() {
   }, [fetchAgain]);
   useEffect(() => {
     dispatch(setOtherUserId(null));
+    dispatch(setCurrentThread(null));
   }, []);
   
   useEffect(async () => {

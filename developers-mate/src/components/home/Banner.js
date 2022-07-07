@@ -2,9 +2,7 @@ import { React, useEffect, useState } from "react";
 import blackBanner from "../../assets/home/blackBanner.jpg";
 import "../../style/home/Banner.css";
 import { useGetRequestMutation } from "../../redux/PrivateApi";
-import { useSelector } from "react-redux";
-import profileImg from "../../assets/profile/profile.svg";
-import CoverBackGround from "../CoverBackground";
+import defaultImg from "../../assets/profile/default.jpg"
 
 function Banner() {
   const [getUserDetails, responseInfo] = useGetRequestMutation();
@@ -35,17 +33,24 @@ function Banner() {
     <div className="banner">
       <div className="background-Cover"></div>
       <img
-        src={
-          userDetails.banner
-            ? `${userDetails.banner}`
-            : blackBanner
-        }
+        src={userDetails.banner ? userDetails.banner :  blackBanner}
         alt=""
+        onError={({ currentTarget }) => {
+          currentTarget.onerror = null; // prevents looping
+          currentTarget.src =blackBanner ;
+        }}
       />
       <div className="profileDetails">
         <div className="profileImg">
           {userDetails.image && (
-            <img src={`${userDetails.image}`} alt="" />
+            <img
+              src={`${userDetails.image}`}
+              alt=""
+              onError={({ currentTarget }) => {
+                currentTarget.onerror = null; // prevents looping
+                currentTarget.src = defaultImg;
+              }}
+            />
           )}
         </div>
         <div className="profileText">
@@ -60,21 +65,20 @@ function Banner() {
           >
             {userDetails.headline}
           </h5>
-            <div className="followers">
-              <h6>
-                <span style={{ marginRight: "0.2rem", color: "orange" }}>
-                  {userDetails.followers}
-                </span>
-                Followers
-              </h6>
-              <h6>
-                <span style={{ marginRight: "0.2rem", color: "orange" }}>
-                  {userDetails.following}
-                </span>
-                Following
-              </h6>
-            </div>
-          
+          <div className="followers">
+            <h6>
+              <span style={{ marginRight: "0.2rem", color: "orange" }}>
+                {userDetails.followers}
+              </span>
+              Followers
+            </h6>
+            <h6>
+              <span style={{ marginRight: "0.2rem", color: "orange" }}>
+                {userDetails.following}
+              </span>
+              Following
+            </h6>
+          </div>
         </div>
       </div>
     </div>
