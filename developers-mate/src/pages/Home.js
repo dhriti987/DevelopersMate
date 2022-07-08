@@ -44,7 +44,7 @@ function Home() {
   useEffect(async () => {
     try {
       const res = await axios.get(
-        "https://newsapi.org/v2/top-headlines?country=in&category=technology&apiKey=2ae12199a0524b6eaf3d003a874f74c1"
+        `${process.env.REACT_APP_SERVER_URL}/news/`
       );
       setNews(res);
     } catch (err) {
@@ -120,10 +120,10 @@ function Home() {
                 className="newsList"
                 style={collapse ? { height: "auto" } : { height: "21rem" }}
               >
-                {news.data.articles.map((item, idx) => {
+                {news.data.map((item, idx) => {
                   return (
                     <a
-                      href={`${item.url}`}
+                      href={`${item.publisher.href}`}
                       style={{ textDecoration: "none" }}
                       target="_blank"
                       key={`news1${idx}`}
@@ -141,7 +141,7 @@ function Home() {
                             color: "rgb(181 181 181 / 60%)",
                           }}
                         >
-                          {timeConverter(item.publishedAt)}
+                          {timeConverter(item["published date"])}
                         </h6>
                       </li>
                     </a>
