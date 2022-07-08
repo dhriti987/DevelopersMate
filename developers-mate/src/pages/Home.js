@@ -123,7 +123,7 @@ function Home() {
                 {news.data.map((item, idx) => {
                   return (
                     <a
-                      href={`${item.publisher.href}`}
+                      href={`${item.url}`}
                       style={{ textDecoration: "none" }}
                       target="_blank"
                       key={`news1${idx}`}
