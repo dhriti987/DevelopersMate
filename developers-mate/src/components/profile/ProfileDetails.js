@@ -33,7 +33,7 @@ function ProfileDetails() {
       setLoading(false);
       dispatch(setUserDetails(response.data));
     } catch (err) {
-      console.log(err.response);
+      console.log(err.message);
       setLoading(false);
     }
   };

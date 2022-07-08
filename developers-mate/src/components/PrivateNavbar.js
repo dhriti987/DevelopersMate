@@ -5,11 +5,12 @@ import { ImHome } from "react-icons/im";
 import { MdPersonSearch } from "react-icons/md";
 import { FiLogOut } from "react-icons/fi";
 import { useGetRequestMutation } from "../redux/PrivateApi";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setOtherUserId } from "../redux/OtherUserId";
 import { setUserDetails } from "../redux/UserDetails";
 import CoverBackground from "../components/CoverBackground";
+import WarningPopUp from "./WarningPopUp";
 
 function PrivateNavbar() {
   const dispatch = useDispatch();
@@ -23,6 +24,9 @@ function PrivateNavbar() {
     logout:false
   });
   const [searchInput, setSearchInput] = useState("");
+  const [displayWarning,setDisplayWarning] = useState(false);
+  const [isLoggedOut,setIsLoggedOut] = useState(false);
+  const navigate = useNavigate();
   const handleSearchChange = async (e) => {
     setSearchInput(e.target.value);
     getReq(`profile/search/?query=${e.target.value}`)
@@ -43,9 +47,23 @@ function PrivateNavbar() {
       });
   };
 
+  useEffect(() => {
+    if (isLoggedOut){
+
+      localStorage.clear();
+      navigate("/login");
+    }
+  }, [isLoggedOut]);
+
   return (
     <>
-      {searchedUserResults.length > 0 && <CoverBackground />}
+      {(searchedUserResults.length > 0 || displayWarning) && <CoverBackground />}
+      {<WarningPopUp
+        display={displayWarning}
+        setDisplayWarning={setDisplayWarning}
+        setIsDeleted={setIsLoggedOut}
+        heading={"Are you sure you want to Logout"}
+      />}
       <nav className="navbarContainer">
         <div className="navbarContent">
           <h2 style={{ flexbasis: "45%" }}>DevelopersMate.</h2>
@@ -175,10 +193,10 @@ function PrivateNavbar() {
               </p>
             </Link>
             <Link
-              to={"/login"}
+              to={`${window.location.pathname}`}
               className="navbarLinks"
               onClick={()=>{
-                localStorage.clear();
+                setDisplayWarning(true);
               }}
               onMouseOver={() => {
                 setDisplayNavbarText({

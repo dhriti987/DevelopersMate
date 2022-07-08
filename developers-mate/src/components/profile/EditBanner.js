@@ -33,7 +33,7 @@ function EditBanner() {
       dispatch(setUserDetails(response.data));
       navigate("/profile");
     } catch (err) {
-      console.log(err.response);
+      console.log(err.message);
       setLoading(false);
     }
   }
@@ -48,7 +48,7 @@ function EditBanner() {
       dispatch(setUserDetails(response.data));
       navigate("/profile");
     } catch (err) {
-      console.log(err.response);
+      console.log(err.message);
       setLoading(false);
     }
   };

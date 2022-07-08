@@ -7,7 +7,6 @@ import {
   useGetRequestMutation,
 } from "../../redux/PrivateApi";
 import api from "../../api/ImageApi";
-import WarningPopUp from "../WarningPopUp";
 import CoverBackground from "../CoverBackground";
 import { useSelector } from "react-redux";
 import ApiLoading from "../ApiLoading";
@@ -56,7 +55,7 @@ function EditPost() {
         navigate("/showallpost");
       } catch (err) {
       setLoading(false);
-      console.log(err.response);
+      console.log(err.message);
     }
   };
   return (

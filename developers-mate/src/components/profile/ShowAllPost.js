@@ -54,7 +54,7 @@ function ShowAllPost() {
         display={displayWarning}
         setDisplayWarning={setDisplayWarning}
         setIsDeleted={setIsDeleted}
-        heading={"Post"}
+        heading={"Are you sure you want to delete from Post Section"}
       />
       <main className="profile-page userPosts">
         <h1 style={{ marginBottom: "1rem" }}>Recent Posts</h1>

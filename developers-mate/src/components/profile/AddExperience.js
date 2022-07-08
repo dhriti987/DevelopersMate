@@ -247,6 +247,7 @@ function AddExperience() {
               <DoubleDropDown
                 arr1={months}
                 arr2={yearsArray}
+                top={"19.688rem"}
                 display={display1}
                 setDisplay={setDisplay1}
                 input={startDate}

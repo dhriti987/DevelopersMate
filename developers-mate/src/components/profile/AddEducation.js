@@ -19,8 +19,8 @@ function AddEducation() {
   const navigate = useNavigate();
   const { id } = useParams();
   const isAdd = window.location.href.includes("add");
-  const [addEducation,postResponse] = usePostRequestMutation();
-  const [editEducation,patchResponse] = usePatchRequestMutation();
+  const [addEducation, postResponse] = usePostRequestMutation();
+  const [editEducation, patchResponse] = usePatchRequestMutation();
   const userDetails = useSelector((state) => state.userDetails.value);
   useEffect(() => {
     if (userDetails === null || userDetails === undefined) {
@@ -86,12 +86,20 @@ function AddEducation() {
     navigate("/profile");
   };
 
+  useEffect(()=>{
+    const scroll_to_bottom =  document.querySelector(".popUp-container")
+    if (scroll_to_bottom) {
+      scroll_to_bottom.scroll({
+        top: scroll_to_bottom.scrollHeight,
+        behavior: "smooth",
+      });
+    }
+  },[display])
+
   return (
     <>
       <CoverBackground />
-      {(patchResponse.isLoading || postResponse.isLoading) && 
-        <ApiLoading/>
-      }
+      {(patchResponse.isLoading || postResponse.isLoading) && <ApiLoading />}
       {userDetails && (
         <main className="popUp-container" style={{ justifyContent: "inherit" }}>
           <Link to="/profile" style={{ textDecoration: "none" }}>
@@ -121,15 +129,17 @@ function AddEducation() {
             />
             <div className="DownDouble-container">
               <div className="downDouble">
-                <div className="inputContainer">
+                <div
+                  className="inputContainer"
+                  onClick={() => {
+                    setDisplay(display[0] ? [false, false] : [true, false]);
+                  }}
+                >
                   <input
                     type="text"
                     value={year[0]}
                     placeholder="Start Year"
                     className="input"
-                    onClick={() => {
-                      setDisplay(display[0] ? [false, false] : [true, false]);
-                    }}
                     onChange={() => {}}
                     required
                   />
@@ -139,15 +149,17 @@ function AddEducation() {
                     <BsChevronDown color="white" />
                   )}
                 </div>
-                <div className="inputContainer">
+                <div
+                  className="inputContainer"
+                  onClick={() => {
+                    setDisplay(display[1] ? [false, false] : [false, true]);
+                  }}
+                >
                   <input
                     type="text"
                     value={year[1]}
                     placeholder="End Year"
                     className="input"
-                    onClick={() => {
-                      setDisplay(display[1] ? [false, false] : [false, true]);
-                    }}
                     onChange={() => {}}
                     required
                   />

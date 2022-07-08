@@ -67,7 +67,7 @@ function FindDevelopers() {
       setFilteredUsers(response.data);
     } catch (err) {
       setLoading(false);
-      console.log(err.response);
+      console.log(err.message);
     }
   }, [skillArr, selectedCountry]);
 

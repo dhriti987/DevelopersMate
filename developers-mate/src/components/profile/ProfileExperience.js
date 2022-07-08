@@ -46,7 +46,7 @@ function ProfileExperience() {
         display={displayWarning}
         setDisplayWarning={setDisplayWarning}
         setIsDeleted={setIsExperienceDeleted}
-        heading={"Experience"}
+        heading={"Are you sure you want to delete from Experience Section"}
       />
       {!otherUserId || (userDetails && userDetails.experiences.length > 0) ? (
         <div className="experienceContainer commonBox">

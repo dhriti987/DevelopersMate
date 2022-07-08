@@ -6,7 +6,7 @@ function WarningPopUp({display,setDisplayWarning,setIsDeleted,heading}) {
   return (
     <div className='warningPopUpContainer' style={display ? {opacity:"1",zIndex:"1000"} : {opacity:"0",zIndex:"-10"}}>
         <img src={warningImg} alt="" />
-        <h2>{`Are you sure you want to delete from ${heading} Section`}</h2>
+        <h2>{`${heading}`}</h2>
         <div className='warningBtn'>
         <button onClick={()=>{
           setIsDeleted(true)

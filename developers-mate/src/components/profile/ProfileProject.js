@@ -46,7 +46,7 @@ function ProfileProject() {
         display={displayWarning}
         setDisplayWarning={setDisplayWarning}
         setIsDeleted={setIsProjectDeleted}
-        heading={"Education"}
+        heading={"Are you sure you want to delete from Project Section"}
         />
         {!otherUserId || (userDetails && userDetails.projects.length > 0) ? 
       <div className="projectContainer commonBox">

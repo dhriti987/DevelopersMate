@@ -47,7 +47,7 @@ function ProfileEducation() {
         display={displayWarning}
         setDisplayWarning={setDisplayWarning}
         setIsDeleted={setIsEducationDeleted}
-        heading={"Education"}
+        heading={"Are you sure you want to delete from Education Section"}
       />
       {!otherUserId || (userDetails && userDetails.education.length > 0) ? (
         <div className="educationContainer experienceContainer commonBox">
