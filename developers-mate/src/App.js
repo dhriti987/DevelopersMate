@@ -35,6 +35,7 @@ import {
 
 import { w3cwebsocket as W3CWebSocket } from "websocket";
 import EmailVerification from "./pages/EmailVerification";
+import DisplayOnlyOnDesktop from "./components/DisplayOnlyOnDesktop";
 const client = new W3CWebSocket(
   `${process.env.REACT_APP_WEBSOCKET_URL}/chat/?token=${
     localStorage.getItem("access") ? localStorage.getItem("access") : ""
@@ -48,6 +49,7 @@ function App() {
   const authToken = useSelector((state) => state.authToken.value);
   const chatThreads = useSelector((state) => state.chatThread.value);
   const currentThread = useSelector((state) => state.currentThread.value);
+  const [showDesktop, setShowDesktop] = useState(false);
   const dispatch = useDispatch();
   dispatch(
     setAuthToken(
@@ -127,9 +129,12 @@ function App() {
       }
     }
   };
-
+  useEffect(() => {
+    setShowDesktop(window.innerWidth <= 1188 ? true : false);
+  }, []);
   return (
     <div className="App">
+      {showDesktop && <DisplayOnlyOnDesktop />}
       <Routes>
         <Route exact path="/login" element={<Login />} />
         <Route exact path="/signup" element={<SignUp />} />
@@ -170,7 +175,11 @@ function App() {
           </Route>
           <Route exact path="/finddevelopers" element={<FindDevelopers />} />
         </Route>
-        <Route exact path="emailverification/:userToken" element={<EmailVerification/>}/>
+        <Route
+          exact
+          path="emailverification/:userToken"
+          element={<EmailVerification />}
+        />
         <Route path="*" element={<Page404 />} />
       </Routes>
     </div>
