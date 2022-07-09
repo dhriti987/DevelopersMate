@@ -29,10 +29,13 @@ function EditPosts() {
   }, [otherUserId]);
 
   return (
-    <main className="editPostsContainer commonBox" style={{marginBottom:"2rem"}}>
+    <main
+      className="editPostsContainer commonBox"
+      style={{ marginBottom: "2rem" }}
+    >
       <div className="head">
         <h1>Recent Posts</h1>
-        {!otherUserId && (
+        {!otherUserId && !(userPosts && userPosts.length <= 0) && (
           <Link to="/showAllPost">
             <BiPencil
               color="white"
@@ -41,9 +44,9 @@ function EditPosts() {
               className="icon"
             />
           </Link>
-        ) }
+        )}
       </div>
-      {!otherUserId || (userPosts && userPosts.length > 0) ? (
+      {(!otherUserId || (userPosts && userPosts.length > 0)) && (
         <div className="postsContainer">
           {userPosts &&
             userPosts.map((item, idx) => {
@@ -53,7 +56,8 @@ function EditPosts() {
               );
             })}
         </div>
-      ) : (
+      )}
+      {userPosts && userPosts.length <= 0 && (
         <div className="nothingToSee">
           <div className="nothingToSeeImg">
             <img src={noPost} alt="" />

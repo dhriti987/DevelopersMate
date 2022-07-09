@@ -9,6 +9,7 @@ import CloseButton from "../CloseButton";
 import CoverBackground from "../CoverBackground";
 import api from "../../api/ImageApi";
 import { useSelector, useDispatch } from "react-redux";
+import ApiLoading from "../ApiLoading";
 
 function CreatePostSection() {
   const navigate = useNavigate();
@@ -18,6 +19,7 @@ function CreatePostSection() {
   });
   let formData = new FormData();
   const [fetchAgain, setFetchAgain] = useOutletContext();
+  const [loading,setLaoding] = useState(false);
   const onSubmit = async (e) => {
     e.preventDefault();
     formData.append("posted_by", localStorage.getItem("userId"));
@@ -27,15 +29,19 @@ function CreatePostSection() {
       createPostDetails.image ? createPostDetails.image : ""
     );
     try {
+      setLaoding(true);
       const response = await api.post("post-details/posts/", formData);
+      setLaoding(false);
       setFetchAgain(fetchAgain ? false : true);
       navigate("/");
     } catch (err) {
+      setLaoding(false);
       console.log(err.message);
     }
   };
   return (
     <>
+    {loading && <ApiLoading/>}
       <CoverBackground />
       <form
         className="createPostContainer"

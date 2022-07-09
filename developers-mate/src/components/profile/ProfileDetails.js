@@ -13,6 +13,7 @@ import api from "../../api/ImageApi";
 import { BiPencil } from "react-icons/bi";
 import defaultImg from "../../assets/profile/default.jpg";
 import error from "../../assets/profile/default.jpg";
+import blackBanner from "../../assets/home/blackBanner.jpg";
 import ApiLoading from "../ApiLoading";
 
 function ProfileDetails() {
@@ -67,10 +68,7 @@ function ProfileDetails() {
   };
   return (
     <>
-    {
-      loading && 
-      <ApiLoading/>
-    }
+      {loading && <ApiLoading />}
       <div className="profileDetails">
         <div className="banner">
           {userDetails && userDetails.banner && (
@@ -90,7 +88,14 @@ function ProfileDetails() {
                   />
                 </Link>
               )}
-              <img src={`${userDetails.banner}`} alt="" />
+              <img
+                src={`${userDetails.banner}`}
+                alt=""
+                onError={({ currentTarget }) => {
+                  currentTarget.onerror = null; // prevents looping
+                  currentTarget.src = blackBanner;
+                }}
+              />
             </>
           )}
           {userDetails && !userDetails.banner && !otherUserId && (
