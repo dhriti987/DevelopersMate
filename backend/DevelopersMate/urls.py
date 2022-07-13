@@ -21,6 +21,7 @@ from rest_framework_simplejwt.views import (
     TokenRefreshView,
 )
 from authentication.views import CustomTokenObtainPairView
+from userprofile.views import NewsAPI
 
 
 urlpatterns = [
@@ -29,6 +30,7 @@ urlpatterns = [
     path('profile/',include('userprofile.urls')),
     path('post-details/',include('posts.urls')),
     path('chat/',include('chat.urls')),
+    path('news/',NewsAPI.as_view()),
     path('api/token/', CustomTokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
 ]

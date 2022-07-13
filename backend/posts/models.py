@@ -6,8 +6,8 @@ from datetime import datetime, timedelta
 import os
 
 def create_path_image(self,filename):
-    email = self.posted_by.user.email.split('@')[0]
-    return f'user/posts/images/{email}/{filename}'
+    id = str(self.post_id)
+    return f'user/posts/images/{id}/{filename}'
 
 class Post(models.Model):
     post_id = models.UUIDField(
@@ -110,7 +110,13 @@ def auto_delete_image_on_change(sender,instance,*args,**kwargs):
     new_file = instance.image
     try:
         if not old_file == new_file:
-            if os.path.isfile(old_file.path):
-                os.remove(old_file.path)
+            old_file.delete(save=False)
     except:
         return False
+
+@receiver(models.signals.post_delete,sender=Post)
+def auto_delete_image_on_delete(sender,instance,*args,**kwargs):
+    try:
+        instance.image.delete(save=False)
+    except:
+        return

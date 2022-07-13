@@ -1,0 +1,1 @@
+web: gunicorn DevelopersMate.asgi:application -k uvicorn.workers.UvicornWorker --log-file -

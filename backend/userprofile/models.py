@@ -116,12 +116,10 @@ def auto_delete_image_on_change(sender,instance,*args,**kwargs):
     new_banner = instance.banner
     try:
         if not old_image == new_image:
-            if os.path.isfile(old_image.path):
-                os.remove(old_image.path)
+            old_image.delete(save = False)
         
         if not old_banner == new_banner:
-            if os.path.isfile(old_banner.path):
-                os.remove(old_banner.path)
+            old_banner.delete(save = False)
         
     except:
         return False

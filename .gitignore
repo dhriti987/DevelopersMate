@@ -2,3 +2,4 @@
 db.sqlite3
 .env
 media/
+firebase_config.json

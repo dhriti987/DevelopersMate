@@ -1,7 +1,7 @@
 from django.db.models import Value
 from django.db.models.functions import Concat
 from rest_framework.decorators import api_view
-from .utils import get_favicon_url
+from .utils import get_favicon_url, get_news
 from rest_framework.response import Response
 from rest_framework import generics,status
 from rest_framework_simplejwt.authentication import JWTAuthentication
@@ -315,3 +315,8 @@ def get_favicon(request):
             return Response({"message":str(err)},status=status.HTTP_404_NOT_FOUND)
     else:
         return Response({"message":"Required Parameter url"},status=status.HTTP_400_BAD_REQUEST)
+
+class NewsAPI(generics.GenericAPIView):
+    def get(self, request):
+        news = get_news()
+        return Response(news)
