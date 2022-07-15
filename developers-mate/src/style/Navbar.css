@@ -24,7 +24,7 @@
     border-radius: 5px;
     background-image: linear-gradient(to right, #f6d365 0%, #fda085 51%, #f6d365 100%);
     cursor: pointer;
-    width: 6rem;
+    width: 8rem;
    }
    .navbar-btn:hover {
     background-position: right center; 
