@@ -12,14 +12,14 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 
 from pathlib import Path
 from datetime import timedelta
-from decouple import config,Csv
-from google.oauth2 import service_account
+from decouple import config, Csv
+# from google.oauth2 import service_account
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-GS_CREDENTIALS = service_account.Credentials.from_service_account_file(
-    BASE_DIR/ 'firebase_config.json'
-)
+# GS_CREDENTIALS = service_account.Credentials.from_service_account_file(
+#     BASE_DIR/ 'firebase_config.json'
+# )
 
 
 # Quick-start development settings - unsuitable for production
@@ -94,12 +94,12 @@ ASGI_APPLICATION = 'DevelopersMate.asgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
+        'ENGINE': config('DB_ENGINE'),
         'NAME': config('DB_NAME'),
         'USER': config('DB_USER'),
         'PASSWORD': config('DB_PASSWORD'),
         'HOST': config('DB_HOST'),
-        'PORT': config('DB_PORT',cast=int),
+        'PORT': config('DB_PORT', cast=int),
     }
 }
 
@@ -179,8 +179,8 @@ STATIC_ROOT = BASE_DIR / "static"
 MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR / "media"
 
-DEFAULT_FILE_STORAGE = 'storages.backends.gcloud.GoogleCloudStorage'
-GS_BUCKET_NAME = 'developers-mate.appspot.com'
+# DEFAULT_FILE_STORAGE = 'storages.backends.gcloud.GoogleCloudStorage'
+# GS_BUCKET_NAME = 'developers-mate.appspot.com'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
@@ -199,10 +199,10 @@ CHANNEL_LAYERS = {
         # },
     },
 }
-APP_HOST_URL = config('APP_HOST_URL',default= 'http://127.0.0.1:8000')
+APP_HOST_URL = config('APP_HOST_URL', default='http://127.0.0.1:3000')
 EMAIL_HOST = config('EMAIL_HOST')
-EMAIL_PORT = config('EMAIL_PORT',cast=int)
+EMAIL_PORT = config('EMAIL_PORT', cast=int)
 EMAIL_HOST_USER = config('EMAIL_HOST_USER')
-EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD') 
-EMAIL_USE_TLS  = True
+EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
+EMAIL_USE_TLS = True
 EMAIL_USE_SSL = False
